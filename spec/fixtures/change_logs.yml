@@ -1,0 +1,49 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+suspended_user_activate:
+  object_class: user
+  object_id: 1037172683 # suspended user id
+  user: admin
+  action: activate
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Suspended user activation.
+
+suspended_user_suspend:
+  object_class: user
+  object_id: 1037172683 # suspended user id
+  user: admin
+  action: suspend
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Suspended user suspended.
+
+deleted_user_delete:
+  object_class: user
+  object_id: 567916662 # deleted user id
+  user: admin
+  action: delete
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Deleted user delete.
+
+active_non_admin_user_unsuspend:
+  object_class: user
+  object_id: 889827110 # active_non_admin user id
+  user: admin
+  action: unsuspend
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Active_non_admin user unsuspended.
+
+active_non_admin_user_activate:
+  object_class: user
+  object_id: 889827110 # active_non_admin user id
+  user: admin
+  action: activate
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Active_non_admin user activation.
+
+active_non_admin_user_update:
+  object_class: user
+  object_id: 889827110 # active_non_admin user id
+  user: admin
+  action: update
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Active_non_admin user updated.

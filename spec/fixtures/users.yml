@@ -1,0 +1,60 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+admin: # id = 541702176
+  login: admin
+  first_name: Administrative
+  last_name: User
+  email: admin@djn2ms.com
+  salt: 49410e42ff58c02d4f08a03a7286ba132546ed2c
+  crypted_password: 545ec49d6886ef96bb3d640bfcb90e60661c0273 # foobar
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  aasm_state: active
+  roles: administrator
+
+active_non_admin: # id = 889827110
+  login: active_non_admin
+  first_name: Active
+  last_name: Non-admin
+  email: active@non-admin.com
+  salt: 49410e42ff58c02d4f08a03a7286ba132546ed2c
+  crypted_password: 545ec49d6886ef96bb3d640bfcb90e60661c0273 # foobar
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  aasm_state: active
+
+pending: # id = 45926156
+  login: pending
+  first_name: Pending
+  last_name: Activation
+  email: user@pending.activation.com
+  salt: 49410e42ff58c02d4f08a03a7286ba132546ed2c
+  crypted_password: 545ec49d6886ef96bb3d640bfcb90e60661c0273 # foobar
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9a
+  aasm_state: pending
+
+forgot: # id = 905912373
+  login: forgot
+  first_name: Forgetful
+  last_name: User
+  email: forgetful@user.com
+  salt: 49410e42ff58c02d4f08a03a7286ba132546ed2c
+  crypted_password: 545ec49d6886ef96bb3d640bfcb90e60661c0273 # foobar
+  password_reset_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9a
+  aasm_state: forgetful
+
+deleted: # id = 567916662
+  login: deleted
+  first_name: Purgeable
+  last_name: User
+  email: purge@this.user.com
+  salt: 49410e42ff58c02d4f08a03a7286ba132546ed2c
+  crypted_password: 545ec49d6886ef96bb3d640bfcb90e60661c0273 # foobar
+  aasm_state: deleted
+
+suspended: # id = 1037172683
+  login: suspended
+  first_name: Unsuspendable
+  last_name: User
+  email: unsuspend@this.user.com
+  salt: 49410e42ff58c02d4f08a03a7286ba132546ed2c
+  crypted_password: 545ec49d6886ef96bb3d640bfcb90e60661c0273 # foobar
+  aasm_state: suspended

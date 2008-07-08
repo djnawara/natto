@@ -1,0 +1,5 @@
+.DS_Store
+config/initializers/site_keys.rb
+natto.tmproj
+init.rb
+

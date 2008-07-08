@@ -1,0 +1,46 @@
+<h1><%= params[:action].eql?('new') ? 'Create page' : 'Editing page' %></h1>
+
+<% form_for(@object) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title, nil, {:class => 'required'} %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :description, nil, {:class => 'required'} %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :content, nil, {:class => 'required'} %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.check_box :is_home_page %>
+    <%= f.label :is_home_page %>?
+  </p>
+  <p>
+    <%= f.check_box :is_admin_home_page %>
+    <%= f.label :is_admin_home_page %>?
+  </p>
+  <fieldset>
+    <legend>Advanced Pathing</legend>
+    <p class="small">You may use this field to enter custom routes for the page.</p>
+    <p>
+      <%= f.label :advanced_path %><br />
+      <%= f.text_field :advanced_path %>
+    </p>
+  </fieldset>
+  
+  <fieldset>
+    <legend<%= ' class="required"' unless params[:action].eql?('new') || params[:action].eql?('create') %>>Comments</legend>
+    <p class="small">Please enter comments for the change log.</p>
+    <p><%= text_area :change_log, :comments, {:class => 'small', :rows => 3} %></p>
+  </fieldset>
+  
+  <p>
+    <%= f.submit(params[:action].eql?('new') || params[:action].eql?('create') ? 'Create' : 'Update') %>
+  </p>
+  
+  <%= f.hidden_field :parent_id %>
+<% end %>

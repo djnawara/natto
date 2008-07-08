@@ -1,0 +1,122 @@
+<% new_user = params[:action].eql?('new') || params[:action].eql?('create') -%>
+<h1><%= (params[:action].eql? 'new') ? (logged_in? ? 'Create user account' : 'Sign up as a new user') : 'Update your profile' %></h1>
+
+<% @object.password = @object.password_confirmation = nil %>
+
+<% form_for(@object) do |f| -%>
+  <%= f.error_messages %>
+  <fieldset>
+    <legend>User Information</legend>  
+    
+    <p class="required_example">Fields which appear <span class="required">like this</span> are required.</p>
+    
+    <% if logged_in? && current_user.is_administrator? %>
+      <div>
+        <fieldset>
+          <legend>Roles</legend>
+          <p class="small">Choose roles for the user.</p>
+          <% Role.find(:all).each do |role| %>
+            <div>
+              <%= check_box_tag("user[role_ids][]", role.id, @object.roles.include?(role), :readonly => (@object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user))) %>
+              <%= f.label role.title.capitalize %><%= ' <span class="small required">(not removable)</span>' if @object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user) %>
+            </div>
+          <% end %>
+        </fieldset>
+      </div>
+      <% if @object.current_state == :passive %>
+        <div>
+          <fieldset>
+            <legend>Activate user?</legend>
+            <p class="small">Checking this will skip the email activation process.</p>
+            <%= check_box_tag('activate') %> <%= f.label :activate %>
+          </fieldset>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <fieldset>
+      <legend>Register with OpenID</legend>
+      <p class="small">If your OpenID account contains your personal information, this may speed things up for you.  Just enter your OpenID URL and click the "Sign Up" button.</p>
+      <div>
+        <%= f.label :identity_url, nil, {:class => 'required'} %><br/>
+        <%= f.text_field :identity_url, :disabled => (new_user ? false: true) %>
+      </div>
+      <div><%= submit_tag('Load from OpenID') %></div>
+    </fieldset>
+    
+    <div>
+      <%= f.label :login, nil, {:class => 'required'} %><br/>
+      <%= f.text_field :login, :disabled => (new_user ? false: true) %>
+    </div>
+    
+    <div>
+      <%= f.label :first_name %><br/>
+      <%= f.text_field :first_name %>
+    </div>
+    
+    <div>
+      <%= f.label :last_name %><br/>
+      <%= f.text_field :last_name %>
+    </div>
+    
+    <% if new_user %>
+        <div>
+          <%= f.label :email, nil, {:class => 'required'} %><br/>
+          <%= f.text_field :email %>
+        </div>
+    <% else %>
+      <fieldset>
+        <legend>Change email</legend>
+        <p class="small light">You may change your email by filling in the field below.  You will be required to confirm this change to complete the process.</p>
+        
+        <div>
+          <%= f.label :email, 'Current email' %><br/>
+          <%= f.text_field :email, :readonly => true %>
+        </div>
+        
+        <div>
+          <%= f.label :new_email %><br/>
+          <%= f.text_field :new_email %>
+        </div>
+      </fieldset>
+      
+      <fieldset>
+        <legend>Change password</legend>
+        <p class="small light">If you would like to change your password, please fill in all of the below fields.</p>
+        
+        <div>
+          <%= f.label :current_password %><br/>
+          <%= password_field_tag :current_password %>
+        </div>
+
+    <% end -%>
+    
+    <div>
+      <% if new_user -%>
+        <%= f.label :password, nil, {:class => 'required'} %><br/>
+      <% else -%>
+        <%= f.label :password, 'New password' %><br/>
+      <% end -%>
+      <%= f.password_field :password %>
+    </div>
+    
+    <div>
+      <%= f.label :password_confirmation, nil, {:class => (new_user ? 'required' : '')} %><br/>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    
+    <%= '</fieldset>' unless new_user %>
+    
+    <% if logged_in? && current_user.is_administrator? %>
+      <fieldset>
+        <legend<%= ' class="required"' unless new_user %>>Comments</legend>
+        <p class="small">Please enter comments for the change log.</p>
+        <p><%= text_area :change_log, :comments, {:class => 'small', :rows => 3} %></p>
+      </fieldset>
+    <% end %>
+    
+    <div><%= submit_tag (new_user ? (logged_in? ? 'Create user' : 'Sign up') : 'Update Profile') %></div>
+
+  </fieldset>
+  
+<% end -%>

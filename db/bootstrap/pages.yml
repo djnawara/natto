@@ -1,0 +1,120 @@
+home:
+  title: Home
+  author_id: 541702176
+  is_home_page: true
+  aasm_state: published
+  advanced_path: root_path
+  description: The landing page for our website.
+  content: |-
+    <h2>Welcome to the Natto CMS!</h2>
+    
+    <p class="warning">Make sure to change the bootstrapped user's password immediately!</p>
+    
+    <p>This is the bootstrapped home page.  Please <a href="/login">sign in</a> with the bootstrapped user to edit it.</p>
+    
+    <p>You should also set the email for this account.  Site contacts go to the admin user's email, by default.</p>
+    
+    <h3>Default admin user's credentials</h3>
+    
+    <dl><dt>Login</dt><dd>admin</dd><dt>Password</dt><dd>admin</dd></dl>
+    
+    <h2>Navigating the Administration Pages</h2>
+    
+    <p>Press <code>shift + spacebar</code> and type a controller name!  We're still working on this functionality, but expect it to improve rapidly.  Maybe soon we will get a 'help' command in there. Of course, you must be logged in for this to work.</p>
+    
+    <h2>Generating Crypted Passwords and Salts</h2>
+    
+    <p>The bootstrapped administrator is also bootstrapped with a salt.  You should change this salt for your production environment, as it is slightly predictable (at least by me).</p>
+    
+    <p>One option is to just make a new user and give them the administrator role.  Delete the old admin, and problem solved.</p>
+
+administration:
+  title: Administration
+  author_id: 541702176
+  is_admin_home_page: true
+  aasm_state: published
+  advanced_path: admin_path
+  child_count: 3
+  description: This is the landing/dash-board page for administration.
+  roles: administrator
+
+page_administration:
+  title: Pages
+  display_order: 1
+  author_id: 541702176
+  aasm_state: published
+  advanced_path: pages_path
+  description: Page administration
+  parent_id: 347305500
+  roles: administrator
+
+role_administration:
+  title: Roles
+  display_order: 2
+  author_id: 541702176
+  aasm_state: published
+  advanced_path: roles_path
+  description: Role administration
+  parent_id: 347305500
+  roles: administrator
+
+user_administration:
+  title: Users
+  display_order: 3
+  author_id: 541702176
+  aasm_state: published
+  advanced_path: users_path
+  description: User administration
+  parent_id: 347305500
+  roles: administrator
+
+change_log_administration:
+  title: Change Logs
+  display_order: 4
+  author_id: 541702176
+  aasm_state: published
+  advanced_path: change_logs_path
+  description: View change logs
+  parent_id: 347305500
+  roles: administrator
+
+backup_administration:
+  title: Backups
+  display_order: 5
+  author_id: 541702176
+  aasm_state: published
+  advanced_path: backups_path
+  description: Perform database backups and restores
+  parent_id: 347305500
+  roles: administrator
+
+about_us:
+  title: About Us
+  display_order: 1
+  aasm_state: pending_review
+  author_id: 541702176
+  description: A page with a little information about Natto.
+  content: |-
+    <p>Natto is mainly the work of two developers: Dan and Dave Nawara.</p>
+    
+    <p>Sometimes the DJNs do freelance and pro bono publico work, and therefore decided to make a nifty little CMS starting point.</p>
+
+contact_us:
+  title: Contact Us
+  display_order: 2
+  aasm_state: approved
+  author_id: 541702176
+  description: Get our contact details.
+  content: |
+    <p>If you would like to contact the Natto developers, please join our google group:</p>
+    
+    <p><code><a href="natto@googlegroups.com">natto@googlegroups.com</a></code></p>
+
+ヌlチバイトテスト:
+  title: 日本語のテストです。
+  display_order: 3
+  aasm_state: published
+  author_id: 541702176
+  description: ヌlチバイト。
+  content: |
+    <p>日本語のテストです。</p>

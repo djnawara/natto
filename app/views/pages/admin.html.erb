@@ -1,0 +1,28 @@
+<h2 class="clear">Objects</h2>
+
+<div class="dashboard_button">
+  <%= link_to(pages_icon('Manage pages', :large), pages_url) %><br/>
+  <p><%= link_to('Pages', pages_url) %></p>
+</div>
+
+<div class="dashboard_button">
+  <%= link_to(roles_icon('Manage roles', :large), roles_url) %><br/>
+  <p><%= link_to('Roles', roles_url) %></p>
+</div>
+
+<div class="dashboard_button">
+  <%= link_to(users_icon('Manage users', :large), users_url) %><br/>
+  <p><%= link_to('Users', users_url) %></p>
+</div>
+
+<h2 class="clear">System Tools</h2>
+
+<div class="dashboard_button">
+  <%= link_to(monitor_icon('View change logs', :large), change_logs_url) %><br/>
+  <p><%= link_to('Change logs', change_logs_url) %></p>
+</div>
+
+<div class="dashboard_button">
+  <%= link_to(save_icon('Backup and restore', :large), backups_url) %><br/>
+  <p><%= link_to('Backups', backups_url) %></p>
+</div>

@@ -1,0 +1,3 @@
+backups_new:
+  controller: backups
+  action: new

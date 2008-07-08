@@ -1,0 +1,12 @@
+<%
+require 'user.rb' # so we can make a password
+password = 'admin'
+salt = User.make_token
+%>
+admin:
+  first_name: Administrator
+  login: admin
+  aasm_state: active
+  salt: <%= salt %>
+  crypted_password: <%= User.password_digest(password, salt) %>
+  roles: administrator

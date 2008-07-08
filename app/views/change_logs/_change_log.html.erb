@@ -1,0 +1,46 @@
+<% if @objects && @objects.size > 0 %>
+  <table>
+    <tr>
+      <th>Action</th>
+      <th>Time</th>
+      <th>Object</th>
+      <th>User</th>
+      <th>Comments</th>
+    </tr>
+    <% @objects.each do |change| %>
+      <tr class="<%= cycle('even', 'odd') %> <%= change.action %>">
+        <td><%= link_to(change.action.chars.capitalize, action_logs_path(change.action)) %></td>
+        <td><%= format_date(change.performed_at, :short) %></td>
+        <td><%
+          # Classes acceptable to lookup must me explicitly declared
+          if ['page', 'role', 'user'].include?(change.object_class)
+            # locate the object, which may have been deleted
+            if (object = Kernel.const_get(change.object_class.capitalize).find_by_id(change.object_id))
+              output = link_to(change.object_class.capitalize, object_logs_path(change.object_class)) + ': '
+              case change.object_class
+              when 'page'
+                output += link_page(object)
+              when 'user'
+                output += link_to_user(object) if User.exists?(object)
+              else
+                if object.has_attribute?('name')
+                  output += link_to(object.name, object)
+                elsif object.has_attribute?('title')
+                  output += link_to(object.title, object)
+                else
+                  output += link_to(object.id, object)
+                end
+              end
+            else
+              output = '<del>' + change.object_class.capitalize + '</del>'
+            end
+          else
+            output = link_to(change.object_class.capitalize, object_logs_path(change.object_class))
+          end
+        %><%= output %></td>
+        <td><%= User.exists?(change.user) ? link_to_user(change.user) : '' %></td>
+        <td><%=h change.comments %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end -%>

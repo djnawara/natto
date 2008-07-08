@@ -1,0 +1,41 @@
+development:
+  delivery_method: smtp
+  default_recipient: djnawara@gmail.com
+  default_from: djn@djn2ms.com
+  smtp_settings:
+    address: localhost
+    port: 25
+    domain: localhost.localdomain
+    authentication: none
+    user_name: 
+    password: 
+  sendmail_settings:
+    arguments: -i -t
+
+test:
+  delivery_method: test
+  default_recipient: djnawara@gmail.com
+  default_from: djn@djn2ms.com
+  smtp_settings:
+    address: localhost
+    port: 25
+    domain: localhost.localdomain
+    authentication: none
+    user_name: 
+    password: 
+  sendmail_settings:
+    arguments: -i -t
+
+production:
+  delivery_method: smtp
+  default_recipient: djnawara@gmail.com
+  default_from: djn@djn2ms.com
+  smtp_settings:
+    address: localhost
+    port: 25
+    domain: localhost.localdomain
+    authentication: none
+    user_name: 
+    password: 
+  sendmail_settings:
+    arguments: -i -t

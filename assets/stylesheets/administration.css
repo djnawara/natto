@@ -1,0 +1,59 @@
+/* Toolbar buttons
+======================================== */
+li.toolbar,
+div.toolbar       { margin:0 10px 20px 0; border-left:1px solid #cccccc; float:left; background:#f4f4f4; }
+li.toolbar img,
+div.toolbar img   { padding:2px 5px; }
+
+/* Admin links (tango icons)
+======================================== */
+#admin_links      { margin:40px 0 0 0; }
+
+/* Dashboard buttons
+======================================== */
+div.dashboard_button        { margin:10px; float:left; text-align:center; }
+div.dashboard_button img    { margin:10px 20px 0 20px; }
+
+/* Tree nodes
+======================================== */
+div.tree_node                       { padding:5px 1px 1px 5px; }
+div.tree_node div.tree_node         { margin:0 0 0 40px; }
+div.tree_node img                   { margin:0 0 0 5px; vertical-align:baseline; }
+div.tree_node div.float_right       { margin: 0 10px 0 0; }
+
+/* State coloring for tree nodes
+----------------------------------------- */
+div.deleted,
+div.deleted a                 { color:#cccccc; }
+div.even.deleted,
+tr.even.deleted               { background:#999999; }
+div.odd.deleted,
+tr.odd.deleted                { background:#777777; }
+div.even.published
+div.even.active,
+tr.even.active                { background:#eeffee; }
+div.odd.published,
+div.odd.active,
+tr.odd.active                 { background:#ccffcc; }
+div.even.unpublished,
+div.even.suspended,
+tr.even.suspended             { background:#ffee00; }
+div.odd.unpublished,
+div.odd.suspended,
+tr.odd.suspended              { background:#ffcc00; }
+div.even.approved             { background:#bbeeff; }
+div.odd.approved              { background:#99ccff; }
+div.even.pending_review       { background:#ffcccc; }
+div.odd.pending_review        { background:#ffbbbb; }
+
+/* Page coloring
+------------------------------------------- */
+div.tree_node.home            { background:#00ff00;}
+div.tree_node.administration  { background:#f4f4f4; }
+
+/* Activity Graph
+======================================== */
+div.change_activity_graph     { width:322px; float:left; background:#f4f4f4; margin:0 5px 5px 0; padding:3px; border: 1px solid #cccccc; }
+div.change_activity_graph h4  { font-size:.9em; }
+div.change_activity_graph div { font-size:.7em; }
+div.change_activity_graph img { border-style:solid; border-color:#cccccc; border-width:1px 1px 0 0; padding:0; background:#ffffff;  }

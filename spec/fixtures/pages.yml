@@ -1,0 +1,72 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+home:
+  title: Home page
+  description: This is the testing home page
+  content: This is fake home page content.
+  author: admin
+  is_home_page: true
+  is_admin_home_page: false
+  aasm_state: published
+
+secured:
+  title: Secured with roles
+  description: This page has been locked down with the admin role
+  content: You must be an administrator!
+  display_order: 1
+  author: admin
+  is_home_page: false
+  is_admin_home_page: true
+  roles: administrator
+  aasm_state: published
+
+child:
+  parent: secured
+  title: Child of secured
+  description: This is a child node.
+  content: Some might call this page a leaf.
+  display_order: 1
+  author: admin
+  is_home_page: false
+  is_admin_home_page: false
+  roles: administrator
+  aasm_state: published
+
+unsecured:
+  title: Unsecured
+  description: This page is open to the public
+  content: This is some junk content
+  display_order: 2
+  author: active_non_admin
+  is_home_page: false
+  is_admin_home_page: false
+  aasm_state: published
+
+approved:
+  title: Approved
+  description: This page is in the :approved state
+  content: This is some junk content.
+  display_order: 3
+  author: admin
+  aasm_state: approved
+
+pending_review:
+  title: Pending Review
+  description: This page is in the :pending_review state
+  content: This is some junk content.
+  display_order: 4
+  author: admin
+  aasm_state: pending_review
+
+deleted:
+  title: Deleted
+  description: This page is in the :deleted state
+  content: This is some junk content for the deleted page.
+  author: admin
+  aasm_state: deleted
+
+advanced_path:
+  title: Advanced Path Page
+  description: This is a test page with an advanced path
+  author: admin
+  advanced_path: root_path
+  aasm_state: published

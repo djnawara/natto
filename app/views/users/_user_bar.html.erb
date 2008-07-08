@@ -1,0 +1,17 @@
+<div id="user_bar">
+<% if logged_in? -%>
+  <div id="greeting">
+    Logged in as <%= current_user.name %>
+    <%= link_to(
+      image_tag(gravatar_for(current_user, {:size => '20x20'}), {:class => 'tiny-gravatar'}), 
+      account_path,
+      {:title => 'View your account'}
+    ) unless current_user.email.nil? %>
+    (<%= link_to((current_user.authentication_id), account_path, {:title => 'View your account'}) %>)
+  </div>
+  <div id="action"  >(<%= link_to "log out", logout_path, { :title => "Log out" }    %>)</div>
+<% else -%>
+  <div id="greeting">Not logged in</div>
+  <div id="action"  ><%= link_to "Log in",  login_path,  { :title => "Log in" } %> / <%= link_to "Sign up", signup_path, { :title => "Create an account" } %></div>
+<% end -%>
+</div>

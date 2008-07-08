@@ -1,0 +1,203 @@
+format.js   { render :json => @admin_json }
+/* Defaults
+======================================== */
+*  { font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; margin:0; padding:0; color:#333333; }
+
+/* Body
+======================================== */
+body  { background-color:#ffffff; font-size:90%; width:100%; }
+
+/* Paragraphs
+======================================== */
+p  { margin:0 0 10px 0; }
+
+/* Images
+======================================== */
+img { border:0; }
+
+/* Lists 
+======================================== */
+/* Unordered lists
+---------------------------------------- */
+ul        { list-style-type:none; }
+/* Definition lists
+---------------------------------------- */
+dl        { margin:20px; font-size:.9em; }
+dt        { font-weight:bold; float:left; width:150px; border-bottom:1px dotted #cccccc; margin:3px 0; padding:0 0 2px 0; clear:left; }
+dt:after  { content:':'; }
+dd        { padding:3px 0 6px 0; }
+
+/* Headings
+======================================== */
+h1  { background:url(/plugin_assets/natto/images/stripes-eeeeee-up_right.png); margin:10px 0; padding:1px 0 4px 0; }
+h1,
+h2,
+h3,
+h4,
+h5  { color:#666666; width:100%; margin:0 0 10px 0; }
+
+/* Tables
+======================================== */
+table,
+tr      { width:100%; }
+table   { margin:10px 0; }
+/* Table Headers
+---------------------------------------- */
+th      { text-align:left; font-size:1.2em; font-weight:normal; color:#666666; padding:0 0 2px 0; border-style:solid; border-color:#cccccc; border-width:0 0 2px 0; }
+
+/* Forms
+======================================== */
+form                      { color:#666666; }
+fieldset                  { border:4px solid #cccccc; padding:5px 10px; margin:0 0 10px 0; background:#ffffff; }
+fieldset fieldset         { background:#f4f4f4; border:2px solid #cccccc; margin:10px 0 20px 0; }
+legend                    { font-size:1.2em; color:#999999; padding:0 5px; font-weight:bold; }
+input,textarea            { color:#333333; font-weight:normal; font-size:1.1em; margin:2px 0 10px 0; width:300px; padding:3px 3px 5px 3px; }
+textarea                  { width:99%; height:200px; }
+textarea.small            { height:30px; }
+input[type=submit]        { width:auto; background:#666666; padding:.3em .5em; color:#cccccc; font-size:1.1em; }
+input:hover[type=submit]  { background:#999999; color:#ffffff; cursor:pointer; }
+input:active[type=submit] { background:#333333; color:#999999; cursor:pointer; }
+input[type=checkbox]      { width:auto; vertical-align:top; }
+label                     { font-weight:bold; color:#666666; }
+.checkbox label           { display:inline; width:auto; }
+/* Required items
+---------------------------------------- */
+.required                   { color:#ff6600; }
+.required:after             { content:'*'; color:#ff6600; }
+.required_example           { font-size:.9em; color:#666666; }
+/* Labels
+---------------------------------------- */
+label                       { color:#666666; }
+/* Error Explanations
+---------------------------------------- */
+#errorExplanation     { background:#ff3300; padding:10px 5px; border:4px solid #cc3300; margin:0 0 10px 0; }
+#errorExplanation h2  { color:#ffffff; }
+#errorExplanation p   { color:#ffffff; font-style:italic; }
+#errorExplanation ul  { margin:10px 0 10px 40px; list-style-type:disc; }
+#errorExplanation li  { color:#ffffff; font-size:1.1em; }
+/* Form element errors
+---------------------------------------- */
+div.fieldWithErrors             { margin:0; padding:0; background:transparent; }
+div.fieldWithErrors input       { border:2px solid #ff3300; }
+div.fieldWithErrors textarea    { border:2px solid #ff3300; }
+div.fieldWithErrors label       { color:#ff3300; }
+div.fieldWithErrors label:after { content:'*'; }
+
+/* Flash notices
+======================================== */
+#notice,
+.notice       { background:#00ff33; border:4px solid #00cc33; color:#ffffff; padding:5px; }
+#warning,
+.warning      { background:#ffcc33; border:4px solid #cc9900; color:#333333; padding:5px; }
+#error,
+.error        { background:#ff3300; border:4px solid #cc3300; color:#ffffff; padding:5px; color:#ffffff; }
+#error h2,
+.error h2     { color:#ffffff; }
+
+/* Code
+======================================== */
+code  { font-family:"Courier New",Courier,monospace; }
+
+/* Layout
+======================================== */
+#page               { width:100%; margin:0; }
+#branding,
+#content            { width:770px; margin:0 auto; }
+#header,
+#navigation         { width:100%; }
+#user_bar           { float:right; }
+#user_bar #greeting { display:inline; }
+#user_bar #action   { display:inline; }
+
+/* Branding
+======================================== */
+#branding #site_title a { text-decoration:none; color:#666666; font-size:1.4em; font-weight:bold; }
+
+/* Navigation
+======================================== */
+/* Generic Anchors
+---------------------------------------- */
+a           { color:#0033ff; }
+a:visited   { color:#990099; }
+a:hover     { }
+/* Navigation Menu
+---------------------------------------- */
+#navigation             { margin:10px 0 15px 0; clear:both; }
+#navigation ul          { list-style-type:none; width:770px; margin:0 auto; clear:both; }
+#navigation ul li       { display:inline; padding:5px 0; }
+#navigation a           { margin:0 1em 0 0; }
+#navigation li.active a { font-weight:bold; }
+#navigation div         { display:inline; }
+#navigation #tab_bar    { }
+/* Specific Nav Entities
+---------------------------------------- */
+#navigation li.first a  { }
+/* Sub-navigation
+---------------------------------------- */
+#navigation li ul           { display:none; }
+#navigation li.active ul    { display:block; }
+#navigation li.active ul a  { font-weight:normal; font-size:.9em; }
+
+/* Footer
+======================================== */
+#footer     { width:770px; margin:40px auto 0 auto; clear:both; padding:3px; font-size:.8em; border-top:1px solid #cccccc; }
+#copyright  { margin:5px 0 0 0; font-size:.9em; }
+
+/* Sitemap
+======================================== */
+div.sitemap_node                  { margin:5px 0; }
+div.sitemap_node div.sitemap_node { margin:5px 10px; }
+
+/* Login
+======================================== */
+#user_identity_url,
+#openid_url {
+  background: url(/plugin_assets/natto/images/login-bg.gif) no-repeat #FFF 5px;
+  width:275px;
+  padding-left: 25px;
+}
+
+/* Login
+======================================== */
+img.gravatar      { border:4px solid #cccccc; }
+img.tiny-gravatar { border:2px solid #cccccc; vertical-align:middle; }
+
+/* Utility
+======================================== */
+/* Lists
+---------------------------------------- */
+.even { background:#f4f4f4; }
+.odd  { }
+/* Columns
+---------------------------------------- */
+div.column  { width:45%; }
+/* Floats
+---------------------------------------- */
+.float_left   { float:left; }
+.float_right  { float:right; }
+.clear        { clear:both; }
+/* Fonts
+---------------------------------------- */
+.italic       { font-style:italic; }
+.big          { font-size:1.2em; }
+.small        { font-size:.8em; }
+.tiny         { font-size:.7em; }
+.fixed_width  { font-family:"Courier New",Courier,monospace; }
+.light        { color:#666666; }
+.center       { text-align:center; }
+
+/* Admin modals
+-----------------------------------------*/
+.admin_modal                  { background:#333; width:300px; height:200px; opacity:.75; }
+.admin_modal h1               { background:none; color:#CCC; margin:20px; font-size:18px; }
+.admin_modal ul li            { background:none; color:#CCC; margin:10px 20px; font-size:18px; }
+.admin_modal ul li.selected   { background:#666; color:#EEE; margin:10px 20px; font-size:18px; }
+.admin_modal ul li a          { color:#CCC; text-decoration:none; }
+.admin_modal ul strong        { color:#333; background:#CCC;}
+.admin_modal input            { background:transparent; border:none; color:#CCC; font-weight:bold; font-size:18px;}
+
+/* CLEARFIX */
+.clearfix:after       { content:"."; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
+.clearfix             { display:inline-block; }
+html[xmlns] .clearfix { display:block; }
+* html .clearfix      { height:1%; }

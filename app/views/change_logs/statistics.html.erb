@@ -1,0 +1,13 @@
+<h1><%= @object.class.name %> admin view</h1>
+
+<%= '<p><b>Id:</b> ' + link_to(@object.id, {:controller => @object.class.name.pluralize, :action => 'show', :id => @object}) + '</p>' %>
+
+<% ['title', 'author', 'name', 'login', 'email', 'description', 'aasm_state'].each do |attribute| %>
+  <%= '<p><b>' + attribute.chars.capitalize + ':</b> ' + @object.send(attribute) + '</p>' if @object.has_attribute?(attribute) %>
+<% end %>
+
+<%= render :partial => 'shared/activity_chart' %>
+
+<h3>Change log</h3>
+
+<%= render :partial => 'change_log' %>

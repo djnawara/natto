@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+administrator: # id = 58813643
+  title: administrator
+  description: The super users' role.
+
+user:
+  title: user
+  description: This is a junk role for testing.

@@ -1,0 +1,54 @@
+<% unless @object != current_user || @object.has_role?('administrator') %>
+  <div class="toolbar">
+    <%= link_to(edit_icon('Edit profile', :large), edit_user_path(@object)) %>
+    <%= link_to(destroy_icon('Destroy your account', :large), @object, :confirm => 'Are you sure you wish to destroy your account?', :method => :delete) %>
+    <%= link_to(logout_icon('Log out', :large), logout_path) unless current_user.has_role?('administrator') %>
+  </div>
+  <div class="clear"></div>
+<% end %>
+
+<% if logged_in? && current_user == @object %>
+    <h1>Your Profile</h1>
+<% elsif logged_in? %>
+    <h1>Profile for '<%= @object.name %>'</h1>
+<% end %>
+
+<% if @object.current_state == :deleted %>
+  <div class="warning">
+    <p>
+      <b>Account deleted</b>
+      <%= format_date(@object.deleted_at, :long) %>
+    </p>
+    <p><%= link_to('Reactivate', :action => 'undelete', :id => @object) if logged_in? && current_user.has_role?('administrator') %></p>
+  </div>
+<% end %>
+
+<%= link_to(
+      image_tag(gravatar_for(@object, {:size => '60x60'}), {:class => 'gravatar'}),
+      { :protocol   => 'http://',
+        :host       => 'gravatar.com',
+        :controller => 'account' },
+      { :title => 'Visit the Gravatar website'}
+    ) unless @object.email.nil? %>
+
+<dl>
+  <dt>Name</dt>
+  <dd><%=h @object.first_name %> <%=h @object.last_name %></dd>
+  
+  <dt>OpenID</dt>
+  <dd><%= @object.identity_url.nil? ? link_to('Get an OpenID', 'http://www.myopenid.com/') : link_to(@object.identity_url, @object.identity_url) %></dd>
+  
+  <dt>Login</dt>
+  <dd><%=h @object.login %></dd>
+  
+  <dt>Email</dt>
+  <dd><%= @object.email %><%= link_to('Please update your email!', edit_user_path(@object)) if @object.email.blank? %></dd>
+  
+  <dt>Roles</dt>
+  <dd><%= @object.roles.size > 0 ? @object.roles.collect{|role| role.title.capitalize}.join(", ") : 'None' %></dd>
+</dl>
+
+<p><b>Created:</b> <%= format_date(@object.created_at, :long) %></p>
+<%= '<p><b>Updated:</b> ' + format_date(@object.updated_at, :long) + '</p>' unless @object.updated_at.blank? %>
+<%= '<p><b>Suspended:</b> ' + format_date(@object.suspended_at, :long) + '</p>' if @object.current_state == :suspended %>
+
