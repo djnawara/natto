@@ -9,7 +9,7 @@ class CrudController < ApplicationController
     action = params[:action] if action.nil?
     comments = params[:change_log][:comments] unless !comments.nil? || (params[:change_log].nil? || params[:change_log][:comments].blank?)
     object_id = @object.id if object_id.nil?
-    user_id = current_user.authentication_id if logged_in?
+    user_id = current_user.id if logged_in?
     if (comments.nil?)
       case action
       when 'create'
