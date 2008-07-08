@@ -1,0 +1,72 @@
+= Natto CMS
+
+This is the 4th incarnation, and 2nd Ruby on Rails version, of the content management system used by Dan and Dave Nawara.  This time, however, we're taking it a little more serious.  We're also pimpin' it out in Rails 2.x, so get ready for easy CMS goodness.
+
+This is simply the CMS core; to get more functionality, look around for plugins.
+
+== Installation
+
+Please make your rails app as normal, and then install Natto as a plugin.
+
+  $ rails your_app
+  $ cd your_app
+  $ cd vendor/plugins
+  $ git clone git@github.com:djnawara/natto.git
+
+Natto also requires the following plugins installed:
+
+  *  Engines                  git://github.com/lazyatom/engines.git
+  *  acts_as_tree             git://github.com/rails/acts_as_tree.git
+  *  acts_as_state_machine    git://github.com/freels/acts_as_state_machine.git
+
+Please also install these as Gems:
+
+  *  htmlentities
+  *  mattetti-googlecharts    git://github.com/mattetti/googlecharts.git
+  *  Ya2YAML                  git://github.com/ptb/ya2yaml.git
+
+Set up the plugin routes, by editing your application's routes.rb file and adding this line:
+
+  map.from_plugin :natto
+
+This will load the routes from RAILS_ROOT/vendor/plugins/natto/routes.rb.  If you end up with routing issues down the road, make sure you don't have conflicts with this file.
+
+Go into the Natto plugin directory, and run the install script.  This will create a backups folder, remove some of the files which the rails command generates, and copy over configuration files.
+
+  $ cd vendor/plugins/natto
+  $ ruby install.rb
+
+The install also generates your site keys, which help to better secure your encrypted passwords.  If you would like to use your own site keys settings, please make the changes before you run the bootstrap command.  Note the generated site_keys.rb file looks a lot like the ones from the restful_authentication plugin.  I basically copied their code for the authentication system (thanks, gang!).
+
+Specifically, install.rb deletes the following (go ahead and just do it manually, if you like):
+
+  *  RAILS_ROOT/public/index.html
+  *  RAILS_ROOT/public/images/rails.png
+  *  RAILS_ROOT/app/controllers/application.rb
+  *  RAILS_ROOT/app/helpers/application_helper.rb
+
+It also copies the following from the plugin directory to your application's configuration:
+
+  *  PLUGIN_ROOT/config/mail.yml
+  *  PLUGIN_ROOT/config/hide_from_js_nav.yml
+  *  PLUGIN_ROOT/config/initializers/mail.rb
+  *  PLUGIN_ROOT/config/initializers/hide_from_js_nav.rb
+  *  PLUGIN_ROOT/config/initializers/site_keys.rb
+
+You can now build and populate the system's database.  This will create an admin/admin user for you by default.  Edit PLUGIN_ROOT/db/bootstrap/users.yml to change the credentials of your administrative user (before you bootstrap), or just build a new one once you're up and running.  Please note again that encrypted passwords are dependent on your site keys being properly set up.  (Run the install.rb file before you do this!)  Your database should not have any pre-existing data, for this to work.
+
+  $ script/generate plugin_migration
+  $ rake db:migrate
+  $ rake natto:bootstrap
+
+You may wish to set some configuration variables in your environment files.  The Natto module declares the following variables:
+
+  *  Natto.site_title = "Natto CMS"
+  *  Natto.host       = "localhost:3000"
+  *  Natto.tango_home = "/plugin_assets/natto/images/tango-icon-theme/"
+
+You will most likely end up overriding the first two variables.  The host variable should most likely get overridden inside each environments/*.rb file.
+
+If you want to use your own version of a controller or helper, I recommend that you copy the one from the Natto plugin, or better yet, extend it.  Also, remember that you can copy views to your main application and then edit those in place.
+
+_Do not directly edit any files in the Natto plugin, or you will break your system if you update!_
