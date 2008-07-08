@@ -10,11 +10,14 @@ application_helper      = File.join(RAILS_ROOT, 'app', 'helpers', 'application_h
 index_html              = File.join(RAILS_ROOT, 'public', 'index.html')
 rails_png               = File.join(RAILS_ROOT, 'public', 'images', 'rails.png')
 # Do the actual deleting
+print "Removing unwanted Rails generated files... "
 File.delete(application_controller) if File.exists?(application_controller)
 File.delete(application_helper)     if File.exists?(application_helper)
 File.delete(index_html)             if File.exists?(index_html)
 File.delete(rails_png)              if File.exists?(rails_png)
+puts "OK."
 # Time to create our site keys
+print "Creating site_keys.rb initializer file.... "
 site_keys_initializer         = File.join('config', 'initializers', 'site_keys.rb')
 File.open(site_keys_initializer, 'w+') do |site_keys_rb|
   site_keys_rb.syswrite("# Look at User.password_digest to see how this is used.
@@ -58,7 +61,7 @@ File.open(site_keys_initializer, 'w+') do |site_keys_rb|
 REST_AUTH_DIGEST_STRETCHES = 10
 ")
 end
-
+puts "OK."
 # Now let's copy some configuration files to the main application.
 config_destination            = File.join(RAILS_ROOT, 'config')
 initializer_destination       = File.join(config_destination, 'initializers')
@@ -67,11 +70,16 @@ mail_initializer              = File.join('config', 'initializers', 'mail.rb')
 hide_from_js_nav_config       = File.join('config', 'hide_from_js_nav.yml')
 hide_from_js_nav_initializer  = File.join('config', 'initializers', 'hide_from_js_nav.rb')
 # Do the actual copying...
+print "Copying configuration files to parent..... "
 File.copy(mail_config,                  File.join(config_destination,       'mail.yml'))              if File.exists?(mail_config)
 File.copy(mail_initializer,             File.join(initializer_destination,  'mail.rb'))               if File.exists?(mail_initializer)
 File.copy(hide_from_js_nav_config,      File.join(config_destination,       'hide_from_js_nav.yml'))  if File.exists?(hide_from_js_nav_config)
 File.copy(hide_from_js_nav_initializer, File.join(initializer_destination,  'hide_from_js_nav.rb'))   if File.exists?(hide_from_js_nav_initializer)
 File.copy(site_keys_initializer,        File.join(initializer_destination,  'site_keys.rb'))          if File.exists?(site_keys_initializer)
+puts "OK."
 # Make our backup folder
+print "Creating backups folder for YAML exports.. "
 backups = File.join(RAILS_ROOT, 'backups')
 Dir.mkdir(backups) unless File.directory?(backups)
+puts "OK."
+puts "Done."
