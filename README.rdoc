@@ -31,6 +31,10 @@ Set up the plugin routes, by editing your application's routes.rb file and addin
 
 This will load the routes from RAILS_ROOT/vendor/plugins/natto/routes.rb.  If you end up with routing issues down the road, make sure you don't have conflicts with this file.
 
+Next, add this line just below the rails boot line in your config/environment.rb file:
+
+  require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
+
 Go into the Natto plugin directory, and run the install script.  This will create a backups folder, remove some of the files which the rails command generates, and copy over configuration files.
 
   $ cd vendor/plugins/natto
