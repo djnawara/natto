@@ -6,7 +6,14 @@ This is simply the CMS core; to get more functionality, look around for plugins.
 
 Installation
 
-Natto requires the following plugins installed:
+Please make your rails app as normal, and then install Natto as a plugin.
+
+  $ rails your_app
+  $ cd your_app
+  $ cd vendor/plugins
+  $ git clone git@github.com:djnawara/natto.git
+
+Natto also requires the following plugins installed:
 
   •  Engines                  git://github.com/lazyatom/engines.git
   •  acts_as_tree             git://github.com/rails/acts_as_tree.git
@@ -26,8 +33,8 @@ This will load the routes from RAILS_ROOT/vendor/plugins/natto/routes.rb.  If yo
 
 Go into the Natto plugin directory, and run the install script.  This will create a backups folder, remove some of the files which the rails command generates, and copy over configuration files.
 
-  cd vendor/plugins/natto
-  ruby install.rb
+  $ cd vendor/plugins/natto
+  $ ruby install.rb
 
 The install also generates your site keys, which help to better secure your encrypted passwords.  If you would like to use your own site keys settings, please make the changes before you run the bootstrap command.  Note the generated site_keys.rb file looks a lot like the ones from the restful_authentication plugin.  I basically copied their code for the authentication system (thanks, gang!).
 

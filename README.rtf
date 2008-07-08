@@ -23,7 +23,18 @@ This is simply the CMS core; to get more functionality, look around for plugins.
 \b\fs36 Installation\
 
 \b0\fs24 \
-Natto requires the following plugins installed:\
+Please make your rails app as normal, and then install Natto as a plugin.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f1 \cf0 	$ rails your_app\
+	$ cd your_app\
+	$ cd vendor/plugins\
+	$ git clone git@github.com:djnawara/natto.git\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0 \cf0 \
+Natto also requires the following plugins installed:\
 \
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0\cf0 {\listtext	\'95	}Engines					{\field{\*\fldinst{HYPERLINK "git://github.com/lazyatom/engines.git"}}{\fldrslt git://github.com/lazyatom/engines.git}}\
@@ -39,11 +50,11 @@ Please also install these as Gems:\
 {\listtext	\'95	}Ya2YAML				{\field{\*\fldinst{HYPERLINK "git://github.com/ptb/ya2yaml.git"}}{\fldrslt git://github.com/ptb/ya2yaml.git}}\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 Set up the plugin routes, by editing your application's routes.rb file and adding this line:\
+Set up the plugin routes, by editing your application's routes.rb file and adding this line:\
 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\fs20 	
+\fs20 \cf0 	
 \f1\fs24 map.from_plugin :natto
 \f0 \
 \
@@ -53,11 +64,12 @@ This will load the routes from
 \
 Go into the Natto plugin directory, and run the install script.  This will create a backups folder, remove some of the files which the rails command generates, and copy over configuration files.\
 \
-	
-\f1 cd vendor/plugins/natto\
-	ruby install.rb
-\f0 \
-\
+
+\f1 	$ cd vendor/plugins/natto\
+	$ ruby install.rb\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0 \cf0 \
 The install also generates your site keys, which help to better secure your encrypted passwords.  If you would like to use your own site keys settings, please make the changes before you run the bootstrap command.  Note the generated site_keys.rb file looks a lot like the ones from the restful_authentication plugin.  I basically copied their code for the authentication system (thanks, gang!).\
 \
 Specifically, install.rb deletes the following (go ahead and just do it manually, if you like):\
@@ -94,10 +106,10 @@ Specifically, install.rb deletes the following (go ahead and just do it manually
 
 \f1 \cf0 	$ script/generate plugin_migration\
 	$ rake db:migrate\
-	$ rake natto:bootstrap
-\f0 \
+	$ rake natto:bootstrap\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 \
+
+\f0 \cf0 \
 You may wish to set some configuration variables in your environment files.  The Natto module declares the following variables:\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
@@ -123,7 +135,8 @@ You will most likely end up overriding the first two variables.  The
 \
 If you want to use your own version of a controller or helper, I recommend that you copy the one from the Natto plugin, or better yet, extend it.  Also, remember that you can copy views to your main application and then edit those in place.\
 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\i\fs28 Do not directly edit any files in the Natto plugin, or you will break your system if you update!
+\i\fs28 \cf0 Do not directly edit any files in the Natto plugin, or you will break your system if you update!
 \i0\fs24 \
 }
