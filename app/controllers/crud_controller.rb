@@ -30,7 +30,7 @@ class CrudController < ApplicationController
   
   # Reflect on the controller to get the model constant out of the Kernel object.
   def set_model
-    @model_class = Kernel.const_get(self.class.name.gsub(/Controller$/, '').singularize.capitalize)
+    @model_class = Kernel.const_get(self.class.name.gsub(/Controller$/, '').singularize)
   end
   
   # Use the discovered model to find the object instance on which to operate.
@@ -53,7 +53,7 @@ class CrudController < ApplicationController
   # GET /objects/1.xml
   def show
     respond_to do |format|
-      format.html { render :template => @model_class.name.downcase.pluralize + '/show' }
+      format.html { render :template => views_directory + '/show' }
       format.xml  { render :xml => @object }
     end
   end
@@ -63,7 +63,7 @@ class CrudController < ApplicationController
   def new
     @object = @model_class.new
     respond_to do |format|
-      format.html { render :template => @model_class.name.downcase.pluralize + '/form' }
+      format.html { render :template => views_directory + '/form' }
       format.xml  { render :xml => @object }
     end
   end
@@ -71,7 +71,7 @@ class CrudController < ApplicationController
   # GET /objects/1/edit
   def edit
     respond_to do |format|
-      format.html { render :template => @model_class.name.downcase.pluralize + '/form' }
+      format.html { render :template => views_directory + '/form' }
       format.xml  { render :xml => @object }
     end
   end
@@ -79,13 +79,13 @@ class CrudController < ApplicationController
   # POST /objects
   # POST /objects.xml
   def create
-    @object = @model_class.new(params[@model_class.name.downcase.to_sym])
+    @object = @model_class.new(params[@model_class.name.tableize.singularize.to_sym])
     @model_class.transaction do
       @object.save!
       create_change_log_entry
     end
     respond_to do |format|
-      flash[:notice] = @model_class.name + ' was successfully created.'
+      flash[:notice] = @model_class.name.humanize + ' was successfully created.'
       format.html { redirect_to(@object) }
       format.xml  { render :xml => @object, :status => :created, :location => @object }
     end
@@ -109,7 +109,7 @@ class CrudController < ApplicationController
   # PUT /objects/1.xml
   def update
     @model_class.transaction do
-      @object.update_attributes!(params[@object.class.name.downcase.to_sym])
+      @object.update_attributes!(params[@object.class.name.tableize.singularize.to_sym])
       create_change_log_entry
     end
     respond_to do |format|
@@ -119,12 +119,16 @@ class CrudController < ApplicationController
     end
   end
   
+  def views_directory
+    @model_class.name.tableize.pluralize
+  end
+  
   # Handle failed validations when saving.
   rescue_from ActiveRecord::RecordInvalid do |exception|
     case params[:action]  # determine the proper page to render for the action
     when 'new', 'edit', 'create', 'update'
       flash[:error] = "<h2>Change log comments required</h2>Please enter comments for the change log." if @change_log && !@change_log.valid?
-      view = @model_class.name.downcase.pluralize + '/' + 'form' # re-render the form
+      view = @model_class.name.tableize.pluralize + '/' + 'form' # re-render the form
     when 'destroy', 'purge'
       view = 'shared/get_comments' # force comments for the change log
     else
