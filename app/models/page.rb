@@ -17,8 +17,8 @@ class Page < ActiveRecord::Base
   validates_length_of       :title, :within => 2..40
   validates_format_of       :title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
   
-  validates_presence_of     :content
-  validates_length_of       :content, :minimum => 20
+  validates_presence_of     :content,                 :if => :content_required?
+  validates_length_of       :content, :minimum => 20, :if => :content_required?
   
   validates_presence_of     :description
   validates_length_of       :description, :within => 10..255
@@ -111,6 +111,10 @@ class Page < ActiveRecord::Base
     return unless self.siblings.size > 0
     # finally, return an actual sibling id
     return Page.find(:first, :conditions => {:display_order => sibling_order, :parent_id => self.parent_id}).id
+  end
+  
+  def content_required?
+    advanced_path.blank?
   end
   
   def sanitize_title
