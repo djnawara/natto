@@ -126,7 +126,7 @@ module ApplicationHelper
       output += date.strftime('&nbsp;%H:%M')
       return output
     when :long
-      output = date.strftime('%B ') + date.strftime('%d').to_i.ordinalize + date.strftime(', %Y at %H:%M')
+      output = date.strftime('%B ') + date.strftime('%d').to_i.ordinalize + date.strftime(', %Y at ') + date.strftime('%I').to_i.to_s + date.strftime(':%M %p')
       output += date.strftime(' %Z') if timezone
       output
     end
