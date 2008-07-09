@@ -57,7 +57,14 @@ It also copies the following from the plugin directory to your application's con
   PLUGIN_ROOT/config/initializers/hide_from_js_nav.rb
   PLUGIN_ROOT/config/initializers/site_keys.rb
 
-You can now build and populate the system's database.  This will create an admin/admin user for you by default.  Edit PLUGIN_ROOT/db/bootstrap/users.yml to change the credentials of your administrative user (before you bootstrap), or just build a new one once you're up and running.  Please note again that encrypted passwords are dependent on your site keys being properly set up.  (Run the install.rb file before you do this!)  Your database should not have any pre-existing data, for this to work.
+You can now build and populate the system's database.  This will create a default administrative user for you with the following credentials:
+
+  Username: admin
+  Password: admin
+
+Please change this password, or make a new administrative user and delete this one, upon your first login.
+
+Please note again that encrypted passwords are dependent on your site keys being properly set up.  (Run the install.rb file before you do this!)  Your database should not have any pre-existing data when you run this command.
 
   $ script/generate plugin_migration
   $ rake db:migrate
