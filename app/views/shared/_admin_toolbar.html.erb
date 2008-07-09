@@ -30,7 +30,7 @@
           <%= link_to tango('actions/view-refresh', 'Undelete', :large), {:controller => @controller_for, :action => 'undelete', :id => @object} if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :deleted %>
           <%= link_to tango('actions/process-stop', 'Suspend', :large), {:controller => @controller_for, :action => 'suspend', :id => @object}, :method => :put if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :active && @object != current_user %>
           <%= link_to refresh_icon('Unsuspend', :large), {:controller => @controller_for, :action => 'unsuspend', :id => @object}, :method => :put if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :suspended %>
-          <%= link_to roles_icon('Manage roles', :large), {:controller => @controller_for, :action => 'roles', :id => @object}, :method => :get if @object.roles unless params[:action].eql?('roles') %>
+          <%= link_to roles_icon('Manage roles', :large), {:controller => @controller_for, :action => 'roles', :id => @object}, :method => :get unless @object.class.reflect_on_association(:roles).nil? || params[:action].eql?('roles') %>
         </li>
         <li class="toolbar">
           <%= link_to monitor_icon('View change logs for this ' + params[:controller].singularize, :large), instance_logs_path(params[:controller].singularize, @object) %>
