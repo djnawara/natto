@@ -31,7 +31,7 @@ Set up the plugin routes, by editing your application's routes.rb file and addin
 
 This will load the routes from RAILS_ROOT/vendor/plugins/natto/routes.rb.  If you end up with routing issues down the road, make sure you don't have conflicts with this file.
 
-At the bottom of your routes.rb, we need to set up the root route to go to the home page defined in the system.  Make sure the bottom of you file looks like this:
+At the bottom of your RAILS_ROOT/config/routes.rb, we need to set the root route to go to the home page defined in the Natto system (we will bootstrap one below).  Make sure the bottom of your file looks like this:
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
