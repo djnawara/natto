@@ -122,15 +122,33 @@ module ApplicationHelper
     tango('apps/help-browser', title, size)
   end
   
-  def format_date(date = Time.now, style = :short, timezone = true)
+  def format_date(date = Time.now, style = :short, time = false, zone = true)
     case style
+    when :natural
+      output  = date.strftime('%B')
+      output += date.strftime('%d').to_i.ordinalize
+      output += date.strftime(', %Y') unless Time.now.strftime('%Y').to_i == date.strftime('%Y').to_i
+      output += ' ' + format_time(date, :twelve, zone) if time
+      return output
     when :short
-      output  = date.strftime('%b&nbsp;%d')
-      output += date.strftime(',&nbsp;%Y') unless Time.now.strftime('%Y').to_i == date.strftime('%Y').to_i
-      output += date.strftime('&nbsp;%H:%M')
+      output  = date.strftime('%b %d')
+      output += date.strftime(', %Y') unless Time.now.strftime('%Y').to_i == date.strftime('%Y').to_i
+      output += ' ' + format_time(date, :twenty_four, zone) if time
       return output
     when :long
       output = date.strftime('%B ') + date.strftime('%d').to_i.ordinalize + date.strftime(', %Y at ') + date.strftime('%I').to_i.to_s + date.strftime(':%M %p')
+      output += ' ' + format_time(date, :twelve, zone) if time
+      output
+    end
+  end
+  
+  def format_time(date = Time.now, style = :twelve, timezone = true)
+    case style
+    when :twelve
+      output  = date.strftime('%I:%M %p')
+      output += date.strftime(' %Z') if timezone
+    when :twenty_four
+      output  = date.strftime('%H:%M')
       output += date.strftime(' %Z') if timezone
       output
     end
