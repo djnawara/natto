@@ -21,6 +21,7 @@ Natto also requires the following plugins installed:
 
 Please also install these as Gems:
 
+  ruby-openid
   htmlentities
   mattetti-googlecharts    git://github.com/mattetti/googlecharts.git
   Ya2YAML                  git://github.com/ptb/ya2yaml.git
