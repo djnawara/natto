@@ -118,6 +118,10 @@ module ApplicationHelper
     tango('actions/document-save-as', title, size)
   end
   
+  def help_icon(title = 'Help', size = 1)
+    tango('apps/help-browser', title, size)
+  end
+  
   def format_date(date = Time.now, style = :short, timezone = true)
     case style
     when :short
