@@ -52,7 +52,7 @@ end
 #Specific environment using the environment variable "RAILS_ENV"
 #=> rake djn2ms:fixtures:export TABLE=assessment_components,lookups RAILS_ENV=test
 desc "Export data from tables in the current environment to fixtures (YML format). "
-require 'Ya2YAML'
+require 'ya2yaml'
 namespace :natto do
   namespace :fixtures do
       task :export => :environment do   
