@@ -121,6 +121,21 @@ class PagesController < CrudController
     end
   end
   
+  # POST /objects
+  # POST /objects.xml
+  def create
+    @object = Page.new(params[:page])
+    Page.transaction do
+      @object.save!
+      create_change_log_entry
+    end
+    respond_to do |format|
+      flash[:notice] = 'The page was successfully created.'
+      format.html { redirect_to((@object.advanced_path.blank? ? @object : self.send(@object.advanced_path))) }
+      format.xml  { render :xml => @object, :status => :created, :location => @object }
+    end
+  end
+  
   # PUT /pages/:id
   # PUT /pages/:id.xml
   def update

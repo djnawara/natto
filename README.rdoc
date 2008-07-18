@@ -25,11 +25,20 @@ Please also install these as Gems:
   mattetti-googlecharts    git://github.com/mattetti/googlecharts.git
   Ya2YAML                  git://github.com/ptb/ya2yaml.git
 
-Set up the plugin routes, by editing your application's routes.rb file and adding this line:
+Set up the plugin routes, by editing your application's routes.rb file and adding this line to the very top of the file:
 
   map.from_plugin :natto
 
 This will load the routes from RAILS_ROOT/vendor/plugins/natto/routes.rb.  If you end up with routing issues down the road, make sure you don't have conflicts with this file.
+
+At the bottom of your RAILS_ROOT/config/routes.rb, we need to set the root route to go to the home page defined in the Natto system (we will bootstrap one below).  Make sure the bottom of your file looks like this:
+
+  # Install the default routes as the lowest priority.
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
+  
+  # Add the root route here
+  map.root :controller => 'pages', :action => 'home'
 
 Next, add this line just below the rails boot line in your config/environment.rb file:
 
@@ -57,7 +66,14 @@ It also copies the following from the plugin directory to your application's con
   PLUGIN_ROOT/config/initializers/hide_from_js_nav.rb
   PLUGIN_ROOT/config/initializers/site_keys.rb
 
-You can now build and populate the system's database.  This will create an admin/admin user for you by default.  Edit PLUGIN_ROOT/db/bootstrap/users.yml to change the credentials of your administrative user (before you bootstrap), or just build a new one once you're up and running.  Please note again that encrypted passwords are dependent on your site keys being properly set up.  (Run the install.rb file before you do this!)  Your database should not have any pre-existing data, for this to work.
+You can now build and populate the system's database.  This will create a default administrative user for you with the following credentials:
+
+  Username: admin
+  Password: admin
+
+Please change this password, or make a new administrative user and delete this one, upon your first login.
+
+Please note again that encrypted passwords are dependent on your site keys being properly set up.  (Run the install.rb file before you do this!)  Your database should not have any pre-existing data when you run this command.
 
   $ script/generate plugin_migration
   $ rake db:migrate

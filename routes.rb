@@ -58,11 +58,4 @@ ActionController::Routing::Routes.draw do |map|
   
   # map all of our objects
   resources :sessions, :roles
-  
-  # Install the default routes as the lowest priority.
-  connect ':controller/:action/:id'
-  connect ':controller/:action/:id.:format'
-  
-  # root
-  root :controller => 'pages', :action => 'home'
 end

@@ -1,5 +1,4 @@
-<% new_user = params[:action].eql?('new') || params[:action].eql?('create') -%>
-<h1><%= (params[:action].eql? 'new') ? (logged_in? ? 'Create user account' : 'Sign up as a new user') : 'Update your profile' %></h1>
+<h1><%= (@object.new_record?) ? (logged_in? ? 'Create user account' : 'Sign up as a new user') : 'Update your profile' %></h1>
 
 <% @object.password = @object.password_confirmation = nil %>
 
@@ -39,14 +38,14 @@
       <p class="small">If your OpenID account contains your personal information, this may speed things up for you.  Just enter your OpenID URL and click the "Sign Up" button.</p>
       <div>
         <%= f.label :identity_url, nil, {:class => 'required'} %><br/>
-        <%= f.text_field :identity_url, :disabled => (new_user ? false: true) %>
+        <%= f.text_field :identity_url, :disabled => (@object.new_record? ? false: true) %>
       </div>
       <div><%= submit_tag('Load from OpenID') %></div>
     </fieldset>
     
     <div>
       <%= f.label :login, nil, {:class => 'required'} %><br/>
-      <%= f.text_field :login, :disabled => (new_user ? false: true) %>
+      <%= f.text_field :login, :disabled => (@object.new_record? ? false: true) %>
     </div>
     
     <div>
@@ -59,7 +58,7 @@
       <%= f.text_field :last_name %>
     </div>
     
-    <% if new_user %>
+    <% if @object.new_record? %>
         <div>
           <%= f.label :email, nil, {:class => 'required'} %><br/>
           <%= f.text_field :email %>
@@ -92,7 +91,7 @@
     <% end -%>
     
     <div>
-      <% if new_user -%>
+      <% if @object.new_record? -%>
         <%= f.label :password, nil, {:class => 'required'} %><br/>
       <% else -%>
         <%= f.label :password, 'New password' %><br/>
@@ -101,21 +100,21 @@
     </div>
     
     <div>
-      <%= f.label :password_confirmation, nil, {:class => (new_user ? 'required' : '')} %><br/>
+      <%= f.label :password_confirmation, nil, {:class => (@object.new_record? ? 'required' : '')} %><br/>
       <%= f.password_field :password_confirmation %>
     </div>
     
-    <%= '</fieldset>' unless new_user %>
+    <%= '</fieldset>' unless @object.new_record? %>
     
     <% if logged_in? && current_user.is_administrator? %>
       <fieldset>
-        <legend<%= ' class="required"' unless new_user %>>Comments</legend>
+        <legend<%= ' class="required"' unless @object.new_record? %>>Comments</legend>
         <p class="small">Please enter comments for the change log.</p>
         <p><%= text_area :change_log, :comments, {:class => 'small', :rows => 3} %></p>
       </fieldset>
     <% end %>
     
-    <div><%= submit_tag (new_user ? (logged_in? ? 'Create user' : 'Sign up') : 'Update Profile') %></div>
+    <div><%= submit_tag (@object.new_record? ? (logged_in? ? 'Create user' : 'Sign up') : 'Update Profile') %></div>
 
   </fieldset>
   
