@@ -125,7 +125,7 @@ module ApplicationHelper
   def format_date(date = Time.now, style = :short, time = false, zone = true)
     case style
     when :natural
-      output  = date.strftime('%B')
+      output  = date.strftime('%B ')
       output += date.strftime('%d').to_i.ordinalize
       output += date.strftime(', %Y') unless Time.now.strftime('%Y').to_i == date.strftime('%Y').to_i
       output += ' ' + format_time(date, :twelve, zone) if time
@@ -142,14 +142,15 @@ module ApplicationHelper
     end
   end
   
-  def format_time(date = Time.now, style = :twelve, timezone = true)
+  def format_time(date = Time.now, style = :twelve, zone = true)
     case style
     when :twelve
       output  = date.strftime('%I:%M %p')
-      output += date.strftime(' %Z') if timezone
+      output += date.strftime(' %Z') if zone
+      output
     when :twenty_four
       output  = date.strftime('%H:%M')
-      output += date.strftime(' %Z') if timezone
+      output += date.strftime(' %Z') if zone
       output
     end
   end
