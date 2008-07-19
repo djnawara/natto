@@ -16,12 +16,9 @@ class CrudController < ApplicationController
         comments = 'Initial creation of ' + params[:controller].singularize + '.'
       when 'update'
         comments = 'Updating information for ' + params[:controller].singularize + '.' if logged_in? && !current_user.is_administrator?
-      when 'destroy', 'purge'
-        # There should be comments, so let's do nothing here.
       else
-        # Defaulting to require the user to enter comments.
-        # If you do not want a case to require comments, add a when
-        # block for it.
+        # Default to just listing the controller name and action
+        comments = "#{params[:controller]} #{params[:action]}"
       end
     end
     @change_log = ChangeLog.new({:object_id => object_id, :user_id => user_id, :action => action, :comments => comments, :performed_at => Time.now.to_s(:db), :object_class => params[:controller].singularize})
