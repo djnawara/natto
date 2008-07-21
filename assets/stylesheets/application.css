@@ -23,7 +23,7 @@ ul        { list-style-type:none; }
 /* Definition lists
 ---------------------------------------- */
 dl        { margin:20px; font-size:.9em; }
-dt        { font-weight:bold; float:left; width:150px; border-bottom:1px dotted #cccccc; margin:3px 0; padding:0 0 2px 0; clear:left; }
+dt        { font-weight:bold; float:left; width:25%; border-bottom:1px dotted #cccccc; margin:3px 0; padding:0 0 2px 0; clear:left; }
 dt:after  { content:':'; }
 dd        { padding:3px 0 6px 0; }
 
