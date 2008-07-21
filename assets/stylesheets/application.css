@@ -57,6 +57,7 @@ textarea.small            { height:30px; }
 input[type=submit]        { width:auto; background:#666666; padding:.3em .5em; color:#cccccc; font-size:1.1em; }
 input:hover[type=submit]  { background:#999999; color:#ffffff; cursor:pointer; }
 input:active[type=submit] { background:#333333; color:#999999; cursor:pointer; }
+input[type=radio],
 input[type=checkbox]      { width:auto; vertical-align:top; }
 label                     { font-weight:bold; color:#666666; }
 .checkbox label           { display:inline; width:auto; }
