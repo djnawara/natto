@@ -15,6 +15,11 @@ p  { margin:0 0 10px 0; }
 ======================================== */
 img { border:0; }
 
+/* Font style fixes
+======================================== */
+b,
+i   { color:inherit; }
+
 /* Lists 
 ======================================== */
 /* Unordered lists
@@ -88,8 +93,12 @@ div.fieldWithErrors label:after { content:'*'; }
 ======================================== */
 #notice,
 .notice       { background:#00ff33; border:4px solid #00cc33; color:#ffffff; padding:5px; }
+#notice h2,
+.notice h2    { color:#ffffff; }
 #warning,
 .warning      { background:#ffcc33; border:4px solid #cc9900; color:#333333; padding:5px; }
+#warning h2,
+.warning h2   { color:#333333; }
 #error,
 .error        { background:#ff3300; border:4px solid #cc3300; color:#ffffff; padding:5px; color:#ffffff; }
 #error h2,
