@@ -15,7 +15,7 @@ class CrudController < ApplicationController
       when 'create'
         comments = 'Initial creation of ' + params[:controller].singularize + '.'
       when 'update'
-        comments = 'Updating information for ' + params[:controller].singularize + '.' if logged_in? && !current_user.is_administrator?
+        comments = 'Updating information for ' + params[:controller].singularize + '.'
       else
         # Default to just listing the controller name and action
         comments = "#{params[:controller]} #{params[:action]}"
