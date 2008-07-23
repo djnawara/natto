@@ -365,7 +365,7 @@ class PagesController < CrudController
   def state_check(states)
     failed = false
     states = [states] unless states.is_a?(Array)
-    logger.debug('STATE CHECK: [' + states.collect { |state| state.to_s }.join(' || ')) + ']'
+    logger.debug('STATE CHECK: [' + states.collect { |state| state.to_s }.join(' || ') + ']')
     
     unless states.include?(@object.current_state)
       flash[:error] = '<h2>Invalid state for action.</h2>The requested action requires the <code>[' + states.collect { |state| state.to_s }.join(' || ') + ']</code> state.'
