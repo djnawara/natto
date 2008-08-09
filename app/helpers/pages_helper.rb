@@ -60,7 +60,13 @@ module PagesHelper
   def draw_page_rows(pages = nil)
     output = ''
     for page in pages
-      output += '<div class="tree_node ' + cycle('even', 'odd') + ' ' + page.current_state.to_s + ' ' + page.title.downcase.underscore + '">'
+      output += '<div class="tree_node '
+        output += cycle('even', 'odd')
+        output += " #{page.current_state.to_s}"
+        output += " #{page.title.downcase.underscore}"
+        output += ' home_page' if page.is_home_page?
+        output += ' admin_home_page' if page.is_admin_home_page?
+      output += '">'
         output += '<div class="float_right">'
           unless page.is_home_page? || page.is_admin_home_page?
             output += link_to(down_icon, {:action => 'set_display_order', :id => page, :display_order => page.display_order+1}, :method => :put) unless page.is_max_display_order? || page.current_state == :deleted
