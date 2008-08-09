@@ -8,7 +8,7 @@
   </tr>
 
 <% for role in @objects %>
-  <tr>
+  <tr class="<%= cycle('even', 'odd') %>">
     <td><%= link_to(role.title, role) %></td>
     <td><%=h role.description %></td>
     <td>
