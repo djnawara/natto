@@ -45,7 +45,7 @@
     <% end -%>
     <% unless params[:action].eql?('admin') -%>
       <li class="toolbar">
-        <%= link_to back_icon('Back', :large), {:controller => @controller_for, :action => "index"} unless (params[:action].eql?('index') && !params[:controller].eql?('change_logs')) %>
+        <%= link_to back_icon('Back', :large), {:controller => @controller_for, :action => "index"} unless (params[:action].eql?('index') && !(params[:controller].eql?('change_logs') && !params[:object_class].nil?)) %>
         <%= link_to dashboard_icon('Back to the dashboard', :large), admin_path %>
       </li>
     <% end -%>
