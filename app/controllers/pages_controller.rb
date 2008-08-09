@@ -140,7 +140,7 @@ class PagesController < CrudController
   # PUT /pages/:id.xml
   def update
     Page.transaction do
-      @object.update_attributes(params[:page])
+      @object.update_attributes!(params[:page])
       create_change_log_entry
     end
     respond_to do |format|
