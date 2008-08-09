@@ -104,7 +104,11 @@ class Page < ActiveRecord::Base
   def get_sibling_id(distance_above = 1)
     sibling_order = self.display_order - distance_above
     # so we can sub under the home page
-    return Page.find(:first, :conditions => {:is_home_page => true}).id if distance_above == 1 && self.is_min_display_order? && self.parent_id.nil?
+    if distance_above == 1 && self.is_min_display_order? && self.parent_id.nil?
+      if home = Page.find(:first, :conditions => {:is_home_page => true})
+        return home.id
+      end
+    end
     # make sure it fits within the range of display orders
     return unless (Page.min_display_order(self)..Page.max_display_order(self)) === sibling_order
     # make sure there are even siblings to check
