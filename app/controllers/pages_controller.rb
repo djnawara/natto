@@ -410,6 +410,7 @@ class PagesController < CrudController
       # users require a page state check
       @object = Page.find_in_state(:first, :published, :conditions => conditions)
     end
+    @page = @object if @page.nil?
   end
   protected :find_object
 end
