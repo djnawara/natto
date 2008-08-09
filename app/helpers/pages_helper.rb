@@ -39,7 +39,7 @@ module PagesHelper
         # let's add the actual link, but...
         # first wrap it in a div, since we may have a nested list
         output +=   '<div>'
-        output +=     link_page(page)
+        output +=     @page == page ? page.title : link_page(page)
         output +=   '</div>'
         
         ########
