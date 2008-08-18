@@ -136,7 +136,7 @@ module ApplicationHelper
       output += ' ' + format_time(date, :twenty_four, zone) if time
       return output
     when :long
-      output = date.strftime('%B ') + date.strftime('%d').to_i.ordinalize + date.strftime(', %Y at ') + date.strftime('%I').to_i.to_s + date.strftime(':%M %p')
+      output = date.strftime('%A, %B ') + date.strftime('%d').to_i.ordinalize + date.strftime(', %Y at ') + date.strftime('%I').to_i.to_s + date.strftime(':%M %p')
       output += ' ' + format_time(date, :twelve, zone) if time
       output
     end
