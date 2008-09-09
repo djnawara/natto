@@ -1,3 +1,5 @@
+require 'htmlentities'
+
 class PagesController < CrudController
   before_filter :find_object, :only => [:home, :admin, :show, :show_by_title, :edit, :update, :destroy, :purge, :undelete, :approve, :publish, :unpublish, :set_display_order, :set_parent, :roles, :process_role]
   before_filter :page_found_check,    :only => [:show, :show_by_title, :home]
@@ -105,8 +107,12 @@ class PagesController < CrudController
   def show_by_title
     # Handle advanced pathing
     unless @object.advanced_path.blank?
-      redirect_to(self.send(@object.advanced_path))
-      return
+      begin
+        redirect_to(self.send(@object.advanced_path))
+        return
+      rescue Exception => err
+        flash_exception(err, "Advanced Path Error")
+      end
     end
     show
   end
@@ -131,7 +137,19 @@ class PagesController < CrudController
     end
     respond_to do |format|
       flash[:notice] = 'The page was successfully created.'
-      format.html { redirect_to((@object.advanced_path.blank? ? @object : self.send(@object.advanced_path))) }
+      format.html do
+        if @object.advanced_path.blank?
+          redirect_to @object
+        else
+          # make sure we catch bad paths here
+          begin
+            redirect_to(self.send(@object.advanced_path))
+          rescue Exception => err
+            flash_exception(err, "Advanced Path Error")
+            redirect_to pages_path
+          end
+        end
+      end
       format.xml  { render :xml => @object, :status => :created, :location => @object }
     end
   end
@@ -413,4 +431,12 @@ class PagesController < CrudController
     @page = @object if @page.nil?
   end
   protected :find_object
+  
+  def flash_exception(exception = nil, title = "Error", now = false)
+    return if exception.nil?
+    coder = HTMLEntities.new
+    content = "<h2>#{title}</h2><p>#{coder.encode(exception.message)}</p>"
+    now ? flash.now[:error] = content : flash[:error] = content
+  end
+  private :flash_exception
 end
