@@ -61,28 +61,3 @@ users_administration_create:
   action: create
   performed_at: <%= Time.now.to_s(:db) %>
   comments: Users administration page bootstrap.
-
-about_us_create:
-  object_class: page
-  object_id: 810718905
-  user: admin
-  action: create
-  performed_at: <%= Time.now.to_s(:db) %>
-  comments: About Us page bootstrap.
-
-contact_us_create:
-  object_class: page
-  object_id: 714903086
-  user: admin
-  action: create
-  performed_at: <%= Time.now.to_s(:db) %>
-  comments: Contact Us page bootstrap.
-
-ヌlチバイトテスト_create:
-  object_class: page
-  object_id: 503688832
-  user: admin
-  action: create
-  performed_at: <%= Time.now.to_s(:db) %>
-  comments: 日本語のテストです page bootstrap.
-  

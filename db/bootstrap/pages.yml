@@ -87,34 +87,3 @@ backup_administration:
   description: Perform database backups and restores
   parent_id: 347305500
   roles: administrator
-
-about_us:
-  title: About Us
-  display_order: 1
-  aasm_state: pending_review
-  author_id: 541702176
-  description: A page with a little information about Natto.
-  content: |-
-    <p>Natto is mainly the work of two developers: Dan and Dave Nawara.</p>
-    
-    <p>Sometimes the DJNs do freelance and pro bono publico work, and therefore decided to make a nifty little CMS starting point.</p>
-
-contact_us:
-  title: Contact Us
-  display_order: 2
-  aasm_state: approved
-  author_id: 541702176
-  description: Get our contact details.
-  content: |
-    <p>If you would like to contact the Natto developers, please join our google group:</p>
-    
-    <p><code><a href="natto@googlegroups.com">natto@googlegroups.com</a></code></p>
-
-ヌlチバイトテスト:
-  title: 日本語のテストです。
-  display_order: 3
-  aasm_state: published
-  author_id: 541702176
-  description: ヌlチバイト。
-  content: |
-    <p>日本語のテストです。</p>
