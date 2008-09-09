@@ -1,25 +1,19 @@
-format.js   { render :json => @admin_json }
 /* Defaults
 ======================================== */
 *  { font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; margin:0; padding:0; color:#333333; }
-
 /* Body
 ======================================== */
 body  { background-color:#ffffff; font-size:90%; width:100%; }
-
 /* Paragraphs
 ======================================== */
 p  { margin:0 0 10px 0; }
-
 /* Images
 ======================================== */
 img { border:0; }
-
 /* Font style fixes
 ======================================== */
 b,
 i   { color:inherit; }
-
 /* Lists 
 ======================================== */
 /* Unordered lists
@@ -31,7 +25,6 @@ dl        { margin:20px; font-size:.9em; }
 dt        { font-weight:bold; float:left; width:25%; border-bottom:1px dotted #cccccc; margin:3px 0; padding:0 0 2px 0; clear:left; }
 dt:after  { content:':'; }
 dd        { padding:3px 0 6px 0; }
-
 /* Headings
 ======================================== */
 h1  { background:url(/plugin_assets/natto/images/stripes-eeeeee-up_right.png); margin:10px 0; padding:1px 0 4px 0; }
@@ -40,7 +33,6 @@ h2,
 h3,
 h4,
 h5  { color:#666666; width:100%; margin:0 0 10px 0; }
-
 /* Tables
 ======================================== */
 table,
@@ -49,7 +41,6 @@ table   { margin:10px 0; }
 /* Table Headers
 ---------------------------------------- */
 th      { text-align:left; font-size:1.2em; font-weight:normal; color:#666666; padding:0 0 2px 0; border-style:solid; border-color:#cccccc; border-width:0 0 2px 0; }
-
 /* Forms
 ======================================== */
 form                      { color:#666666; }
@@ -88,7 +79,6 @@ div.fieldWithErrors input       { border:2px solid #ff3300; }
 div.fieldWithErrors textarea    { border:2px solid #ff3300; }
 div.fieldWithErrors label       { color:#ff3300; }
 div.fieldWithErrors label:after { content:'*'; }
-
 /* Flash notices
 ======================================== */
 #notice,
@@ -103,11 +93,9 @@ div.fieldWithErrors label:after { content:'*'; }
 .error        { background:#ff3300; border:4px solid #cc3300; color:#ffffff; padding:5px; color:#ffffff; }
 #error h2,
 .error h2     { color:#ffffff; }
-
 /* Code
 ======================================== */
 code  { font-family:"Courier New",Courier,monospace; }
-
 /* Layout
 ======================================== */
 #page               { width:100%; margin:0; }
@@ -118,11 +106,9 @@ code  { font-family:"Courier New",Courier,monospace; }
 #user_bar           { float:right; }
 #user_bar #greeting { display:inline; }
 #user_bar #action   { display:inline; }
-
 /* Branding
 ======================================== */
 #branding #site_title a { text-decoration:none; color:#666666; font-size:1.4em; font-weight:bold; }
-
 /* Navigation
 ======================================== */
 /* Generic Anchors
@@ -148,31 +134,22 @@ a:hover     { }
 #navigation li ul           { display:none; }
 #navigation li.active ul    { display:block; }
 #navigation li.active ul a  { font-weight:normal; font-size:.9em; }
-
 /* Footer
 ======================================== */
 #footer     { width:770px; margin:40px auto 0 auto; clear:both; padding:3px; font-size:.8em; border-top:1px solid #cccccc; }
 #copyright  { margin:5px 0 0 0; font-size:.9em; }
-
 /* Sitemap
 ======================================== */
 div.sitemap_node                  { margin:5px 0; }
 div.sitemap_node div.sitemap_node { margin:5px 10px; }
-
 /* Login
 ======================================== */
 #user_identity_url,
-#openid_url {
-  background: url(/plugin_assets/natto/images/login-bg.gif) no-repeat #FFF 5px;
-  width:275px;
-  padding-left: 25px;
-}
-
+#openid_url { background: url(/plugin_assets/natto/images/login-bg.gif) no-repeat #ffffff 5px; width:275px; padding-left: 25px; }
 /* Login
 ======================================== */
 img.gravatar      { border:4px solid #cccccc; }
 img.tiny-gravatar { border:2px solid #cccccc; vertical-align:middle; }
-
 /* Utility
 ======================================== */
 /* Lists
@@ -196,7 +173,6 @@ div.column  { width:45%; }
 .fixed_width  { font-family:"Courier New",Courier,monospace; }
 .light        { color:#666666; }
 .center       { text-align:center; }
-
 /* Admin modals
 -----------------------------------------*/
 .admin_modal                  { background:#333; width:300px; height:200px; opacity:.75; }
@@ -206,7 +182,6 @@ div.column  { width:45%; }
 .admin_modal ul li a          { color:#CCC; text-decoration:none; }
 .admin_modal ul strong        { color:#333; background:#CCC;}
 .admin_modal input            { background:transparent; border:none; color:#CCC; font-weight:bold; font-size:18px;}
-
 /* CLEARFIX */
 .clearfix:after       { content:"."; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
 .clearfix             { display:inline-block; }
