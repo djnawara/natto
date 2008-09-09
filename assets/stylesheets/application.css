@@ -139,6 +139,7 @@ a:hover     { }
 #navigation li.active a { font-weight:bold; }
 #navigation div         { display:inline; }
 #navigation #tab_bar    { }
+#navigation li.active   { margin:0 1em 0 0; font-size:.9em; font-weight:bold; }
 /* Specific Nav Entities
 ---------------------------------------- */
 #navigation li.first a  { }
