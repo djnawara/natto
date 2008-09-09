@@ -6,12 +6,19 @@ This is simply the CMS core; to get more functionality, look around for plugins.
 
 == Installation
 
-Please make your rails app as normal, and then install Natto as a plugin.
+Please make your rails app as normal.
 
   $ rails your_app
   $ cd your_app
+
+Next, install Natto as a plugin.
+
   $ cd vendor/plugins
   $ git clone git@github.com:djnawara/natto.git
+  
+Alternately, you could install Natto (and all of your plugins) as a git submodule.
+
+  $ git submodule add git@github.com:djnawara/natto.git vendor/plugins/natto
 
 Natto also requires the following plugins installed:
 
