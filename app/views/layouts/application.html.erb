@@ -6,8 +6,6 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   
-  <title><%= Natto.site_title %> - <%= (@object && @object.class.name.eql?('Page')) ? @object.title : "#{params[:controller].capitalize}: #{params[:action]}" %></title>
-  
   <!-- [begin:stylesheets] -->
   <%= stylesheet_link_tag 'application', 'administration', :plugin => 'natto' %>
   <!-- [end:stylesheets] -->
@@ -15,6 +13,7 @@
   <!--[if lte IE 7]>
     <%= stylesheet_link_tag "ie" %>
   <![endif]-->
+  <%= yield :head %>
 </head>
 <body>
 
@@ -29,13 +28,14 @@
   </div>
   
   <div id="content"><!-- [begin:content] -->
+    <h1 id="page_title"><%=h yield :page_title %></h1>
     <%= render :partial => 'shared/admin_toolbar' %>
     
     <%= render :partial => 'shared/location' %>
     
     <%= render :partial => "shared/notices" %>
     
-    <%= yield  %>
+    <%= yield %>
     
   </div><!-- [end:content] -->
   
