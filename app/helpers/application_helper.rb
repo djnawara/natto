@@ -163,4 +163,8 @@ module ApplicationHelper
     end
   end
   
+  def submit_label(object = nil, create = "Create", edit = "Edit")
+    return "Submit" if object.nil?
+    object.new_record? ? "Create" : "Update"
+  end
 end

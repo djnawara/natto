@@ -1,5 +1,4 @@
-<h1><%= (@object.new_record?) ? (logged_in? ? 'Create user account' : 'Sign up as a new user') : 'Update your profile' %></h1>
-
+<%= render :partial => "shared/forms/title" %>
 <% @object.password = @object.password_confirmation = nil %>
 
 <% form_for(@object) do |f| -%>
@@ -114,7 +113,9 @@
       </fieldset>
     <% end %>
     
-    <div><%= submit_tag (@object.new_record? ? (logged_in? ? 'Create user' : 'Sign up') : 'Update Profile') %></div>
+    <div>
+      <%= submit_tag (submit_label(@object, (logged_in? ? 'Create user' : 'Sign up'), 'Update Profile') %>
+    </div>
 
   </fieldset>
   

@@ -1,4 +1,4 @@
-<% content_for :page_title, (@object.new_record? ? 'Create page' : 'Editing page') -%>
+<%= render :partial => "shared/forms/title" %>
 <% form_for(@object) do |f| %>
   <%= f.error_messages %>
 
@@ -38,7 +38,7 @@
   </fieldset>
   
   <p>
-    <%= f.submit(@object.new_record? ? 'Create' : 'Update') %>
+    <%= f.submit(submit_label(@object)) %>
   </p>
   
   <%= f.hidden_field :parent_id %>

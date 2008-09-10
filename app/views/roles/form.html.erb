@@ -1,5 +1,4 @@
-<h1><%= (params[:action].eql? 'new') ? 'New role' : 'Editing role' %></h1>
-
+<%= render :partial => "shared/forms/title" %>
 <% form_for(@object) do |f| %>
   <%= f.error_messages %>
   <fieldset>
@@ -20,7 +19,7 @@
     </fieldset>
     
     <div>
-      <%= f.submit((params[:action].eql?('new') || params[:action].eql?('create') ? 'Create' : 'Update')) %>
+      <%= f.submit(submit_label(@object)) %>
     </div>
   </fieldset>
 <% end %>
