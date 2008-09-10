@@ -1,5 +1,4 @@
-<h1><%= @object.class.name %> admin view</h1>
-
+<% content_for :page_title, "#{@object.class.name} admin view" -%>
 <%= '<p><b>Id:</b> ' + link_to(@object.id, {:controller => @object.class.name.pluralize, :action => 'show', :id => @object}) + '</p>' %>
 
 <% ['title', 'author', 'name', 'login', 'email', 'description', 'aasm_state'].each do |attribute| %>

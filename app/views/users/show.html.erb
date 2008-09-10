@@ -8,9 +8,9 @@
 <% end %>
 
 <% if logged_in? && current_user == @object %>
-    <h1>Your Profile</h1>
+    <% content_for :page_title, "Your Profile" -%>
 <% elsif logged_in? %>
-    <h1>Profile for '<%= @object.name %>'</h1>
+    <% content_for :page_title, "Profile for '#{@object.name}'" -%>
 <% end %>
 
 <% if @object.current_state == :deleted %>
