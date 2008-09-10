@@ -4,7 +4,7 @@ module PagesHelper
   # Links to a page by title, or to its path.
   def link_page(page = nil, content = nil, options = {})
     return if page.nil?
-    content = page.title.capitalize if content.nil?
+    content = page.title if content.nil?
     begin
       link_to(content, 
         (page.advanced_path.blank? ? show_path(page.title.gsub(/ /, '_')) : @controller.send(page.advanced_path)),
