@@ -1,5 +1,4 @@
-<h1><%= params[:action].eql?('new') ? 'Create page' : 'Editing page' %></h1>
-
+<% content_for :page_title, (@object.new_record? ? 'Create page' : 'Editing page') -%>
 <% form_for(@object) do |f| %>
   <%= f.error_messages %>
 
@@ -33,13 +32,13 @@
   </fieldset>
   
   <fieldset>
-    <legend<%= ' class="required"' unless params[:action].eql?('new') || params[:action].eql?('create') %>>Comments</legend>
+    <legend<%= ' class="required"' unless @object.new_record? %>>Comments</legend>
     <p class="small">Please enter comments for the change log.</p>
     <p><%= text_area :change_log, :comments, {:class => 'small', :rows => 3} %></p>
   </fieldset>
   
   <p>
-    <%= f.submit(params[:action].eql?('new') || params[:action].eql?('create') ? 'Create' : 'Update') %>
+    <%= f.submit(@object.new_record? ? 'Create' : 'Update') %>
   </p>
   
   <%= f.hidden_field :parent_id %>
