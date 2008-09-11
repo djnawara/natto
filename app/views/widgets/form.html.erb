@@ -1,0 +1,29 @@
+<%= render :partial => "shared/forms/title" %>
+<% form_for(@object) do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+    <legend>Widget Information</legend>
+    <div>
+      <%= f.label :title, nil, {:class => 'required'} %><br />
+      <%= f.text_field :title, :disabled => @object.title.eql?('administrator') %>
+    </div>
+    <div>
+      <%= f.label :description, nil, {:class => 'required'} %><br />
+      <%= f.text_area :description %>
+    </div>
+    <div>
+      <%= f.label :content, nil, {:class => 'required'} %><br />
+      <%= f.text_area :content %>
+    </div>
+    <div>
+      <%= f.label :type, nil, {:class => 'required'} %><br />
+      <%= f.radio_button :type, "Blog post" %>
+      <%= f.radio_button :type, "News post" %>
+      <%= f.radio_button :type, "Comment" %>
+    </div>
+    
+    <div>
+      <%= f.submit(submit_label(@object)) %>
+    </div>
+  </fieldset>
+<% end %>
