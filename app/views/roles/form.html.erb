@@ -13,7 +13,7 @@
     </div>
     
     <fieldset>
-      <legend<%= ' class="required"' unless params[:action].eql?('new') || params[:action].eql?('create') %>>Comments</legend>
+      <legend<%= ' class="required"' unless @object.new_record? %>>Comments</legend>
       <p class="small">Please enter comments for the change log.</p>
       <p><%= text_area :change_log, :comments, {:class => 'small', :rows => 3} %></p>
     </fieldset>
