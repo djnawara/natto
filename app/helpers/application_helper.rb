@@ -122,6 +122,14 @@ module ApplicationHelper
     tango('apps/help-browser', title, size)
   end
   
+  def widgets_icon(title = 'Widgets', size = 1)
+    tango('emblems/emblem-system', title, size)
+  end
+  
+  def media_icon(title = 'Media', size = 1)
+    tango('devices/media-optical', title, size)
+  end
+  
   def format_date(date = Time.now, style = :short, time = false, zone = true)
     case style
     when :natural
@@ -137,8 +145,7 @@ module ApplicationHelper
       return output
     when :long
       output = date.strftime('%A, %B ') + date.strftime('%d').to_i.ordinalize + date.strftime(', %Y')
-      output += date.strftime(' at %I').to_i.to_s + date.strftime(':%M %p') if time
-      output += ' ' + format_time(date, :twelve, zone) if time
+      output += ' at ' + format_time(date, :twelve, zone) if time
       output
     end
   end
