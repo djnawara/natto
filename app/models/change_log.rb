@@ -1,4 +1,9 @@
 class ChangeLog < ActiveRecord::Base
+  CREATE      = "create"
+  UPDATE      = "update"
+  APPROVE     = "approve"
+  PUBLISH     = "publish"
+  
   validates_presence_of :comments
   validates_length_of :comments, :within => 10..1000, :if => :comments_not_blank?
   
