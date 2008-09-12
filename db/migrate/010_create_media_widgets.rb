@@ -1,6 +1,6 @@
 class CreateMediaWidgets < ActiveRecord::Migration
   def self.up
-    create_table :media_widgets do |t|
+    create_table :media_widgets, :id => false do |t|
       t.integer       :medium_id
       t.integer       :widget_id
     end

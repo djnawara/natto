@@ -1,6 +1,6 @@
 class CreatePagesRoles < ActiveRecord::Migration
   def self.up
-    create_table :pages_roles do |t|
+    create_table :pages_roles, :id => false do |t|
       t.integer :page_id
       t.integer :role_id
     end
