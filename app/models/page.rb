@@ -5,10 +5,19 @@ class Page < ActiveRecord::Base
   before_create :set_author, :initialize_display_order
   
   #################
+  # CONSTANTS
+  NORMAL      = "Normal"
+  BLOG        = "Blog"
+  PORTFOLIO   = "Portfolio"
+  BIOGRAPHY   = "Biography"
+  # for select boxes
+  TYPES       = [NORMAL, BLOG, PORTFOLIO, BIOGRAPHY]
+  
+  #################
   # VALIDATIONS
 
     #################
-    # CONSTANTS
+    # VALIDATION CONSTANTS
 
     RE_TITLE_OK      = /\A[^[:cntrl:]\\<>\/]*\z/
     MSG_TITLE_BAD   = "must not contain non-printing characters or \\&gt;&lt;&amp;/ please."
