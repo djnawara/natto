@@ -12,7 +12,7 @@ home:
     
     <p>This is the bootstrapped home page.  Please <a href="/login">sign in</a> with the bootstrapped user to edit it.</p>
     
-    <p>You should also set the email for this account.  Site contacts go to the admin user's email, by default.</p>
+    <p>You should also set the email for this account, to allow password recovery.</p>
     
     <h3>Default admin user's credentials</h3>
     
@@ -21,12 +21,6 @@ home:
     <h2>Navigating the Administration Pages</h2>
     
     <p>Press <code>shift + spacebar</code> and type a controller name!  We're still working on this functionality, but expect it to improve rapidly.  Maybe soon we will get a 'help' command in there. Of course, you must be logged in for this to work.</p>
-    
-    <h2>Generating Crypted Passwords and Salts</h2>
-    
-    <p>The bootstrapped administrator is also bootstrapped with a salt.  You should change this salt for your production environment, as it is slightly predictable (at least by me).</p>
-    
-    <p>One option is to just make a new user and give them the administrator role.  Delete the old admin, and problem solved.</p>
 
 administration:
   title: Administration
