@@ -99,7 +99,23 @@ class PagesController < CrudController
     if @object.current_state != :published
       flash.now[:warning] = "This is a preview.  This page is not published."
     end
-    super
+    respond_to do |format|
+      format.html do
+        case @object.page_type
+        when Page::NORMAL
+          render :template => "pages/show"
+        when Page::BLOG
+          render :template => "pages/blog"
+        when Page::PORTFOLIO
+          render :template => "pages/portfolio"
+        when Page::BIOGRAPHY
+          render :template => "pages/biography"
+        else
+          render :template => "pages/show"
+        end
+      end
+      format.xml  { render :xml => @object }
+    end
   end
 
   # GET /pages/1
