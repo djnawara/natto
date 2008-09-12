@@ -8,12 +8,12 @@
 
 <% for widget in @objects %>
   <tr class="<%= cycle('even', 'odd') %>">
-    <td><%= link_to(widget.title, role) %></td>
+    <td><%=h widget.title %></td>
     <td><%=h widget.description %></td>
     <td>
       <%= link_to(monitor_icon('Statistics'), instance_logs_path('widget', widget)) %>
       <%= link_to edit_icon('Edit'), edit_widget_path(widget) %>
-      <%= link_to destroy_icon('Destroy'), widget, :method => :delete %>
+      <%= link_to destroy_icon('Destroy'), widget, :confirm => "Are you sure you want to permanently delete this post?", :method => :delete %>
     </td>
   </tr>
 <% end %>
