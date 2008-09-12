@@ -1,18 +1,23 @@
+<%= render :partial => "shared/simple_tiny_mce" %>
 <%= render :partial => "shared/forms/title" %>
 <% form_for(@object) do |f| %>
   <%= f.error_messages %>
 
+  <p>
+    <%= f.label :page_type, "Type", {:class => 'required'} %><br />
+    <%= f.select :page_type, Page::TYPES %>
+  </p>
   <p>
     <%= f.label :title, nil, {:class => 'required'} %><br />
     <%= f.text_field :title %>
   </p>
   <p>
     <%= f.label :description, nil, {:class => 'required'} %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :class => "mceNoEditor small" %>
   </p>
   <p>
     <%= f.label :content, nil, {:class => 'required'} %><br />
-    <%= f.text_area :content %>
+    <%= f.text_area :content, :class => "mceEditor" %>
   </p>
   <p>
     <%= f.check_box :is_home_page %>
