@@ -1,0 +1,9 @@
+<% content_for :head, javascript_include_tag("tiny_mce/tiny_mce.js", :plugin => "natto") -%>
+<script type="text/javascript">
+tinyMCE.init({
+  mode  : "textareas",
+  theme : "simple",
+  editor_selector   : "mceEditor",
+  editor_deselector : "mceNoEditor"
+});
+</script>
