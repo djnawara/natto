@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   formatted_backups   '/backups.:format', :controller => 'backups', :action => 'index',         :conditions => {:method => :get}
   restore_backup      '/backups/restore/:id', :controller => 'backups', :action => 'restore',   :conditions => {:method => :get}
   destroy_backup      '/backups/destroy/:id', :controller => 'backups', :action => 'destroy',   :conditions => {:method => :delete}
-  new_backup          '/backups/new', :controller => 'backups', :action => 'new'
+  new_backup          '/backups/new', :controller => 'backups', :action => 'new',               :conditions => {:method => :get}
   download_backup     '/backups/download/:id', :controller => 'backups', :action => 'download', :conditions => {:method => :get}
   backup              '/backups/:id', :controller => 'backups', :action => 'show',              :conditions => {:method => :get}
   
@@ -43,6 +43,9 @@ ActionController::Routing::Routes.draw do |map|
   action_logs   '/change_logs/actions/:action_name', :controller => 'change_logs', :action => 'index',  :conditions => {:method => :get}
   instance_logs '/change_logs/instances/:object_class/:object_id', :controller => 'change_logs', :action => 'index'
   
+  # widgets (blog posts, comments, etc)
+  new_widget_child  '/widgets/new/:parent_id/:parent_type', :controller => 'widgets', :action => 'new', :conditions => {:method => :get}
+  
   # OpenID
   complete_openid '/sessions/complete/', :controller => 'sessions', :action => 'complete', :conditions => {:method => :get}
   open_ids        '/sessions/get_registration_data/', :controller => 'sessions', :action => 'get_registration_data', :conditions => {:method => :post}
@@ -57,5 +60,5 @@ ActionController::Routing::Routes.draw do |map|
   resources :users, :member => {:suspend => :put, :unsuspend => :put, :purge => :delete, :roles => :get}
   
   # map all of our objects
-  resources :sessions, :roles
+  resources :sessions, :roles, :widgets, :media
 end
