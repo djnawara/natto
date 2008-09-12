@@ -114,7 +114,8 @@
     <% end %>
     
     <div>
-      <%= submit_tag (submit_label(@object, (logged_in? ? 'Create user' : 'Sign up'), 'Update Profile') %>
+      <% new_label = (logged_in? ? 'Create user' : 'Sign up') %>
+      <%= submit_tag(submit_label(@object, new_label, 'Update Profile')) %>
     </div>
 
   </fieldset>
