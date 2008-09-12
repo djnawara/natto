@@ -22,6 +22,11 @@
         </li><%
       end
     when 'show', 'show_by_title', 'account', 'home', 'roles' -%>
+      <% if @object.class.name.eql?("Page") && @object.page_type.eql?(Page::BLOG) %>
+        <li class="toolbar">
+          <%= link_to new_icon('New post', :large), new_widget_child_path(@object.id, @object.class.name) %>
+        </li>
+      <% end %>
       <% unless @object.nil? -%>
         <li class="toolbar">
           <%= link_to edit_icon('Edit this ' + @model_class, :large), {:controller => @controller_for, :action => 'edit', :id => @object.id } %>
