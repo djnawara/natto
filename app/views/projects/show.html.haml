@@ -1,0 +1,49 @@
+- # do some setup
+- content_for :head, stylesheet_link_tag('lightbox.css', :plugin => 'natto')
+- content_for :javascript, javascript_include_tag('lightbox', 'scriptaculous.js?load=effects,builder', :cache => false, :plugin => 'natto')
+- content_for :page_title, "Project: #{@object.title}"
+- # collect the current medium, and indexes for the previous/next
+- current_medium, previous_medium, next_medium = get_medium_indices(@object.media)
+- # retrieve width and height of the current medium
+- resized_medium = current_medium.nil? ? nil : Medium.find(:first, :conditions => {:parent_id => current_medium.id, :thumbnail => 'resized'})
+- # drop in margin adjustments to get a horizontal AND vertical center on our medium
+- unless current_medium.nil?
+  - content_for :head do
+    %style{:type => "text/css"}
+      = "#media_column_wrapper { margin-left:-#{resized_medium.width / 2}px; margin-top:-#{resized_medium.height / 2}px; }"
+#media_column
+  #media_column_wrapper= image_tag(current_medium.public_filename(:resized)) unless current_medium.nil?
+  #previous= link_to("", project_details_path(@object, previous_medium))
+  #next= link_to("", project_details_path(@object, next_medium)) unless next_medium.nil?
+#information_column
+  %h2= @object.client
+  %p.big
+    %b><
+      %em= @object.title
+  .separator
+  - if current_medium.nil?
+    No media have been associated to this project.
+    - if logged_in? && current_user.is_administrator?
+      = link_to("Manage media", media_project_path(@object))
+  - else
+    %h3= current_medium.medium_type
+    %p
+      %em><
+        %b
+          &ldquo;
+          = current_medium.title
+          &rdquo;
+      %br
+      = current_medium.description
+  .separator
+  %p.small= @object.description
+  %ul
+    - counter = 0
+    - @object.media.each do |medium|
+      %li{:class => medium == current_medium ? 'active' : nil}
+        = link_to((counter + 1), :medium => counter)
+        - counter += 1
+  #project_navigation
+    = link_to("View full size", current_medium.public_filename, :rel => "lightbox") unless current_medium.nil?
+    = link_to("See the case study", '/')
+    = link_to("Close", {:controller => 'pages', :action => 'show_by_title', :title => "Portfolio"})

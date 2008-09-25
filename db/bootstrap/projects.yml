@@ -1,0 +1,6 @@
+natto_cms_project: 
+  client: "Natto Design Solutions"
+  description: "The content management system for Natto Design Solutions, Inc."
+  title: "The Natto CMS"
+  website: "http://www.nattodesigns.com/"
+  media: natto_media

@@ -1,0 +1,16 @@
+- content_for :page_title, "Listing projects"
+%table
+  %tr
+    %th Client
+    %th Title
+    %th Description
+    %th &nbsp;
+  - for project in @objects
+    %tr{:class => cycle('even', 'odd'), :title => project.description}
+      %td= project.website.blank? ? project.client : link_to(project.client, project.website)
+      %td= link_to project.title, project
+      %td
+        = link_to(monitor_icon('Statistics'), instance_logs_path('project', project))
+        = link_to edit_icon('Edit'), edit_project_path(project)
+        = link_to media_icon('Manage project media'), media_project_path(project)
+        = link_to destroy_icon('Destroy'), project, :confirm => "Are you sure you want to permanently delete this project?", :method => :delete
