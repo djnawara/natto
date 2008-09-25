@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   # Also allows modification via bulk-setters
   
   # login and openid should stay off of this list
-  attr_accessible :login, :email, :first_name, :last_name, :password, :password_confirmation, :role_ids
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :role_ids
   
   #################
   # User states
