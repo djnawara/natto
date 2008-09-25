@@ -1,0 +1,25 @@
+natto_media: 
+  content_type: image/jpeg
+  description: "The founders of Natto Designs."
+  filename: swinger_natto.jpg
+  width: 396
+  height: 474
+  medium_type: Digital
+  size: 26287
+  title: "The Natto Crew"
+natto_media_resized: 
+  content_type: image/jpeg
+  filename: swinger_natto_resized.jpg
+  width: 300
+  height: 251
+  parent: natto_media
+  size: 13078
+  thumbnail: resized
+natto_media_thumb: 
+  content_type: image/jpeg
+  filename: swinger_natto_thumb.jpg
+  width: 80
+  height: 67
+  parent: natto_media
+  size: 1809
+  thumbnail: thumb
