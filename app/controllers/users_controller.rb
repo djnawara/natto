@@ -47,7 +47,7 @@ class UsersController < CrudController
   protected :build_registration_data_request
   
   def request_sreg
-    openid_url = params[:user][:identity_url]
+    openid_url = params[:user][:identity_url] || params[:identity_url]
     begin
       request = openid_consumer.begin(openid_url)
     rescue OpenID::OpenIDError => e
@@ -81,14 +81,19 @@ class UsersController < CrudController
       last_name   = name.pop
       first_name  = name.collect {|segment| segment.chars.capitalize}.join(' ')
     end
-    login = params[:login]  || params['openid.sreg.nickname'] || ''
-    login = login.chars.downcase unless login.blank?
+    # build a new user object with the collected information
     @object = User.new({
-      :last_name     => params[:last_name] || last_name || '',
+      :last_name    => params[:last_name] || last_name || '',
       :first_name   => params[:first_name] || first_name || '',
-      :email        => params[:email] || params['openid.sreg.email'] || '',
-      :login        => login,
-      :identity_url => params['openid.identity'] || params['identity_url'] || '' })
+      :email        => params[:email] || params['openid.sreg.email'] || '' })
+    # grab the identity url as returned
+    identity_url = params['openid.identity'] || params[:identity_url] || ''
+    # grab login
+    login = params[:login] || params['openid.sreg.nickname'] || ''
+    login = login.chars.downcase unless login.blank?
+    # these must be manually set
+    @object.identity_url = identity_url
+    @object.login = login
     # render the form
     respond_to do |format|
       format.html { render :template => 'users/form' }
@@ -377,8 +382,7 @@ class UsersController < CrudController
   protected :find_object
   
   def openid_consumer
-    @openid_consumer ||= OpenID::Consumer.new(session,      
-      OpenID::Store::Filesystem.new("#{RAILS_ROOT}/tmp/openid"))
+    @openid_consumer ||= OpenID::Consumer.new(session, OpenID::Store::Filesystem.new("#{RAILS_ROOT}/tmp/openid"))
   end
   protected :openid_consumer
 end
