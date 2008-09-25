@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
   skip_before_filter :administrative_page
   
   IMMEDIATE_MODE = false
-  LOGGED_IN_MESSAGE = "You have successfully logged in."
+  LOGGED_IN_MESSAGE   = "You have successfully logged in."
+  OID_NOT_REGISTERED  = "<h2>Unregistered OpenID</h2><p>That OpenId URL is valid, but not registered with our system.</p>"
   
   # render new.rhtml
   def new
@@ -69,10 +70,17 @@ class SessionsController < ApplicationController
     
     case response.status
     when OpenID::Consumer::SUCCESS
-      flash[:notice] = LOGGED_IN_MESSAGE
-      # This session variable means we're logged in with OID!
-      session[:openid] = response.identity_url
-      redirect_back_or_default
+      # now we need to test that this OID exists in our users table
+      oid_user = User.find_by_identity_url(response.identity_url)
+      if oid_user.nil?
+        flash[:warning] = OID_NOT_REGISTERED
+        redirect_to login_path, :identity_url => response.identity_url
+      else
+        flash[:notice] = LOGGED_IN_MESSAGE
+        # This session variable means we're logged in with OID!
+        session[:openid] = response.identity_url
+        redirect_back_or_default
+      end
       return
     when OpenID::Consumer::SETUP_NEEDED
       redirect_to response.setup_url
