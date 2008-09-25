@@ -26,12 +26,13 @@ Natto also requires the following plugins installed:
   acts_as_tree             git://github.com/rails/acts_as_tree.git
   acts_as_state_machine    git://github.com/freels/acts_as_state_machine.git
 
-Please also install these as Gems:
+Please also install these as gems/plugins:
 
   ruby-openid
   htmlentities
   mattetti-googlecharts    git://github.com/mattetti/googlecharts.git
   Ya2YAML                  git://github.com/ptb/ya2yaml.git
+  haml/sass                git://github.com/nex3/haml.git
 
 Set up the plugin routes, by editing your application's routes.rb file and adding this line to the very top of the file:
 
@@ -69,8 +70,10 @@ Specifically, install.rb deletes the following (go ahead and just do it manually
 It also copies the following from the plugin directory to your application's configuration:
 
   PLUGIN_ROOT/config/mail.yml
+  PLUGIN_ROOT/config/sass.yml
   PLUGIN_ROOT/config/hide_from_js_nav.yml
   PLUGIN_ROOT/config/initializers/mail.rb
+  PLUGIN_ROOT/config/initializers/sass.rb
   PLUGIN_ROOT/config/initializers/hide_from_js_nav.rb
   PLUGIN_ROOT/config/initializers/site_keys.rb
 
@@ -87,13 +90,20 @@ Please note again that encrypted passwords are dependent on your site keys being
   $ rake db:migrate
   $ rake natto:bootstrap
 
+There is also a command to reset the users table (deleting everyone registered) in order to reset the administrator password.  This is obviously dangerous in production, but can be useful while in development.
+
+  $ rake natto:bootstrap_admin
+
 You may wish to set some configuration variables in your environment files.  The Natto module declares the following variables:
 
-  Natto.site_title = "Natto CMS"
-  Natto.host       = "localhost:3000"
-  Natto.tango_home = "/plugin_assets/natto/images/tango-icon-theme/"
+  Natto.site_title            = "Natto CMS"
+  Natto.host                  = "localhost:3000"
+  Natto.tango_home            = "/plugin_assets/natto/images/tango-icon-theme/"
+  Natto.max_violation_votes   = 3
 
 You will most likely end up overriding the first two variables.  The host variable should most likely get overridden inside each environments/*.rb file.
+
+The max_violation_votes variable determines how many votes declaring a comment as a violation cause it to be hidden.
 
 === Do not directly edit any files in the Natto plugin, or you will break your system if you update!
 
