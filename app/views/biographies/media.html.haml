@@ -1,0 +1,18 @@
+- content_for :page_title, "Media for #{@object.name}"
+%fieldset
+  - if @object.media.size == 0
+    %p No media found for project.
+  - else
+    - @object.media.each do |medium|
+      = link_to(image_tag(medium.public_filename(:thumb)), "/biographies/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Remove this item from the biography")
+  .clear
+  \&nbsp;
+.float_left
+  %fieldset
+    %legend Assign media to the project
+    - if @available_media.size == 0
+      %p= link_to("Manage media", media_path)
+      %p.small (This project has all available media.)
+    - else
+      - @available_media.each do |medium|
+        = link_to(image_tag(medium.public_filename(:thumb)), "/biographies/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Add this item to the biography")

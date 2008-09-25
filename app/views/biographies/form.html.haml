@@ -1,0 +1,16 @@
+- content_for :page_title, "New portfolio project"
+= render :partial => "shared/advanced_tiny_mce"
+- form_for(@object) do |f|
+  = f.error_messages
+  %fieldset
+    %legend Project Details
+    %div
+      = f.label :name, nil, {:class => 'required'}
+      = f.text_field :name
+    %div
+      = f.label :job_title, nil, {:class => 'required'}
+      = f.text_field :job_title
+    %div
+      = f.label :content, "Bio", {:class => 'required'}
+      = f.text_area :content, :class => "mceEditor"
+    %div= f.submit(submit_label(@object))

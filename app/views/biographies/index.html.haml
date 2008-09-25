@@ -1,0 +1,15 @@
+- content_for :page_title, "Listing biographies"
+%table
+  %tr
+    %th Name
+    %th Job title
+    %th &nbsp;
+  - for biography in @objects
+    %tr{:class => cycle('even', 'odd')}
+      %td= link_to(biography.name, biography)
+      %td= biography.job_title
+      %td
+        = link_to(monitor_icon('Statistics'), instance_logs_path('biography', biography))
+        = link_to edit_icon('Edit'), edit_biography_path(biography)
+        = link_to media_icon('Manage biography media'), media_biography_path(biography)
+        = link_to destroy_icon('Destroy'), biography, :confirm => "Are you sure you want to permanently delete this biography?", :method => :delete
