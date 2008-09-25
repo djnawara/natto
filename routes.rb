@@ -8,9 +8,9 @@ ActionController::Routing::Routes.draw do |map|
   forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password',     :conditions => {:method => :get}
   
   #users
-  activate  '/activate/:code', :controller => 'users', :action => 'activate', :conditions => {:method => :get}
-  signup    '/signup', :controller => 'users', :action => 'new',              :conditions => {:method => :get}
-  account   '/account', :controller => 'users', :action => 'account',         :conditions => {:method => :get}
+  activate    '/activate/:code', :controller => 'users', :action => 'activate',               :conditions => {:method => :get}
+  signup      '/signup', :controller => 'users', :action => 'new',                            :conditions => {:method => :get}
+  account     '/account', :controller => 'users', :action => 'account',                       :conditions => {:method => :get}
   
   # backups
   backups             '/backups', :controller => 'backups', :action => 'index',                 :conditions => {:method => :get}
@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   connect '/show', :controller => 'pages', :action => 'home'
   
   # pages
-  show  '/show/*title', :controller => 'pages', :action => 'show_by_title', :conditions => {:method => :get}
+  show  '/show/:title/*args', :controller => 'pages', :action => 'show_by_title', :conditions => {:method => :get}
   
   # change_logs
   change_logs   '/change_logs', :controller => 'change_logs', :action => 'index',                       :conditions => {:method => :get}
@@ -43,8 +43,24 @@ ActionController::Routing::Routes.draw do |map|
   action_logs   '/change_logs/actions/:action_name', :controller => 'change_logs', :action => 'index',  :conditions => {:method => :get}
   instance_logs '/change_logs/instances/:object_class/:object_id', :controller => 'change_logs', :action => 'index'
   
-  # widgets (blog posts, comments, etc)
-  new_widget_child  '/widgets/new/:parent_id/:parent_type', :controller => 'widgets', :action => 'new', :conditions => {:method => :get}
+  # posts (blog posts, news, etc)
+  new_blog_post     '/posts/new/:page_id', :controller => 'posts', :action => 'new', :conditions => {:method => :get}
+  
+  # post comments
+  new_post_comment  '/comments/new/:post_id', :controller => 'comments', :action => 'new', :conditions => {:method => :get}
+  comment_violation '/comments/violation/:id', :controller => 'comments', :action => 'violation', :conditions => {:method => :get}
+  
+  # media
+  image_version '/images/:id/:version', :controller => 'media', :action => 'show'
+  image         '/images/:id', :controller => 'media', :action => 'show'
+  
+  # projects
+  project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show'
+  project_details_default   '/project/:id', :controller => 'projects', :action => 'show'
+  
+  # biographies
+  biography_details           '/biography/:id/:medium', :controller => 'biographies', :action => 'show'
+  biography_details_default   '/biography/:id', :controller => 'biographies', :action => 'show'
   
   # OpenID
   complete_openid '/sessions/complete/', :controller => 'sessions', :action => 'complete', :conditions => {:method => :get}
@@ -59,6 +75,12 @@ ActionController::Routing::Routes.draw do |map|
   # users and their relationships
   resources :users, :member => {:suspend => :put, :unsuspend => :put, :purge => :delete, :roles => :get}
   
+  # projects and relationships
+  resources :projects, :member => {:media => :get}
+  
+  # biographies and relationships
+  resources :biographies, :member => {:media => :get}
+  
   # map all of our objects
-  resources :sessions, :roles, :widgets, :media
+  resources :sessions, :roles, :posts, :comments, :media, :projects, :biographies
 end
