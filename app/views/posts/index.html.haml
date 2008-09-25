@@ -1,0 +1,14 @@
+- content_for :page_title, "Listing posts"
+%table
+  %tr
+    %th Title
+    %th Description
+    %th &nbsp;
+  - for post in @objects
+    %tr{:class => cycle('even', 'odd')}
+      %td= link_to(post.title, post)
+      %td=h post.description
+      %td
+        = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))
+        = link_to edit_icon('Edit'), edit_post_path(post)
+        = link_to destroy_icon('Destroy'), post, :confirm => "Are you sure you want to permanently delete this post?", :method => :delete

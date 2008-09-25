@@ -1,0 +1,46 @@
+- # locate create and update information
+- create = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::CREATE})
+- update = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::UPDATE})
+#blog_sidebar
+  #sidebar_content= @object.page.content
+  #archived_posts
+    %h4 Blog archive
+    - get_old_posts_hash(@object.page).sort.reverse.each do |key,value| # draw links to old posts
+      .year
+        = key
+        - value.each do |month_key,month_value|
+          .month
+            = month_key
+            %ul
+              - month_value.each do |post|
+                %li= link_to(post.title, post)
+#blog
+  %h2= @object.title
+  %p
+    - unless @object.description.blank?
+      %em= @object.description
+      %br
+    - unless create.nil?
+      %span.small= "Posted #{format_date(create.performed_at, :long, true)} by #{create.user.name}"
+      %br
+    - unless update.nil?
+      %span.small= "Last updated #{format_date(create.performed_at, :long, true)}"
+  %p= @object.content
+  - if logged_in? && current_user.is_administrator?
+    .post_controls
+      = link_to(monitor_icon('Statistics'), instance_logs_path('post', @object))
+      = link_to edit_icon('Edit'), edit_post_path(@object)
+      = link_to destroy_icon('Destroy'), @object, :confirm => "Are you sure you want to permanently delete this post?", :method => :delete
+#comments
+  %p
+    %b= "#{pluralize(@object.comments.find(:all, :conditions => ["violation_votes < :max_violations", {:max_violations => Natto.max_violation_votes}]).size, 'comment')}"
+  - @object.comments.find(:all, :conditions => ["violation_votes < :max_votes", {:max_votes => Natto.max_violation_votes}]).each do |comment| 
+    %div{:class => ("comment " + cycle("even", "odd"))}
+      %p= comment.content
+      %span.small
+        Posted by
+        %br
+        .comment_tools= link_to("Mark as violation", comment_violation_path(comment))
+        = "#{comment.commentor}, #{format_time(comment.created_at, :twenty_four, false)}"
+        = "#{format_date(comment.created_at, :short, false)}" unless comment.created_at.strftime("%Y%j").eql?(Time.now.strftime("%Y%j"))
+= render :partial => 'shared/post_comments_form'

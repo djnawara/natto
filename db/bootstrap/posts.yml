@@ -1,0 +1,35 @@
+blog_post_1:
+  title: Welcome to the blog!
+  description: This is just an example blog post; feel free to delete.
+  content: Here is your blogging system.  You must sign in to the site if you wish to make a post.  Once a post is made, any guest user can post comments.
+  page_id: 90397628
+  created_at: <%= Time.now.to_s(:db) %>
+
+blog_post_2:
+  title: Middle-aged blog post
+  description: This is just an example blog post; feel free to delete.
+  content: This post is dated a bit older than the first.
+  page_id: 90397628
+  created_at: <%= 1.month.ago.to_s(:db) %>
+
+blog_post_3:
+  title: Old post
+  description: This is just an example blog post; feel free to delete.
+  content: This post is dated much older than the first.
+  page_id: 90397628
+  created_at: <%= 6.months.ago.to_s(:db) %>
+
+blog_post_4:
+  title: Another old post
+  description: This is just an example blog post; feel free to delete.
+  content: This post is dated much older than the first.
+  page_id: 90397628
+  created_at: <%= 14.months.ago.to_s(:db) %>
+
+blog_post_5:
+  title: An ancient post
+  description: This is just an example blog post; feel free to delete.
+  content: This post is really old.
+  page_id: 90397628
+  created_at: <%= 3.years.ago.to_s(:db) %>
+

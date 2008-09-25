@@ -1,0 +1,17 @@
+- content_for :page_title, "New post"
+= render :partial => "shared/advanced_tiny_mce"
+- form_for(@object) do |f|
+  = f.error_messages
+  = f.hidden_field :page_id
+  %fieldset
+    %legend Post Details
+    %div
+      = f.label :title, nil, {:class => 'required'}
+      = f.text_field :title
+    %div
+      = f.label :description
+      = f.text_area :description, :class => "mceNoEditor small"
+    %div
+      = f.label :content, nil, {:class => 'required'}
+      = f.text_area :content, :class => "mceEditor"
+    %div= f.submit(submit_label(@object))
