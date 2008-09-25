@@ -1,0 +1,17 @@
+development:
+  style: compact
+  attribute_syntax: normal
+  template_location: vendor/plugins/natto/sass
+  css_location: public/plugin_assets/natto/stylesheets
+
+test:
+  style: compact
+  attribute_syntax: normal
+  template_location: vendor/plugins/natto/sass
+  css_location: public/plugin_assets/natto/stylesheets
+
+production:
+  style: compressed
+  attribute_syntax: normal
+  template_location: vendor/plugins/natto/sass
+  css_location: public/plugin_assets/natto/stylesheets

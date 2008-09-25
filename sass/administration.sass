@@ -1,0 +1,80 @@
+// Toolbar buttons
+li.toolbar, div.toolbar
+  :margin 0 10px 20px 0
+  :border-left 1px solid #cccccc
+  :float left
+  :background #f4f4f4
+  img
+    :padding 2px 5px
+// Admin links (tango icons)
+#admin_links
+  :margin 40px 0 0 0
+// Dashboard buttons
+div.dashboard_button
+  :margin 10px
+  :float left
+  :text-align center
+  img
+    :margin 10px 20px 0 20px
+// Tree nodes
+div.tree_node
+  :padding 5px 1px 1px 5px
+  div.tree_node
+    :margin 0 0 0 40px
+  img
+    :margin 0 0 0 5px
+    :vertical-align baseline
+  div.float_right
+    :margin 0 10px 0 0
+// State coloring for tree nodes
+div.deleted, div.deleted a
+  :color #cccccc
+div.even, tr.even
+  &.deleted
+    :background #999999
+  &.published, &.active
+    :background #eeffee
+  &.unpublished, &.suspended
+    :background #ffee00
+  &.approved
+    :background #bbeeff
+  &.pending_review
+    :background #ffcccc
+div.odd, tr.odd
+  &.deleted
+    :background #777777
+  &.published, &.active
+    :background #ccffcc
+  &.unpublished, &.suspended
+    :background #ffcc00
+  &.approved
+    :background #99ccff
+  &.pending_review
+    :background #ffbbbb
+// Page coloring
+div.tree_node.home
+  :background #00ff00
+div.tree_node.administration
+  :background #f4f4f4
+// Activity Graph
+div.change_activity_graph
+  :width 322px
+  :float left
+  :background #f4f4f4
+  :margin 0 5px 5px 0
+  :padding 3px
+  :border 1px solid #cccccc
+  h4
+    :font-size .9em
+  div
+    :font-size .7em
+  img
+    :border
+      :style solid
+      :color #cccccc
+      :width 1px 1px 0 0
+    :padding 0
+    :background #ffffff
+// Posts
+div.post_controls
+  :margin 10px 0 0 0
