@@ -117,7 +117,7 @@ class CrudController < ApplicationController
   end
   
   def views_directory
-    @model_class.name.tableize.pluralize
+    @model_class.name.tableize
   end
   
   # Handle failed validations when saving.
@@ -125,7 +125,7 @@ class CrudController < ApplicationController
     case params[:action]  # determine the proper page to render for the action
     when 'new', 'edit', 'create', 'update'
       flash[:error] = "<h2>Change log comments required</h2>Please enter comments for the change log." if @change_log && !@change_log.valid?
-      view = @model_class.name.tableize.pluralize + '/' + 'form' # re-render the form
+      view = @model_class.name.tableize + '/' + 'form' # re-render the form
     when 'destroy', 'purge'
       view = 'shared/get_comments' # force comments for the change log
     else
