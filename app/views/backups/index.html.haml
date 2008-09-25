@@ -1,0 +1,23 @@
+- content_for :page_title, "Backups"
+- if @objects.size > 0
+  %table
+    %tr
+      %th
+        Archive date
+      %th
+        Comments
+      %th
+        \&nbsp;
+    - @objects.each do |backup|
+      %tr{:class => cycle('even','odd')}
+        %td
+          = format_date(backup.date, :long, false)
+        %td
+          = backup.create_comments
+        %td
+          = link_to(save_as_icon('Download'), download_backup_path(backup.id))
+          = link_to(redo_icon('Restore'), restore_backup_path(backup.id))
+          = link_to(destroy_icon('Delete'), destroy_backup_path(backup.id), :method => :delete)
+- else
+  %p.warning
+    There are currently no backups.

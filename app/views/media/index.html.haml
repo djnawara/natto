@@ -1,0 +1,20 @@
+- content_for :head, stylesheet_link_tag('lightbox.css', :plugin => 'natto')
+- content_for :javascript, javascript_include_tag('lightbox', 'scriptaculous.js?load=effects,builder', :cache => false, :plugin => 'natto')
+- content_for :page_title, "Listing media"
+%table
+  %tr
+    %th &nbsp;
+    %th Media Type
+    %th Mime Type
+    %th Filename
+    %th &nbsp;
+  - for medium in @objects
+    %tr{:class => cycle('even','odd')}
+      %td= link_to(image_tag(medium.public_filename(:thumb)), medium.public_filename, :rel => 'lightbox') if medium.content_type.include?("image")
+      %td=h medium.medium_type
+      %td=h medium.content_type
+      %td= link_to medium.filename, medium
+      %td
+        = link_to(monitor_icon('Statistics'), instance_logs_path('medium', medium))
+        = link_to edit_icon('Edit'), edit_medium_path(medium)
+        = link_to destroy_icon('Destroy'), medium, :confirm => "Are you sure you want to permanently delete this medium?", :method => :delete

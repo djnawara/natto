@@ -1,0 +1,25 @@
+- # do some setup
+- content_for :page_title, "Our People"
+- # collect the current medium, and indexes for the previous/next
+- current_medium, previous_medium, next_medium = get_medium_indices(@objects)
+#biography
+  #media_column{:style => "background-image:url(#{current_biography.media.first.public_filename});"}
+    - if @objects.size > 1
+      #previous= link_to("", show_path(@object.title.gsub(/ /, '_'), previous_biography))
+      #next= link_to("", show_path(@object.title.gsub(/ /, '_'), next_biography))
+  #information_column
+    %h2= current_biography.name
+    %p.big
+      %b><
+        %em= current_biography.job_title
+    .separator
+    - unless current_biography.nil?
+      %p= current_biography.content
+    .separator
+    - if @objects.size > 1
+      %ul
+        - counter = 0
+        - @objects.each do |biography|
+          %li{:title => "#{biography.name}, #{biography.job_title}", :class => (biography == current_biography ? "active" : "")}
+            = link_to((counter + 1), show_path(@object.title.gsub(/ /, '_'), counter))
+          - counter += 1

@@ -1,0 +1,19 @@
+- # Draw a list-item in the navigation ul
+- if User.authorized_for_page?(current_user, navigation_node)
+  - # first, let's figure out what class our list-item should have
+  - css_class  = ''
+  - # determine if this is the current page
+  - if @page && (navigation_node == @page || @page.root == navigation_node)
+    - css_class  = 'active'
+  - # determine if this is the home page
+  - css_class += (css_class.blank? ? '' : ' ') + 'home' if navigation_node.is_home_page?
+  - # build the opening list-item tag, with the appropriate classes
+  %li{:title => navigation_node.description, :class => css_class}
+    - if @page == navigation_node
+      = navigation_node.title
+    - else
+      = link_page(navigation_node)
+    - unless navigation_node.children.empty?
+      - # Draw child links
+      %ul
+        = render :partial => 'pages/navigation_node', :collection => navigation_node.children

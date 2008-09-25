@@ -1,0 +1,3 @@
+.sitemap_node{:class => cycle('even', 'odd')}
+  = link_page(sitemap_node)
+  = render :partial => 'pages/sitemap_node', :collection => sitemap_node.children

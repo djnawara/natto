@@ -1,0 +1,2 @@
+#sitemap
+  = render :partial => 'pages/sitemap_node', :collection => Page.parents(:published, true)

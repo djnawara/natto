@@ -1,0 +1,9 @@
+- unless @page.nil?
+  - parent = @page.parent
+  - output = ''
+  - while parent != nil
+    - output = ' | ' + output unless output.blank?
+    - output = link_to(parent.title.capitalize, (parent.advanced_path ? @controller.send(parent.advanced_path) : '/show/' + parent.title.gsub(/ /, '_'))) + output
+    - parent = parent.parent
+  - output = '<p class="small">Location: ' + output + '</p>' unless output.blank?
+= output

@@ -1,0 +1,82 @@
+= render :partial => "shared/forms/title"
+- @object.password = @object.password_confirmation = nil
+- form_for(@object) do |f|
+  = f.error_messages
+  %fieldset
+    %legend User Information
+    %p.required_example
+      Fields which appear
+      %span.required like this
+      are required.
+    - if logged_in? && current_user.is_administrator?
+      %fieldset
+        %legend Roles
+        %p.small Choose roles for the user.
+        - Role.find(:all).each do |role|
+          %div
+            = check_box_tag("user[role_ids][]", role.id, @object.roles.include?(role), :readonly => (@object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)))
+            = f.label role.title.capitalize
+            - if @object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)
+              %span.small.required (not removable)
+        - if @object.current_state == :passive
+          %div
+            %fieldset
+              %legend Activate user?
+              %p.small Checking this will skip the email activation process.
+              = check_box_tag('activate')
+              = f.label :activate
+    %fieldset
+      %legend Register with OpenID
+      %p.small If your OpenID account contains your personal information, this may speed things up for you.  Just enter your OpenID URL and click the "Sign Up" button.
+      %div
+        = f.label :identity_url, nil, {:class => 'required'}
+        = f.text_field :identity_url, :disabled => (@object.new_record? ? false : true)
+      %div= submit_tag('Load from OpenID')
+    %div
+      = f.label :login, nil, {:class => 'required'}
+      = f.text_field :login, :disabled => (@object.new_record? ? false: true)
+    %div
+      = f.label :first_name
+      = f.text_field :first_name
+    %div
+      = f.label :last_name
+      = f.text_field :last_name
+    - if @object.new_record?
+      %div
+        = f.label :email, nil, {:class => 'required'}
+        = f.text_field :email
+      %div
+        = f.label :password, nil, {:class => 'required'}
+        = f.password_field :password
+      %div
+        = f.label :password_confirmation, nil, {:class => (@object.new_record? ? 'required' : '')}
+        = f.password_field :password_confirmation
+    - else
+      %fieldset
+        %legend Change email
+        %p.small.light You may change your email by filling in the field below.  You will be required to confirm this change to complete the process.
+        %div
+          = f.label :email, 'Current email'
+          = f.text_field :email, :readonly => true
+        %div
+          = f.label :new_email
+          = f.text_field :new_email
+      %fieldset
+        %legend Change password
+        %p.small.light If you would like to change your password, please fill in all of the below fields.
+        %div
+          = f.label :current_password
+          = password_field_tag :current_password
+        %div
+          = f.label :password, 'New password'
+          = f.password_field :password
+        %div
+          = f.label :password_confirmation, nil, {:class => (@object.new_record? ? 'required' : '')}
+          = f.password_field :password_confirmation
+    - if logged_in? && current_user.is_administrator?
+      %fieldset
+        %legend{:class => @object.new_record? ? nil : 'required'} Comments
+        %p.small Please enter comments for the change log.
+        %div= text_area :change_log, :comments, {:class => 'small', :rows => 3}
+    %div
+      = submit_tag(submit_label(@object, (logged_in? ? 'Create user' : 'Sign up'), 'Update Profile'))

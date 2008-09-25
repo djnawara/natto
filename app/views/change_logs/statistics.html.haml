@@ -1,0 +1,14 @@
+- content_for :page_title, "#{@object.class.name} admin view"
+%p
+  %b>
+    Id:
+  = link_to(@object.id, {:controller => @object.class.name.pluralize, :action => 'show', :id => @object})
+- ['title', 'author', 'name', 'login', 'email', 'description', 'aasm_state'].each do |attribute|
+  %p
+    %b
+      = "#{attribute.capitalize}:"
+    = @object.send(attribute) if @object.has_attribute?(attribute)
+= render :partial => 'shared/activity_chart'
+%h3
+  Change log
+= render :partial => 'change_log'

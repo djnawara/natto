@@ -1,0 +1,13 @@
+#comments_form
+  %h2 Leave a comment
+  - form_for(@comment) do |f|
+    = f.error_messages
+    = f.hidden_field :post_id
+    %div
+      = f.label :commentor, "Your name", {:class => 'required'}
+      = f.text_field :commentor
+    %div
+      = f.label :content, "Your comment", {:class => 'required'}
+      = f.text_area :content
+    %div
+      = f.submit("Post comment")

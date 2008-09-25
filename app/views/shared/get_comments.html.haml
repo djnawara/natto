@@ -1,0 +1,54 @@
+- case params[:action]
+- when 'new'
+  - submit_label = 'Create'
+  - id = @object.nil? ? params[:id] : @object.id.to_s
+  - action = "/#{params[:controller]}/#{params[:action]}/#{id}"
+  - method = :post
+- when 'edit'
+  - submit_label = 'Update'
+  - action = "/#{params[:controller]}/#{params[:action]}/#{@object.id.to_s}"
+  - method = :post
+- when 'destroy'
+  - submit_label = 'Destroy'
+  - if @object && @object.id
+    - action = @object.id.to_s
+  - elsif params[:id]
+    - action = params[:id]
+  - method = :delete
+- when 'restore'
+  - submit_label = 'Restore'
+  - if @object && @object.id
+    - action = @object.id.to_s
+  - elsif params[:id]
+    - action = params[:id]
+- when 'purge'
+  - submit_label = 'Destroy'
+  - action = "/#{params[:controller]}/#{params[:action]}/#{@object.id.to_s}"
+  - method = :delete
+- else
+  - submit_label = params[:action].capitalize
+  - action = "/#{params[:controller]}/#{params[:action]}/#{@object.id.to_s}"
+  - method = params[:method]
+%h1 Please provide comments
+- if @change_log.errors.size > 0
+  #errorExplanation.errorExplanation
+    %h2>
+      = @change_log.errors.size
+      = pluralize(@change_log.errors.size, "errors")
+      prohibited this action from completing
+    %p There were problems with the following fields:
+    %ul
+      - @change_log.errors.each do |error|
+        %li
+          = error[0].capitalize
+          = error[1]
+- form_tag action, :method => method do
+  %fieldset
+    %legend
+      = params[:action].capitalize
+      = params[:controller].singularize
+    %fieldset
+      %legend{:class => (@object.new_record? ? "" : "required"} Comments
+      %p.small Please enter comments for the change log.
+      %p= text_area :change_log, :comments, {:class => 'small', :rows => 3}
+    %div= submit_tag(submit_label)

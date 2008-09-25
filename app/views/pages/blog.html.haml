@@ -1,0 +1,42 @@
+- content_for :head do
+  %title= "#{Natto.site_title} - #{@object.title}"
+  = stylesheet_link_tag 'tiny_mce', :plugin => 'natto'
+- content_for :page_title, @object.title
+
+#blog_sidebar
+  #sidebar_content= @object.content
+  #archived_posts
+    %h4 Blog archive
+    - get_old_posts_hash(@object).sort.reverse.each do |key,value| # draw links to old posts
+      .year
+        = key
+        - value.each do |month_key,month_value|
+          .month
+            = month_key
+            %ul
+              - month_value.each do |post|
+                %li= link_to post.title, post
+
+#blog
+  - get_recent_posts(@object).each do |post| # render recent posts for the page
+    .blog_post
+      %h2= post.title
+      %p
+        = "<em>#{post.description}</em><br/>" unless post.description.blank?
+        = "<span class=\"small\">Posted #{format_date(post.created_at, :long, true)}</span><br/>"
+      %p= post.content
+      - if logged_in? && current_user.is_administrator?
+        .post_controls
+          = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))
+          = link_to edit_icon('Edit'), edit_post_path(post)
+          = link_to destroy_icon('Destroy'), post, :confirm => "Are you sure you want to permanently delete this post?", :method => :delete
+
+      #post_comments
+        - if post.comments.size == 0
+          %p
+            = link_to(posts_icon, post)
+            = link_to("Be the first to make a comment", post)
+        - else
+          %p
+            = link_to("View and post comments (#{post.comments.size})", post)
+            = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)

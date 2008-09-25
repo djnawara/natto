@@ -1,0 +1,19 @@
+- content_for(:page_title, "New medium")
+- form_for(@object, :html => { :multipart => true }) do |f|
+  = f.error_messages
+  %fieldset
+    %legend File details
+    %div
+      = f.label :title, nil, {:class => 'required'}
+      = f.text_field :title
+    %div
+      = f.label :description
+      = f.text_area :description, :class => 'small'
+    %div
+      = f.label :type, nil, {:class => 'required'}
+      = f.select :medium_type, Medium::TYPES, {:include_blank => 'Please select'}
+    - if @object.new_record?
+      %div
+        %label.required{:for => "location"} Upload:
+        = f.file_field :uploaded_data
+    %div= f.submit(submit_label(@object))

@@ -1,0 +1,5 @@
+* { font-family:Arial,sans-serif; color:#333333; background:#ffffff }
+a         { color: blue; }
+a:hover     { color:green; }
+a:visited   { color:purple; }
+a:active    { color:red; }

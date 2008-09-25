@@ -1,0 +1,17 @@
+= render :partial => "shared/forms/title"
+- form_for(@object) do |f|
+  = f.error_messages
+  %fieldset
+    %legend Role Information
+    %div
+      = f.label :title, nil, {:class => 'required'}
+      = f.text_field :title, :disabled => @object.title.eql?('administrator')
+    %div
+      = f.label :description, nil, {:class => 'required'}
+      = f.text_area :description, :class => "mceNoEditor small"
+    %fieldset
+      %legend{:class => (@object.new_record? ? nil : 'required')} Comments
+      %p.small Please enter comments for the change log.
+      %div
+        = text_area :change_log, :comments, {:class => 'small', :rows => 3}
+    %div= f.submit(submit_label(@object))

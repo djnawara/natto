@@ -1,0 +1,12 @@
+- content_for :javascript do
+  = javascript_include_tag("tiny_mce/tiny_mce.js", :plugin => "natto")
+  :javascript
+    tinyMCE.init({
+      plugins           : 'advlink,advimage',
+      relative_urls     : false, // Default value
+      theme             : "advanced",
+      content_css       : "/plugin_assets/natto/stylesheets/tiny_mce.css",
+      mode              : "textareas",
+      editor_selector   : "mceEditor",
+      editor_deselector : "mceNoEditor"
+    });

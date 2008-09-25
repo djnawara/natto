@@ -1,0 +1,46 @@
+- content_for :page_title, "Administration"
+%h2.clear Objects
+
+.dashboard_button
+  = link_to(biographies_icon('Manage biographies', :large), biographies_url)
+  %br
+  %p= link_to('Biographies', biographies_url)
+
+.dashboard_button
+  = link_to(pages_icon('Manage pages', :large), pages_url)
+  %br
+  %p= link_to('Pages', pages_url)
+
+.dashboard_button
+  = link_to(roles_icon('Manage roles', :large), roles_url)
+  %br
+  %p= link_to('Roles', roles_url)
+
+.dashboard_button
+  = link_to(users_icon('Manage users', :large), users_url)
+  %br
+  %p= link_to('Users', users_url)
+
+.dashboard_button
+  = link_to(projects_icon('Manage portfolio projects', :large), projects_url)
+  %br
+  %p= link_to('Portfolio projects', projects_url)
+
+.dashboard_button
+  = link_to(media_icon('Manage media', :large), media_url)
+  %br
+  %p= link_to('Media', media_url)
+
+%h2.clear System Tools
+
+.dashboard_button
+  = link_to(monitor_icon('View change logs', :large), change_logs_url)
+  %br
+  %p= link_to('Change logs', change_logs_url)
+
+.dashboard_button
+  = link_to(save_icon('Backup and restore', :large), backups_url)
+  %br
+  %p= link_to('Backups', backups_url)
+
+.clear

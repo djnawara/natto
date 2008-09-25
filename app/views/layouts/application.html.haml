@@ -1,0 +1,36 @@
+- if !ie?
+  !!! XML
+!!! Strict
+%html
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
+    = stylesheet_link_tag 'application', 'administration', :plugin => 'natto'
+    /[if lte IE 7]
+      = stylesheet_link_tag "ie"
+    = yield :head
+  %body
+    #page
+      #header
+        #branding
+          #user_bar= render :partial => 'users/user_bar'
+          #site_title= link_to(Natto.site_title, root_path)
+        #navigation= render :partial => 'shared/navigation'
+      #content
+        - # let's only show the h1 tag if there is title content to display;
+        - # we don't want to require passing it explicitly
+        - unless @content_for_page_title.blank?
+          %h1#page_title~ yield(:page_title)
+        = render :partial => 'shared/admin_toolbar'
+        = render :partial => 'shared/location'
+        = render :partial => "shared/notices"
+        = yield
+      #footer
+        = link_to('Sitemap', sitemap_path)
+        #copyright &copy; 2008 Dan &amp; Dave J. Nawara
+    = javascript_include_tag 'admin', 'application', 'controls', 'dragdrop', 'effects', 'prototype', :cache => false, :plugin => 'natto'
+    = yield :javascript
+    :javascript
+      document.observe("dom:loaded",function(ev){
+        #{'admin = new DJN.Admin();' if logged_in? && current_user.is_administrator?}
+        #{yield :onReady}
+      });

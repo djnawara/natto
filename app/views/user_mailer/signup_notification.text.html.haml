@@ -1,0 +1,14 @@
+= render :partial => 'style'
+%h1 Your account has been created.
+%p
+  %b Username:
+  %br
+  = @user.login
+%p
+  %b Password:
+  %br
+  = @user.password
+%div
+  = "Visit #{link_to('this url', @url)} to activate your account:"
+  %br
+  %p= link_to @url, @url

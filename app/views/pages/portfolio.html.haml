@@ -1,0 +1,20 @@
+- content_for :head do
+  %title= "#{Natto.site_title} - #{@object.title}"
+- content_for :page_title, @object.title
+- # render all projects for the portfolio
+#portfolio_projects
+  - Project.find(:all).each do |project|
+    - types = []
+    %a{:href => project_url(project)}
+      .portfolio_project
+        %h4= project.client
+        - unless project.description.blank?
+          %p
+            %em= project.title
+          %br
+        - project.media.each {|medium| types << medium.medium_type unless types.include?(medium.medium_type) }
+        - if types.size > 0
+          %ul
+            - types.each do |medium_type|
+              %li{:class => medium_type}= medium_type
+.clear

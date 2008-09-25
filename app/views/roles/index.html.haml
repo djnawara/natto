@@ -1,0 +1,14 @@
+- content_for :page_title, "Listing roles"
+%table
+  %tr
+    %th Title
+    %th Description
+    %th &nbsp;
+  - for role in @objects
+    %tr{:class => cycle('even','odd')}
+      %td= link_to(role.title, role)
+      %td=h role.description
+      %td
+        = link_to(monitor_icon('Statistics'), instance_logs_path('role', role))
+        = link_to edit_icon('Edit'), edit_role_path(role)
+        = link_to destroy_icon('Destroy'), role, :method => :delete unless role.title.eql?('administrator')

@@ -1,0 +1,47 @@
+- if logged_in? && current_user.is_administrator? && !(@object.nil? && @objects.nil?)
+  - if @object.nil? 
+    - @model_class = @objects.first.class.name
+  - else
+    - @model_class = @object.class.name
+  - @controller_for = params[:controller]
+  %ul.toolbar.clearfix
+    - case params[:action]
+    - when 'index'
+      - if params[:controller].eql?('change_logs')
+        - if params[:object_id]
+          %li.toolbar
+            = link_to(show_icon('Show this ' + params[:object_class], :large), {:controller => params[:object_class].pluralize, :action => 'show', :id => params[:object_id]})
+      - else
+        %li.toolbar
+          = link_to(new_icon('New ' + params[:controller].singularize, :large), {:controller => params[:controller], :action => 'new'})
+    - when 'show', 'show_by_title', 'account', 'home', 'roles'
+      - if @object.class.name.eql?("Page") && !@object.page_type.eql?(Page::NORMAL)
+        %li.toolbar
+          - case @object.page_type
+          - when Page::BLOG
+            = link_to new_icon('New post', :large), new_blog_post_path(@object)
+          - when Page::PORTFOLIO
+            = link_to new_icon('New project', :large), new_project_path
+      - unless @object.nil?
+        %li.toolbar
+          = link_to edit_icon('Edit this ' + @model_class, :large), {:controller => @controller_for, :action => 'edit', :id => @object.id }
+          = link_to destroy_icon('Destroy this ' + @model_class, :large), @object, :method => :delete unless @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :deleted
+          = link_to purge_icon('Permanently delete this ' + @model_class, :large), {:controller => @controller_for, :action => 'purge', :id => @object}, :method => :delete if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :deleted
+          = link_to tango('actions/view-refresh', 'Undelete', :large), {:controller => @controller_for, :action => 'undelete', :id => @object} if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :deleted
+          = link_to tango('actions/process-stop', 'Suspend', :large), {:controller => @controller_for, :action => 'suspend', :id => @object}, :method => :put if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :active && @object != current_user
+          = link_to refresh_icon('Unsuspend', :large), {:controller => @controller_for, :action => 'unsuspend', :id => @object}, :method => :put if @object.class.instance_methods.include?('current_state') && @object.current_state && @object.current_state == :suspended
+          = link_to roles_icon('Manage roles', :large), {:controller => @controller_for, :action => 'roles', :id => @object}, :method => :get unless @object.class.reflect_on_association(:roles).nil? || params[:action].eql?('roles')
+        %li.toolbar
+          = link_to monitor_icon('View change logs for this ' + params[:controller].singularize, :large), instance_logs_path(params[:controller].singularize, @object)
+    - when 'edit'
+      - unless @object.nil?
+        %li.toolbar
+          = link_to show_icon('Show this ' + params[:controller].singularize, :large), {:controller => params[:controller], :action => 'show', :id => @object.id }
+    - unless params[:action].eql?('admin')
+      %li.toolbar
+        = link_to back_icon('Back', :large), {:controller => @controller_for, :action => "index"} unless (params[:action].eql?('index') && !(params[:controller].eql?('change_logs') && !params[:object_class].nil?))
+        = link_to dashboard_icon('Back to the dashboard', :large), admin_path
+    %li.toolbar
+      = link_to account_icon('Your account', :large), account_path
+      = link_to logout_icon('Sign out', :large), logout_path
+  .clear

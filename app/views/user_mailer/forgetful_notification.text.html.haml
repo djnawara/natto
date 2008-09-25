@@ -1,0 +1,10 @@
+= render :partial => 'style'
+%h1 A password reset has been requested for your account.
+%p
+  %b Username:
+  %br
+  = @user.login
+%div
+  = "Visit #{link_to('this url', @url)} to reset your password:"
+  %br
+  %p= link_to @url, @url

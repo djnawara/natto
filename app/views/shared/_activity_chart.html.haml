@@ -1,0 +1,8 @@
+- unless @chart_url.blank?
+  %div.change_activity_graph
+    %h4 Change log activity
+    = image_tag(@chart_url)
+    %br
+    .float_left Today &rarr;
+    .float_right 1 year ago
+  .clear

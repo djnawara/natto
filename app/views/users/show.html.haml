@@ -1,0 +1,45 @@
+- unless @object != current_user || @object.has_role?('administrator')
+  .toolbar
+    = link_to(edit_icon('Edit profile', :large), edit_user_path(@object))
+    = link_to(destroy_icon('Destroy your account', :large), @object, :confirm => 'Are you sure you wish to destroy your account?', :method => :delete)
+    = link_to(logout_icon('Log out', :large), logout_path) unless current_user.has_role?('administrator')
+  .clear
+- if logged_in? && current_user == @object
+  - content_for :page_title, "Your Profile"
+- elsif logged_in?
+  - content_for :page_title, "Profile for '#{@object.name}'"
+- if @object.current_state == :deleted
+  .warning
+    %p
+      %b
+        Account deleted
+      = format_date(@object.deleted_at, :long)
+    %p
+      = link_to('Reactivate', :action => 'undelete', :id => @object) if logged_in? && current_user.has_role?('administrator')
+      = link_to(image_tag(gravatar_for(@object, {:size => '60x60'}), {:class => 'gravatar'}), {:protocol => 'http://', :host => 'gravatar.com', :controller => 'account'}, { :title => 'Visit the Gravatar website'} ) unless @object.email.nil?
+%dl
+  %dt Name
+  %dd
+    = h @object.first_name
+    = h @object.last_name
+  %dt OpenID
+  %dd= @object.identity_url.nil? ? link_to('Get an OpenID', 'http://www.myopenid.com/') : link_to(@object.identity_url, @object.identity_url)
+  %dt Login
+  %dd=h @object.login
+  %dt Email
+  %dd
+    = @object.email
+    = link_to('Please update your email!', edit_user_path(@object)) if @object.email.blank?
+  %dt Roles
+  %dd= @object.roles.size > 0 ? @object.roles.collect{|role| role.title.capitalize}.join(", ") : 'None'
+%p
+  %b Created:
+  = format_date(@object.created_at, :long)
+- unless @object.updated_at.blank?
+  %p
+    %b Updated:
+    = format_date(@object.updated_at, :long)
+- if @object.current_state == :suspended
+  %p
+    %b Suspended:
+    = format_date(@object.suspended_at, :long)
