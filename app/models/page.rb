@@ -1,6 +1,8 @@
 class Page < ActiveRecord::Base
   has_and_belongs_to_many :roles
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
+  has_many :posts
+  
   before_save   :sanitize_title
   before_create :set_author, :initialize_display_order
   
@@ -21,7 +23,7 @@ class Page < ActiveRecord::Base
 
     RE_TITLE_OK      = /\A[^[:cntrl:]\\<>\/]*\z/
     MSG_TITLE_BAD   = "must not contain non-printing characters or \\&gt;&lt;&amp;/ please."
-
+    
   validates_presence_of     :title
   validates_length_of       :title, :within => 2..40
   validates_format_of       :title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
@@ -127,7 +129,16 @@ class Page < ActiveRecord::Base
   end
   
   def content_required?
-    advanced_path.blank?
+    !(!advanced_path.blank? || page_type.eql?(Page::BLOG) || page_type.eql?(Page::PORTFOLIO) || page_type.eql?(Page::BIOGRAPHY))
+  end
+  
+  def self.parents(state = :published, should_hide_admin_pages = false)
+    extra_conditions = should_hide_admin_pages ? {:is_admin_home_page => false} : {}
+    if state == :all
+      Page.find(:all, :conditions => {:parent_id => nil}.merge(extra_conditions), :order => "is_home_page DESC, is_admin_home_page, display_order ASC")
+    else
+      Page.find_in_state(:all, state, :conditions => {:parent_id => nil}.merge(extra_conditions), :order => "is_home_page DESC, is_admin_home_page, display_order ASC")
+    end
   end
   
   def sanitize_title
