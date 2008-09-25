@@ -1,17 +1,36 @@
 class Medium < ActiveRecord::Base
   #################
+  # CONSTANTS
+  PRINT     = "Print"
+  TV        = "Television"
+  RADIO     = "Radio"
+  DIGITAL   = "Digital"
+  # for select boxes
+  TYPES       = [PRINT, TV, RADIO, DIGITAL]
+
+  #################
   # ASSOCIATIONS
-  has_and_belongs_to_many :widgets
   
+  # TODO: Make this polymorphic!!
+  has_and_belongs_to_many :posts
+  has_and_belongs_to_many :projects
+  has_and_belongs_to_many :biographies
+
   #################
   # VALIDATIONS
+  validates_presence_of   :medium_type, :if => :not_thumbnail?
 
-    #################
-    # CONSTANTS
+  has_attachment :processor   => :MiniMagick,
+                 :storage     => :file_system, 
+                 :max_size    => 5.megabytes,
+                 :path_prefix => "public/media",
+                 :partition   => false,
+                 # :resize_to   => '400x400>',
+                 :thumbnails => { :thumb => '80x80>', :resized => '300x' }
 
-  validates_presence_of     :location
-  validates_length_of       :location, :within => 2..254
-
-  validates_presence_of     :type
-  validates_length_of       :type, :within => 1..254
+  validates_as_attachment
+  
+  def not_thumbnail?
+    thumbnail.nil?
+  end
 end
