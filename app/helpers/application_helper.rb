@@ -130,17 +130,30 @@ module ApplicationHelper
     tango('devices/media-optical', title, size)
   end
   
+  def projects_icon(title = 'Projects', size = 1)
+    tango('places/folder', title, size)
+  end
+  
+  def biographies_icon(title = 'Biographies', size = 1)
+    tango('actions/contact-new', title, size)
+  end
+  
+  def posts_icon(title = 'Post', size = 1)
+    tango('apps/internet-group-chat', title, size)
+  end
+  
   def format_date(date = Time.now, style = :short, time = false, zone = true)
+    date = Time.parse(date) if date.class.name.eql?("String")
     case style
     when :natural
       output  = date.strftime('%B ')
       output += date.strftime('%d').to_i.ordinalize
-      output += date.strftime(', %Y') unless Time.now.strftime('%Y').to_i == date.strftime('%Y').to_i
+      output += date.strftime(', %Y') unless Time.now.strftime('%Y').eql?(date.strftime('%Y'))
       output += ' ' + format_time(date, :twelve, zone) if time
       return output
     when :short
       output  = date.strftime('%b %d')
-      output += date.strftime(', %Y') unless Time.now.strftime('%Y').to_i == date.strftime('%Y').to_i
+      output += date.strftime(', %Y') unless Time.now.strftime('%Y').eql?(date.strftime('%Y'))
       output += ' ' + format_time(date, :twenty_four, zone) if time
       return output
     when :long
@@ -172,6 +185,6 @@ module ApplicationHelper
   
   def submit_label(object = nil, create = "Create", edit = "Edit")
     return "Submit" if object.nil?
-    object.new_record? ? "Create" : "Update"
+    object.new_record? ? create : edit
   end
 end
