@@ -1,7 +1,7 @@
 development:
   delivery_method: smtp
-  default_recipient: djnawara@gmail.com
-  default_from: djn@djn2ms.com
+  default_recipient: admin@nattodesigns.com
+  default_from: admin@nattodesigns.com
   smtp_settings:
     address: localhost
     port: 25
@@ -14,8 +14,8 @@ development:
 
 test:
   delivery_method: test
-  default_recipient: djnawara@gmail.com
-  default_from: djn@djn2ms.com
+  default_recipient: admin@nattodesigns.com
+  default_from: admin@nattodesigns.com
   smtp_settings:
     address: localhost
     port: 25
@@ -28,8 +28,8 @@ test:
 
 production:
   delivery_method: smtp
-  default_recipient: djnawara@gmail.com
-  default_from: djn@djn2ms.com
+  default_recipient: admin@nattodesigns.com
+  default_from: admin@nattodesigns.com
   smtp_settings:
     address: localhost
     port: 25
