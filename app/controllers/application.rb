@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
-  helper :application, :users, :pages # include these helpers all the time
+  helper :application, :users, :pages, :posts, :media # include these helpers all the time
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '73195d1cdc5b26a20c8a62fda7f8d982'
