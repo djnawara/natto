@@ -21,7 +21,7 @@ administrator_role_create:
   action: create
   performed_at: <%= Time.now.to_s(:db) %>
   comments: Administrator role bootstrap.
-  
+
 home_create:
   object_class: page
   object_id: 516519628
@@ -29,6 +29,30 @@ home_create:
   action: create
   performed_at: <%= Time.now.to_s(:db) %>
   comments: Home page bootstrap.
+
+blog_create:
+  object_class: page
+  object_id: 90397628
+  user: admin
+  action: create
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Blog page bootstrap.
+
+biography_create:
+  object_class: page
+  object_id: 1032828937
+  user: admin
+  action: create
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Biographies page bootstrap.
+
+portfolio_create:
+  object_class: page
+  object_id: 322005511
+  user: admin
+  action: create
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Portfolio page bootstrap.
 
 administration_create:
   object_class: page
@@ -61,3 +85,19 @@ users_administration_create:
   action: create
   performed_at: <%= Time.now.to_s(:db) %>
   comments: Users administration page bootstrap.
+
+projects_administration_create:
+  object_class: page
+  object_id: 557363926
+  user: admin
+  action: create
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Projects administration page bootstrap.
+
+media_administration_create:
+  object_class: page
+  object_id: 185291131
+  user: admin
+  action: create
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Media administration page bootstrap.
