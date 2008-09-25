@@ -109,6 +109,7 @@ class PagesController < CrudController
         when Page::PORTFOLIO
           render :template => "pages/portfolio"
         when Page::BIOGRAPHY
+          @objects = Biography.find(:all)
           render :template => "pages/biography"
         else
           render :template => "pages/show"
@@ -444,7 +445,7 @@ class PagesController < CrudController
       # users require a page state check
       @object = Page.find_in_state(:first, :published, :conditions => conditions)
     end
-    @page = @object if @page.nil?
+    @page = @object
   end
   protected :find_object
   
