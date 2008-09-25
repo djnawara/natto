@@ -67,20 +67,32 @@ config_destination            = File.join(RAILS_ROOT, 'config')
 initializer_destination       = File.join(config_destination, 'initializers')
 mail_config                   = File.join('config', 'mail.yml')
 mail_initializer              = File.join('config', 'initializers', 'mail.rb')
+sass_config                   = File.join('config', 'sass.yml')
+sass_initializer              = File.join('config', 'initializers', 'sass.rb')
 inflector_initializer         = File.join('config', 'initializers', 'natto_inflections.rb')
 hide_from_js_nav_config       = File.join('config', 'hide_from_js_nav.yml')
 hide_from_js_nav_initializer  = File.join('config', 'initializers', 'hide_from_js_nav.rb')
+natto_media                   = File.join('assets', 'images', 'swinger_natto.jpg')
 # Do the actual copying...
 print "Copying configuration files to parent..... "
 File.copy(mail_config,                  File.join(config_destination,       'mail.yml'))              if File.exists?(mail_config)
 File.copy(mail_initializer,             File.join(initializer_destination,  'mail.rb'))               if File.exists?(mail_initializer)
+File.copy(sass_config,                  File.join(config_destination,       'sass.yml'))              if File.exists?(sass_config)
+File.copy(sass_initializer,             File.join(initializer_destination,  'sass.rb'))               if File.exists?(sass_initializer)
 File.copy(inflector_initializer,        File.join(initializer_destination,  'natto_inflections.rb'))  if File.exists?(inflector_initializer)
 File.copy(hide_from_js_nav_config,      File.join(config_destination,       'hide_from_js_nav.yml'))  if File.exists?(hide_from_js_nav_config)
 File.copy(hide_from_js_nav_initializer, File.join(initializer_destination,  'hide_from_js_nav.rb'))   if File.exists?(hide_from_js_nav_initializer)
 File.copy(site_keys_initializer,        File.join(initializer_destination,  'site_keys.rb'))          if File.exists?(site_keys_initializer)
 puts "OK."
+# Make our meia folder
+print "Creating media folder for file uploads... "
+media_directory = File.join(RAILS_ROOT, 'public', 'media')
+Dir.mkdir(media_directory) unless File.directory?(media_directory)
+puts "OK."
+# Copy over the example natto media
+File.copy(natto_media, File.join(media_directory, 'swinger_natto.jpg')) if File.exists?(natto_media)
 # Make our backup folder
-print "Creating backups folder for YAML exports.. "
+print "Creating backups folder for YAML exports... "
 backups = File.join(RAILS_ROOT, 'backups')
 Dir.mkdir(backups) unless File.directory?(backups)
 puts "OK."
