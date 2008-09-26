@@ -25,6 +25,7 @@ Natto also requires the following plugins installed:
   Engines                  git://github.com/lazyatom/engines.git
   acts_as_tree             git://github.com/rails/acts_as_tree.git
   acts_as_state_machine    git://github.com/freels/acts_as_state_machine.git
+  attachment_fu            git://github.com/technoweenie/attachment_fu.git
 
 Please also install these as gems/plugins:
 
