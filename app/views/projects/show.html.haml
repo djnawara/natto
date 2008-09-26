@@ -3,7 +3,7 @@
 - content_for :javascript, javascript_include_tag('lightbox', 'scriptaculous.js?load=effects,builder', :cache => false, :plugin => 'natto')
 - content_for :page_title, "Project: #{@object.title}"
 - # collect the current medium, and indexes for the previous/next
-- current_medium, previous_medium, next_medium = get_indices(@object.media)
+- current_medium, previous_medium, next_medium = get_indices(@object.media, params[:medium])
 - # retrieve width and height of the current medium
 - resized_medium = current_medium.nil? ? nil : Medium.find(:first, :conditions => {:parent_id => current_medium.id, :thumbnail => 'resized'})
 - # drop in margin adjustments to get a horizontal AND vertical center on our medium

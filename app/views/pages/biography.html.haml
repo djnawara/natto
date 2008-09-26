@@ -1,7 +1,7 @@
 - # do some setup
 - content_for :page_title, "Our People"
 - # collect the current medium, and indexes for the previous/next
-- current_biography, previous_biography, next_biography = get_indices(@objects)
+- current_biography, previous_biography, next_biography = get_indices(@objects, params[:args][0])
 #biography
   #media_column{:style => "background-image:url(#{current_biography.media.first.public_filename});"}
     - if @objects.size > 1
