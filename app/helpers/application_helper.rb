@@ -189,15 +189,17 @@ module ApplicationHelper
   end
   
   # finds the current item in a collection, as well as indexes for the next and previous items.
-  def get_indices(collection)
-    if params[:medium].blank?
+  def get_indices(collection = nil, index = 0)
+    return nil if collection.nil? || collection.blank?
+    index = index.to_i if index.class.name.eql?("String")
+    if index == 0
       current_medium  = collection.first
       previous_medium = (collection.size > 0 ? collection.size - 1 : 0)
       next_medium     = (collection.size > 1 ? 1 : 0)
     else
-      current_medium  = collection[params[:medium].to_i]
-      previous_medium = (params[:medium].to_i == 0 ? (collection.size - 1) : params[:medium].to_i - 1)
-      next_medium     = (params[:medium].to_i >= (collection.size - 1) ? 0 : params[:medium].to_i + 1)
+      current_medium  = collection[index]
+      previous_medium = (index == 0 ? (collection.size - 1) : index - 1)
+      next_medium     = (index >= (collection.size - 1) ? 0 : index + 1)
     end
     return current_medium, previous_medium, next_medium
   end
