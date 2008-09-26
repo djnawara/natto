@@ -1,4 +1,3 @@
-<% require 'medium.rb' # to collect an ID; wasn't working on fresh install without this ugly hack. %>
 natto_media: 
   content_type: image/jpeg
   description: "The founders of Natto Designs."
@@ -14,7 +13,7 @@ natto_media_resized:
   filename: swinger_natto_resized.jpg
   width: 300
   height: 251
-  parent_id: <% parent_id = Medium.find(:first).id %><%= parent_id %>
+  parent: natto_media
   size: 13078
   thumbnail: resized
 
@@ -23,6 +22,6 @@ natto_media_thumb:
   filename: swinger_natto_thumb.jpg
   width: 80
   height: 67
-  parent_id: <%= parent_id %>
+  parent: natto_media
   size: 1809
   thumbnail: thumb
