@@ -109,7 +109,7 @@ class PagesController < CrudController
         when Page::PORTFOLIO
           render :template => "pages/portfolio"
         when Page::BIOGRAPHY
-          @objects = Biography.find(:all)
+          @objects = Biography.find(:all, :order => "name")
           render :template => "pages/biography"
         else
           render :template => "pages/show"
