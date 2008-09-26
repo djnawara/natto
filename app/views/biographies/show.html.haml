@@ -1,7 +1,7 @@
 - # do some setup
 - content_for :page_title, @object.name
 - # collect the current medium, and indexes for the previous/next
-- current_medium, previous_medium, next_medium = get_medium_indices(@object.media)
+- current_medium, previous_medium, next_medium = get_indices(@object.media)
 #biography
   #media_column{:style => "background-image:url(#{current_medium.blank? ? "" : current_medium.public_filename});"}
     - if @object.media.size > 1
