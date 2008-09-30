@@ -35,6 +35,10 @@ Please also install these as gems/plugins:
   Ya2YAML                  git://github.com/ptb/ya2yaml.git
   haml/sass                git://github.com/nex3/haml.git
 
+After installing haml, please make sure and install it into your application:
+
+  $ haml --rails /path/to/your/application
+
 Set up the plugin routes, by editing your application's routes.rb file and adding this line to the very top of the file:
 
   map.from_plugin :natto
