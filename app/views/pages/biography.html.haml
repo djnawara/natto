@@ -23,3 +23,4 @@
           %li{:title => "#{biography.name}, #{biography.job_title}", :class => (biography == current_biography ? "active" : "")}
             = link_to((counter + 1), show_path(@object.title.gsub(/ /, '_'), counter))
           - counter += 1
+.clear
