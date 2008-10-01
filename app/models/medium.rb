@@ -7,6 +7,10 @@ class Medium < ActiveRecord::Base
   DIGITAL   = "Digital"
   # for select boxes
   TYPES       = [PRINT, TV, RADIO, DIGITAL]
+  # for image sizes
+  THUMB   = '80x80>'
+  MEDIUM  = '300x'
+  LARGE   = '700x700>'
 
   #################
   # ASSOCIATIONS
@@ -25,8 +29,7 @@ class Medium < ActiveRecord::Base
                  :max_size    => 5.megabytes,
                  :path_prefix => "public/media",
                  :partition   => false,
-                 # :resize_to   => '400x400>',
-                 :thumbnails => { :thumb => '80x80>', :resized => '300x' }
+                 :thumbnails => { :thumb => THUMB, :resized => MEDIUM, :large => LARGE }
 
   validates_as_attachment
   
