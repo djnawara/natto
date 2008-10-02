@@ -4,7 +4,7 @@
   %fieldset
     %legend File details
     %div
-      = f.label :title, nil, {:class => 'required'}
+      = f.label :title
       = f.text_field :title
     %div
       = f.label :description
@@ -12,8 +12,18 @@
     %div
       = f.label :type, nil, {:class => 'required'}
       = f.select :medium_type, Medium::TYPES, {:include_blank => 'Please select'}
-    - if @object.new_record?
-      %div
-        %label.required{:for => "location"} Upload:
-        = f.file_field :uploaded_data
+  - if @object.new_record?
+    %fieldset
+      %legend Choose one method
+      %fieldset
+        %legend Upload
+        %div
+          %label{:for => "location"} Upload
+          = f.file_field :uploaded_data
+      %p.small or&hellip;
+      %fieldset
+        %legend Path on server
+        %div
+          = f.label :filename
+          = f.text_field :filename
     %div= f.submit(submit_label(@object))
