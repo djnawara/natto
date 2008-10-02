@@ -13,22 +13,35 @@ class MediaController < CrudController
   def create
     begin
       @object = Medium.new(params[:medium])
+      @object.uploaded_data = LocalFile.new(params[:medium][:filename]) if (@object.uploaded_data.nil? || @object.uploaded_data.empty?) unless params[:medium][:filename].blank?
       @object.parent_id = nil
       if @object.save
         flash[:notice] = 'Medium was successfully created.'
-        redirect_to @object
+        redirect_to media_path
       else
-        render :action => :new
+        render :action => "new", :template => 'media/form'
       end
     rescue ActiveRecord::RecordInvalid => invalid
       invalid.record.errors.each do |error|
         logger.error("RECORD ERROR > #{error}")
       end
-      redirect_to :action => "new"
+      redirect_to :action => "new", :template => 'media/form'
     rescue Exception => e
-      logger.warn(e.msg)
-      redirect_to :action => "new"
+      logger.warn(e.message)
+      flash[:error] = e.message
+      redirect_to :action => "new", :template => 'media/form'
     end
+  end
+  
+  def batch
+    Dir.glob(File.join(params[:directory], '*.{jpg,jpeg,JPG,JPEG,png,PNG,tff,TFF,tiff,TIFF}')).each do |image_file|
+      @object = Medium.new
+      @object.uploaded_data = LocalFile.new(image_file)
+      @object.parent_id = nil
+      @object.save
+    end
+    flash[:notice] = "Directory batch imported."
+    redirect_to media_path
   end
   
   # PUT /media/1
