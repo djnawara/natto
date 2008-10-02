@@ -1,4 +1,5 @@
 class Medium < ActiveRecord::Base
+  named_scope :parentless, :conditions => {:parent_id => nil}
   #################
   # CONSTANTS
   PRINT     = "Print"
@@ -7,11 +8,6 @@ class Medium < ActiveRecord::Base
   DIGITAL   = "Digital"
   # for select boxes
   TYPES       = [PRINT, TV, RADIO, DIGITAL]
-  # for image sizes
-  THUMB   = '80x80>'
-  MEDIUM  = '300x'
-  LARGE   = '700x700>'
-
   #################
   # ASSOCIATIONS
   
@@ -29,11 +25,16 @@ class Medium < ActiveRecord::Base
                  :max_size    => 5.megabytes,
                  :path_prefix => "public/media",
                  :partition   => false,
-                 :thumbnails => { :thumb => THUMB, :resized => MEDIUM, :large => LARGE }
+                 :thumbnails => { :thumb => Natto.small_image_size, :resized => Natto.medium_image_size, :large => Natto.large_image_size }
 
   validates_as_attachment
   
   def not_thumbnail?
     thumbnail.nil?
+  end
+  
+  def self.mime_type(file = '')
+    mime_types = { ".gif" => "image/gif", ".ief" => "image/ief", ".jpe" => "image/jpeg", ".jpeg" => "image/jpeg", ".jpg" => "image/jpeg", ".pbm" => "image/x-portable-bitmap", ".pgm" => "image/x-portable-graymap", ".png" => "image/png", ".pnm" => "image/x-portable-anymap", ".ppm" => "image/x-portable-pixmap", ".ras" => "image/cmu-raster", ".rgb" => "image/x-rgb", ".tif" => "image/tiff", ".tiff" => "image/tiff", ".xbm" => "image/x-xbitmap", ".xpm" => "image/x-xpixmap", ".xwd" => "image/x-xwindowdump" }
+    mime_types[File.extname(file)]
   end
 end
