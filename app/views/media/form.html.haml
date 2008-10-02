@@ -24,6 +24,6 @@
       %fieldset
         %legend Path on server
         %div
-          = f.label :filename
-          = f.text_field :filename
+          = label_tag 'file_path'
+          = text_field_tag 'file_path'
     %div= f.submit(submit_label(@object))
