@@ -27,7 +27,7 @@ class CrudController < ApplicationController
   
   # Reflect on the controller to get the model constant out of the Kernel object.
   def set_model
-    @model_class = Kernel.const_get(self.class.name.gsub(/Controller$/, '').singularize)
+    @model_class = self.class.name.gsub(/Controller$/, '').singularize.constantize
   end
   
   # Use the discovered model to find the object instance on which to operate.
