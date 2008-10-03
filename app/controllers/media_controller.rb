@@ -36,11 +36,24 @@ class MediaController < CrudController
   end
   
   def batch
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def run_batch
+    unless File.directory?(params[:directory])
+      flash[:error] = "Not a directory."
+      return
+    end
     Dir.glob(File.join(params[:directory], '*.{jpg,jpeg,JPG,JPEG,png,PNG,tff,TFF,tiff,TIFF}')).each do |image_file|
       @object = Medium.new
       @object.uploaded_data = LocalFile.new(image_file)
+      @object.medium_type = params[:batch][:medium_type]
       @object.parent_id = nil
-      @object.save
+      Medium.transaction do
+        @object.save!
+      end
     end
     flash[:notice] = "Directory batch imported."
     redirect_to media_path

@@ -1,0 +1,12 @@
+- content_for(:page_title, "Media batch")
+- form_tag(:action => 'run_batch') do
+  %fieldset
+    %legend Directory path
+    %p.small This could take some time; please be patient.
+    %div
+      %label.required{:for => 'medium_type'} Type
+      = select :batch, :medium_type, Medium::TYPES, {:include_blank => 'Please select'}
+    %div
+      %label.require{:for => 'directory'} Directory
+      = text_field_tag :directory
+    %div= submit_tag("Batch upload")

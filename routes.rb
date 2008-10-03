@@ -53,6 +53,8 @@ ActionController::Routing::Routes.draw do |map|
   # media
   image_version '/images/:id/:version', :controller => 'media', :action => 'show'
   image         '/images/:id', :controller => 'media', :action => 'show'
+  batch         '/batch', :controller => 'media', :action => 'batch'
+  run_batch     '/batch/run', :controller => 'media', :action => 'run_batch'
   
   # projects
   project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show'
