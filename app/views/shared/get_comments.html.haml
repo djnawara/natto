@@ -30,7 +30,7 @@
   - action = "/#{params[:controller]}/#{params[:action]}/#{@object.id.to_s}"
   - method = params[:method]
 %h1 Please provide comments
-- if @change_log.errors.size > 0
+- if !@change_log.nil? && @change_log.errors.size > 0
   #errorExplanation.errorExplanation
     %h2>
       = @change_log.errors.size
@@ -48,7 +48,7 @@
       = params[:action].capitalize
       = params[:controller].singularize
     %fieldset
-      %legend{:class => (@object.new_record? ? "" : "required"} Comments
+      %legend{:class => (@object.new_record? ? "" : "required")} Comments
       %p.small Please enter comments for the change log.
       %p= text_area :change_log, :comments, {:class => 'small', :rows => 3}
     %div= submit_tag(submit_label)
