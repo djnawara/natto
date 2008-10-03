@@ -7,7 +7,7 @@ class LocalFile
 
   def initialize(path)
     raise "#{path} file does not exist" unless File.exist?(path)
-    content_type ||= @@image_mime_types[File.extname(path)]
+    content_type ||= File.mime_type?(File.extname(path))
     raise "Unrecognized MIME type for #{path}" unless content_type
     @content_type = content_type
     @original_filename = File.basename(path)

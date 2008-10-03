@@ -15,6 +15,8 @@ class MediaController < CrudController
       @object = Medium.new(params[:medium])
       @object.uploaded_data = LocalFile.new(params[:medium][:filename]) if (@object.uploaded_data.nil? || @object.uploaded_data.empty?) unless params[:medium][:filename].blank?
       @object.parent_id = nil
+      # set the mime type via the mimetype-fu plugin, as needed
+      @object.content_type = File.mime_type?(@object.filename) if @object.content_type.blank?
       if @object.save
         flash[:notice] = 'Medium was successfully created.'
         redirect_to media_path
