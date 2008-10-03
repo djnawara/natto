@@ -10,7 +10,7 @@
     %th &nbsp;
   - for medium in @objects
     %tr{:class => cycle('even','odd')}
-      %td= link_to(image_tag(medium.public_filename(:thumb)), medium.public_filename, :rel => 'lightbox') if medium.content_type.include?("image")
+      %td= link_to(image_tag(medium.public_filename(:thumb)), medium.public_filename(:resized), :rel => 'lightbox') if medium.content_type.include?("image")
       %td=h medium.medium_type
       %td=h medium.content_type
       %td= link_to medium.filename, medium
