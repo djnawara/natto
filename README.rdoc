@@ -26,6 +26,7 @@ Natto also requires the following plugins installed:
   acts_as_tree             git://github.com/rails/acts_as_tree.git
   acts_as_state_machine    git://github.com/freels/acts_as_state_machine.git
   attachment_fu            git://github.com/technoweenie/attachment_fu.git
+  mimetype-fu              git://github.com/mattetti/mimetype-fu.git
 
 The following commands will help you install these plugins as git submodules:
 
@@ -33,6 +34,7 @@ The following commands will help you install these plugins as git submodules:
   git submodule add git://github.com/rails/acts_as_tree.git vendor/plugins/acts_as_tree
   git submodule add git://github.com/freels/acts_as_state_machine.git vendor/plugins/acts_as_state_machine
   git submodule add git://github.com/technoweenie/attachment_fu.git vendor/plugins/attachment_fu
+  git submodule add git://github.com/mattetti/mimetype-fu.git vendor/plugins/mimetype-fu
 
 Please also install these as gems/plugins:
 
