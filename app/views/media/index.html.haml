@@ -13,7 +13,7 @@
       %td= link_to(image_tag(medium.public_filename(:thumb)), medium.public_filename(:resized), :rel => 'lightbox') if medium.content_type.include?("image")
       %td=h medium.medium_type
       %td=h medium.content_type
-      %td= link_to medium.filename, medium
+      %td= link_to medium.filename, medium_path(medium)
       %td
         = link_to(monitor_icon('Statistics'), instance_logs_path('medium', medium))
         = link_to edit_icon('Edit'), edit_medium_path(medium)

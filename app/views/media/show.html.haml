@@ -1,1 +1,17 @@
-= image_tag @object.public_filename(params[:version])
+- params[:version].blank? ? version = :resized : version = params[:version]
+- if @object.content_type.include?("image")
+  = image_tag @object.public_filename(version)
+  %p
+    = link_to("Thumbnail", image_version_path(@object, :thumb))
+    = link_to("Resized", image_version_path(@object, :resized))
+    = link_to("Original", image_version_path(@object, :large))
+- if @object.content_type.include?("video")
+  = javascript_include_tag 'swfobject'
+  #preview
+  :javascript
+    var s1 = new SWFObject('/jwplayer/player.swf','ply','470','320','9','#ffffff');
+    s1.addParam('allowfullscreen','true');
+    s1.addParam('allowscriptaccess','always');
+    s1.addParam('wmode','opaque');
+    s1.addParam('flashvars','file=#{@object.public_filename}&controlbar=bottom&duration=34&fullscreen=true&stretching=fill&backcolor=a2896b');
+    s1.write('preview');
