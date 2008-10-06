@@ -7,6 +7,9 @@
     = stylesheet_link_tag 'application', 'administration', :plugin => 'natto'
     /[if lte IE 7]
       = stylesheet_link_tag "ie"
+    - if !@page.nil?
+      - @page.get_sass.each do |file|
+        = stylesheet_link_tag file
     = yield :head
   %body
     #page

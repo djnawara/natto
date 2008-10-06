@@ -15,6 +15,10 @@
   %div
     = f.label :content, nil, {:class => 'required'}
     = f.text_area :content, :class => "mceEditor"
+  %div
+    = f.label :sass
+    %p.small Comma separated list of sass files to link on this page
+    = f.text_field :sass
   %div.checkbox
     %div
       = f.check_box :is_home_page
