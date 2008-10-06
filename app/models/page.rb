@@ -141,6 +141,13 @@ class Page < ActiveRecord::Base
     end
   end
   
+  def get_sass
+    return [] if sass.blank?
+    sass.include?(",") ? sass.gsub(/ /, '').split(',') : [sass.gsub(/ /, '')]
+    logger.debug " :::::::::::::::: #{sass}"
+    sass
+  end
+  
   def sanitize_title
     # this needs to check that it hasn't already been escaped
     self.title = self.title.gsub(/&/, '&amp;')
