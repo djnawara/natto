@@ -15,4 +15,18 @@ module PagesHelper
       flash.now[:error] = "<h2>Advanced Path Error</h2><p>#{coder.encode(exception.message)}</p>"
     end
   end
+  
+  def get_subnav(page)
+    children = nil
+    done = false
+    while !done
+      if page.nil? || (!children.nil? && children.size > 0) 
+        done = true
+      else
+        children = page.children
+        page = page.parent
+      end
+    end
+    children
+  end
 end
