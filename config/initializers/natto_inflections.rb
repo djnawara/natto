@@ -1,4 +1,4 @@
-Inflector.inflections do |inflect|
+ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'medium', 'media'
   inflect.plural    /(ia)$/i, '\1'
   inflect.plural    /(ium)$/i, 'ia'
