@@ -7,6 +7,10 @@
       = f.label :title
       = f.text_field :title
     %div
+      %p.small Use this field, for example, to link website screenshots to the live site.
+      = f.label :url, "URL"
+      = f.text_field :url
+    %div
       = f.label :description
       = f.text_area :description, :class => 'small'
     %div

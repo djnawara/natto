@@ -45,6 +45,7 @@
         - counter += 1
   #project_navigation
     = link_to("View full size", current_medium.public_filename, :rel => "lightbox") unless current_medium.nil?
-    = link_to("See the case study", '/')
+    - unless current_medium.url.nil? || current_medium.url.blank?
+      = link_to("Visit URL", current_medium.url)
     = link_to("Close", {:controller => 'pages', :action => 'show_by_title', :title => "Portfolio"})
 .clear
