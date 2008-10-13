@@ -59,6 +59,7 @@ ActionController::Routing::Routes.draw do |map|
   # projects
   project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show'
   project_details_default   '/project/:id', :controller => 'projects', :action => 'show'
+  project_positions         '/projects/order', :controller => 'projects', :action => 'order'
   
   # biographies
   biography_details           '/biography/:id/:medium', :controller => 'biographies', :action => 'show'
