@@ -13,4 +13,3 @@
         %ul
           - types.each do |medium_type|
             %li{:class => medium_type}= medium_type
-= sortable_element('list', :constraint => false, :update => 'portfolio_projects', :complete => visual_effect(:highlight, 'list'), :url => {:action => :update_positions})
