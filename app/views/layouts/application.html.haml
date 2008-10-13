@@ -30,7 +30,7 @@
       #footer
         = link_to('Sitemap', sitemap_path)
         #copyright &copy; 2008 Dan &amp; Dave J. Nawara
-    = javascript_include_tag 'admin', 'application', 'controls', 'dragdrop', 'effects', 'prototype', :cache => false, :plugin => 'natto'
+    = javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'admin', 'application', :cache => false, :plugin => 'natto'
     = yield :javascript
     :javascript
       document.observe("dom:loaded",function(ev){
