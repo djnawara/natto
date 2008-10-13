@@ -82,7 +82,7 @@ class PostsController < CrudController
   end
   
   def show
-    @comment          = Comment.new
+    @comment = Comment.new
     @comment.post_id  = @object.id
     super
   end
