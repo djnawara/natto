@@ -72,11 +72,16 @@ sass_initializer              = File.join('config', 'initializers', 'sass.rb')
 inflector_initializer         = File.join('config', 'initializers', 'natto_inflections.rb')
 hide_from_js_nav_config       = File.join('config', 'hide_from_js_nav.yml')
 hide_from_js_nav_initializer  = File.join('config', 'initializers', 'hide_from_js_nav.rb')
-natto_media                   = File.join('assets', 'images', 'swinger_natto.jpg')
-natto_media_resized           = File.join('assets', 'images', 'swinger_natto_resized.jpg')
-natto_media_thumb             = File.join('assets', 'images', 'swinger_natto_thumb.jpg')
+natto_media                   = File.join('media', 'swinger_natto.jpg')
+natto_media_large             = File.join('media', 'swinger_natto_large.jpg')
+natto_media_resized           = File.join('media', 'swinger_natto_resized.jpg')
+natto_media_thumb             = File.join('media', 'swinger_natto_thumb.jpg')
+natto_web                     = File.join('media', 'web_natto.jpg')
+natto_web_large               = File.join('media', 'web_natto_large.jpg')
+natto_web_resized             = File.join('media', 'web_natto_resized.jpg')
+natto_web_thumb               = File.join('media', 'web_natto_thumb.jpg')
 # Do the actual copying...
-print "Copying configuration files to parent..... "
+print "Copying configuration files to parent... "
 File.copy(mail_config,                  File.join(config_destination,       'mail.yml'))              if File.exists?(mail_config)
 File.copy(mail_initializer,             File.join(initializer_destination,  'mail.rb'))               if File.exists?(mail_initializer)
 File.copy(sass_config,                  File.join(config_destination,       'sass.yml'))              if File.exists?(sass_config)
@@ -86,15 +91,26 @@ File.copy(hide_from_js_nav_config,      File.join(config_destination,       'hid
 File.copy(hide_from_js_nav_initializer, File.join(initializer_destination,  'hide_from_js_nav.rb'))   if File.exists?(hide_from_js_nav_initializer)
 File.copy(site_keys_initializer,        File.join(initializer_destination,  'site_keys.rb'))          if File.exists?(site_keys_initializer)
 puts "OK."
-# Make our meia folder
+# Make our media folders
 print "Creating media folder for file uploads... "
-media_directory = File.join(RAILS_ROOT, 'public', 'media')
+media_directory   = File.join(RAILS_ROOT, 'public', 'media')
+thumb_directory   = File.join(RAILS_ROOT, 'public', 'media', 'thumb')
+resized_directory = File.join(RAILS_ROOT, 'public', 'media', 'resized')
+large_directory   = File.join(RAILS_ROOT, 'public', 'media', 'large')
 Dir.mkdir(media_directory) unless File.directory?(media_directory)
+Dir.mkdir(thumb_directory) unless File.directory?(thumb_directory)
+Dir.mkdir(resized_directory) unless File.directory?(resized_directory)
+Dir.mkdir(large_directory) unless File.directory?(large_directory)
 puts "OK."
 # Copy over the example natto media
 File.copy(natto_media,          File.join(media_directory, 'swinger_natto.jpg')) if File.exists?(natto_media)
+File.copy(natto_media_large,    File.join(media_directory, 'swinger_natto_large.jpg')) if File.exists?(natto_media_large)
 File.copy(natto_media_resized,  File.join(media_directory, 'swinger_natto_resized.jpg')) if File.exists?(natto_media_resized)
 File.copy(natto_media_thumb,    File.join(media_directory, 'swinger_natto_thumb.jpg')) if File.exists?(natto_media_thumb)
+File.copy(natto_web,            File.join(media_directory, 'web_natto.jpg')) if File.exists?(natto_web)
+File.copy(natto_web_large,      File.join(media_directory, 'web_natto_large.jpg')) if File.exists?(natto_web_large)
+File.copy(natto_web_resized,    File.join(media_directory, 'web_natto_resized.jpg')) if File.exists?(natto_web_resized)
+File.copy(natto_web_thumb,      File.join(media_directory, 'web_natto_thumb.jpg')) if File.exists?(natto_web_thumb)
 # Make our backup folder
 print "Creating backups folder for YAML exports... "
 backups = File.join(RAILS_ROOT, 'backups')
