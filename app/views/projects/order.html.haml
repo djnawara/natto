@@ -1,0 +1,6 @@
+- content_for :head do
+  %title= "#{Natto.site_title} - #{@object.title}"
+- content_for :page_title, @object.title
+#portfolio_projects
+  = render :partial => 'projects/order'
+.clear

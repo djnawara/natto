@@ -1,0 +1,16 @@
+- # render all projects for the portfolio
+%ul#list
+  - @objects.each do |project|
+    - types = []
+    %li{:id => "item_#{project.id}", :class => "portfolio_project#{' extra' if project.position> Natto.portoflio_projects_max}"}
+      %h4= project.client
+      - unless project.description.blank?
+        %p
+          %em= project.title
+        %br
+      - project.media.each {|medium| types << medium.medium_type unless types.include?(medium.medium_type) }
+      - if types.size > 0
+        %ul
+          - types.each do |medium_type|
+            %li{:class => medium_type}= medium_type
+= sortable_element('list', :constraint => false, :update => 'portfolio_projects', :complete => visual_effect(:highlight, 'list'), :url => {:action => :update_positions})

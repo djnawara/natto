@@ -142,6 +142,10 @@ module ApplicationHelper
     tango('apps/internet-group-chat', title, size)
   end
   
+  def sort_icon(title = 'Sort', size = 1)
+    tango('apps/preferences-system-session', title, size)
+  end
+  
   def format_date(date = Time.now, style = :short, time = false, zone = true)
     date = Time.parse(date) if date.class.name.eql?("String")
     case style

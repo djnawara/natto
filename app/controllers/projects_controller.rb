@@ -8,6 +8,10 @@ class ProjectsController < CrudController
     @available_media = Medium.find(:all, :conditions => {:thumbnail => nil}).reject {|medium| @object.media.include?(medium) }
   end
   
+  def index
+    @objects = Project.find(:all, :order => :position)
+  end
+  
   def process_medium
     medium = Medium.find_by_id(params[:medium_id])
     if @object.media.include?(medium)
@@ -23,5 +27,25 @@ class ProjectsController < CrudController
       format.html { redirect_to(media_project_path(@object)) }
       format.xml  { head :ok }
     end
+  end
+  
+  def order
+    @object = Page.find(:first, :conditions => {:title => 'Order'})
+    @page = @object
+    @objects = Project.find(:all, :order => :position)
+    respond_to do |format|
+      format.html { render :layout => 'ajax' }
+      format.xml  { head :ok }
+    end
+  end
+
+  def update_positions
+    params[:list].each_with_index do |id, position|
+      Project.update(id, :position => position + 1)
+    end
+    @object = Page.find(:first, :conditions => {:title => 'Order'})
+    @page = @object
+    @objects = Project.find(:all, :order => :position)
+    render :layout => false, :action => 'order'
   end
 end

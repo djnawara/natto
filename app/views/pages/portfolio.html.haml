@@ -2,8 +2,11 @@
   %title= "#{Natto.site_title} - #{@object.title}"
 - content_for :page_title, @object.title
 - # render all projects for the portfolio
+- if logged_in? && current_user.is_administrator?
+  .toolbar= link_to(sort_icon('Organize your projects'), project_positions_path)
+  .clear
 #portfolio_projects
-  - Project.find(:all).each do |project|
+  - @objects.each do |project|
     - types = []
     %a{:href => project_url(project)}
       .portfolio_project
