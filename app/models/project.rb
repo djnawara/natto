@@ -1,4 +1,7 @@
 class Project < ActiveRecord::Base
+  named_scope :active, :order => :position, :limit => Natto.portoflio_projects_max
+  named_scope :extras, :conditions => ['position > ?', Natto.portoflio_projects_max], :order => :position
+  
   #################
   # ASSOCIATIONS
   has_and_belongs_to_many :media
