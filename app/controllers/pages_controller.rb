@@ -107,6 +107,7 @@ class PagesController < CrudController
         when Page::BLOG
           render :template => "pages/blog"
         when Page::PORTFOLIO
+          @objects = Project.active
           render :template => "pages/portfolio"
         when Page::BIOGRAPHY
           @objects = Biography.find(:all, :order => "name")
