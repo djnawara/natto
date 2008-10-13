@@ -1,3 +1,4 @@
+@import constants.sass
 // Default everything
 *
   :font-family Verdana,Geneva,Arial,Helvetica,sans-serif
@@ -193,7 +194,7 @@ code
   :width 100%
   :margin 0
 #content
-  :width 770px
+  :width = !page_width + !pixel
   :margin 0 auto
 #header
   :width 100%
@@ -406,16 +407,31 @@ img.tiny-gravatar
       :position center center
       :repeat no-repeat
 // Portfolio
+!portfolio_project_padding_h = 5
+!portfolio_project_border = 1
 #portfolio_projects
   .portfolio_project
-    :width 180px
+    :width = ((!page_width / 5) - ((!portfolio_project_border * 2) + (!portfolio_project_padding_h * 2))) + !pixel
     :height 170px
     :float left
     :background #eeeeee
-    :border 1px solid #cccccc
-    :padding 10px 5px 0 5px
+    :border
+      :style solid
+      :color #cccccc
+      :width = !portfolio_project_border + !pixel
+    :padding
+      :top 10px
+      :right = !portfolio_project_padding_h + !pixel
+      :bottom 0
+      :left = !portfolio_project_padding_h + !pixel
   a
     :text-decoration none
+#portfolio_projects
+  ul#list
+    li
+      :cursor move
+    li.extra
+      :background #999999
 // Utility
 // Lists
 .even
