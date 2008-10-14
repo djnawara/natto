@@ -17,7 +17,7 @@
     = link_to(publish_icon('Publish page'), {:action => 'publish', :id => admin_node}, :method => :put) if (admin_node.current_state == :approved || admin_node.current_state == :unpublished)
     = link_to(approve_icon('Approve page'), {:action => 'approve', :id => admin_node}) if admin_node.current_state == :pending_review
     
-  %h2
+  #page_title_link
     = link_page(admin_node)
     = (admin_node.is_home_page? ? home_icon : '')
     = (admin_node.is_admin_home_page? ? account_icon('Admin home') : '')
