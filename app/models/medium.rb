@@ -28,7 +28,9 @@ class Medium < ActiveRecord::Base
                  :thumbnails => { :thumb => Natto.small_image_size, :resized => Natto.medium_image_size, :large => Natto.large_image_size }
 
   validates_as_attachment
-  
+
+  attr_accessible :title, :url, :description, :medium_type
+
   def not_thumbnail?
     thumbnail.nil?
   end
