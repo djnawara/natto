@@ -38,7 +38,7 @@ natto_media_large:
 natto_web: 
   content_type: image/png
   description: A screenshot of the Natto Designs website
-  filename: Picture_1.png
+  filename: web_natto.png
   height: 823
   medium_type: Digital
   size: 185085
@@ -48,7 +48,7 @@ natto_web:
 
 natto_web_large: 
   content_type: image/png
-  filename: Picture_1.png
+  filename: web_natto.png
   height: 487
   parent: natto_web
   size: 185085
@@ -57,7 +57,7 @@ natto_web_large:
 
 natto_web_thumb: 
   content_type: image/png
-  filename: Picture_1.png
+  filename: web_natto.png
   height: 56
   parent: natto_web
   size: 185085
@@ -66,7 +66,7 @@ natto_web_thumb:
 
 natto_web_resized: 
   content_type: image/png
-  filename: Picture_1.png
+  filename: web_natto.png
   height: 209
   parent: natto_web
   size: 185085
