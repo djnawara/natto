@@ -5,17 +5,19 @@
 #blog
   #blog_sidebar
     #sidebar_content= @object.content
-    #archived_posts
-      %h4 Blog archive
-      - get_old_posts_hash(@object).sort.reverse.each do |key,value| # draw links to old posts
-        .year
-          = key
-          - value.each do |month_key,month_value|
-            .month
-              = month_key
-              %ul
-                - month_value.each do |post|
-                  %li= link_to post.title, post
+    - old_posts = get_old_posts_hash(@object)
+    - unless old_posts.nil? || old_posts.size == 0
+      #archived_posts
+        %h4 Blog archive
+        - get_old_posts_hash(@object).sort.reverse.each do |key,value| # draw links to old posts
+          .year
+            = key
+            - value.each do |month_key,month_value|
+              .month
+                = month_key
+                %ul
+                  - month_value.each do |post|
+                    %li= link_to post.title, post
 
   #blog_posts
     - get_recent_posts(@object).each do |post| # render recent posts for the page
