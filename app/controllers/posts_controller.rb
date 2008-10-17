@@ -6,8 +6,7 @@ class PostsController < CrudController
   # GET /posts/new.xml
   def new
     @object = Post.new
-    @object.parent_id   = params[:parent_id]    unless params[:parent_id].nil?    || params[:parent_id].blank?
-    @object.parent_type = params[:parent_type]  unless params[:parent_type].nil?  || params[:parent_type].blank?
+    @object.page_id = params[:page_id] unless params[:page_id].nil? || params[:page_id].blank?
     respond_to do |format|
       format.html { render :template => "posts/form" }
       format.xml  { render :xml => @object }
@@ -22,15 +21,9 @@ class PostsController < CrudController
       @object.save!
       create_change_log_entry
     end
+    flash[:notice] = 'The post was successful.'
     respond_to do |format|
-      flash[:notice] = 'The post was successful.'
-      format.html do
-        if @object.parent_id.nil? || @object.parent_type.nil?
-          redirect_to(@object)
-        else
-          redirect_to(Kernel.const_get(@object.parent_type).find_by_id(@object.parent_id))
-        end
-      end
+      format.html { @object.page.nil? ? redirect_to(@object) : redirect_to(@object.page) }
       format.xml  { render :xml => @object, :status => :created, :location => @object }
     end
   end
@@ -55,21 +48,14 @@ class PostsController < CrudController
     Post.transaction do
       # store these for later use
       id = @object.id
-      parent_id   = @object.parent_id
-      parent_type = @object.parent_type
+      page = @object.page
       # remote the object
       @object.destroy
       # add a change log entry
       create_change_log_entry(id)
     end
     respond_to do |format|
-      format.html do
-        if parent_id.nil? || parent_type.nil?
-          redirect_to(posts_path)
-        else
-          redirect_to(Kernel.const_get(parent_type).find_by_id(parent_id))
-        end
-      end
+      format.html { page.nil? ? redirect_to(posts_path) : redirect_to(page) }
       format.html { redirect_to(posts_path) }
       format.xml  { head :ok }
     end
