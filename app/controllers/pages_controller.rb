@@ -71,10 +71,7 @@ class PagesController < CrudController
   end
   
   def home
-    respond_to do |format|
-      format.html { render :template => 'pages/show' }
-      format.xml  { render :xml => @object }
-    end
+    show
   end
   
   def admin
