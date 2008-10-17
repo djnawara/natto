@@ -44,13 +44,7 @@ class PostsController < CrudController
     end
     respond_to do |format|
       flash[:notice] = @model_class.name + ' was successfully updated.'
-      format.html do
-        if @object.parent_id.nil? || @object.parent_type.nil?
-          redirect_to(@object)
-        else
-          redirect_to(Kernel.const_get(@object.parent_type).find_by_id(@object.parent_id))
-        end
-      end
+      format.html { @object.page.nil? ? redirect_to(@object) : redirect_to(@object.page) }
       format.xml  { head :ok }
     end
   end
