@@ -10,7 +10,7 @@
 - unless current_medium.nil?
   - content_for :head do
     %style{:type => "text/css"}
-      = "#media_column_wrapper { margin-left:-#{resized_medium.width / 2}px; margin-top:-#{resized_medium.height / 2}px; width:#{resized_medium.width}px; height:#{resized_medium.height}px; }"
+      = "#media_column_wrapper { width:#{resized_medium.width}px; height:#{resized_medium.height}px; }"
 #media_column
   #media_column_wrapper= link_to(image_tag(current_medium.public_filename(:resized)), current_medium.public_filename, :rel => "lightbox")unless current_medium.nil?
   #previous= link_to("", project_details_path(@object, previous_medium))
