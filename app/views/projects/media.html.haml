@@ -15,3 +15,4 @@
     - else
       - @available_media.each do |medium|
         = link_to(image_tag(medium.public_filename(:thumb)), "/projects/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Add this item to the project")
+.clear
