@@ -154,6 +154,11 @@ class UsersController < CrudController
       user_hash[:role_ids] = user_hash[:role_ids] << admin_role_id
       flash[:warning] = 'You cannot remove the administrator role from yourself.'
     end
+    # check for new email
+    if !params[:user][:new_email].blank? && !params[:user][:email].eql?(params[:user][:new_email])
+      params[:user][:email] = params[:user][:new_email]
+      params[:user][:new_email] = nil
+    end
     # execute the standard CrudController update
     super
   end
