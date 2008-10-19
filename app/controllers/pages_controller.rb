@@ -173,6 +173,8 @@ class PagesController < CrudController
   # PUT /pages/:id.xml
   def update
     Page.transaction do
+      # check if setting as new home page
+      check_setting_home_page
       @object.update_attributes!(params[:page])
       create_change_log_entry
     end
@@ -182,6 +184,25 @@ class PagesController < CrudController
       format.xml  { head :ok }
     end
   end
+  
+  def check_setting_home_page
+    if !@object.is_home_page? && params[:page][:is_home_page].to_i == 1
+      old_home_page = Page.home.first
+      # make the old home page standard
+      old_home_page.is_home_page = false
+      # set new page order for the object
+      @object.remove_from_display_order
+      #push to top of heirarchy
+      @object.parent = nil
+      # save now so that the old home page can find the proper display order
+      @object.save
+      # now locate where to put the old home page
+      old_home_page.add_to_display_order
+      # save the old home page as a regular page
+      old_home_page.save
+    end
+  end
+  private :check_setting_home_page
 
   # DELETE /pages/:id
   # DELETE /pages/:id.xml

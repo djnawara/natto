@@ -1,11 +1,13 @@
 class Page < ActiveRecord::Base
+  named_scope :home, :conditions => {:is_home_page => 1}
+
   has_and_belongs_to_many :roles
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
   has_many :posts
-  
+
   before_save   :sanitize_title
   before_create :set_author, :initialize_display_order
-  
+
   #################
   # CONSTANTS
   NORMAL      = "Normal"
@@ -23,39 +25,38 @@ class Page < ActiveRecord::Base
 
     RE_TITLE_OK      = /\A[^[:cntrl:]\\<>\/]*\z/
     MSG_TITLE_BAD   = "must not contain non-printing characters or \\&gt;&lt;&amp;/ please."
-    
+
   validates_presence_of     :title
   validates_length_of       :title, :within => 2..40
   validates_format_of       :title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
-  
+
   validates_presence_of     :content,                 :if => :content_required?
   validates_length_of       :content, :minimum => 20, :if => :content_required?
-  
+
   validates_presence_of     :description
   validates_length_of       :description, :within => 10..255
-  
+
   #################
   # Allow modification via bulk-setters
-  
-  
+
   # Tree based page heirarchy
-  acts_as_tree :order => 'display_order', :counter_cache => :child_count
-  
+  acts_as_tree :order => 'is_home_page DESC, is_admin_home_page, display_order', :counter_cache => :child_count
+
   #################
   # Page states
-  
+
   acts_as_state_machine :initial => :pending_review, :column => "aasm_state"
-  
+
   state :pending_review,  :enter => :initialize_display_order
   state :approved,        :enter => :initialize_display_order
   state :published,       :enter => :initialize_display_order
   state :unpublished
   state :deleted,         :enter => :do_delete
-  
+
   event :approve do
     transitions :from => :pending_review, :to => :approved
   end
-  
+
   event :publish do
     transitions :from => [:approved, :unpublished], :to => :published
   end
@@ -144,8 +145,23 @@ class Page < ActiveRecord::Base
   def get_sass
     return [] if sass.blank?
     sass.include?(",") ? sass.gsub(/ /, '').split(',') : [sass.gsub(/ /, '')]
-    logger.debug " :::::::::::::::: #{sass}"
     sass
+  end
+  
+  def add_to_display_order
+    max_order = 1
+    self.siblings.each do |sibling|
+      max_order = sibling.display_order + 1 if sibling.display_order >= max_order unless sibling.display_order.nil?
+    end
+    logger.debug('Adding to order: #max_order')
+    self.display_order = max_order
+  end
+  
+  def remove_from_display_order
+    self.siblings.each do |sibling|
+      sibling.display_order -= 1 if sibling.display_order > self.display_order unless sibling.display_order.nil?
+    end
+    self.display_order = nil
   end
   
   def sanitize_title
