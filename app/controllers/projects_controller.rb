@@ -30,7 +30,8 @@ class ProjectsController < CrudController
   end
   
   def order
-    @object = Page.find(:first, :conditions => {:title => 'Order'})
+    @object = Page.find(:first, :conditions => {:advanced_path => 'project_positions_path'})
+    @object = @object.nil? ? Page.admin_home : @object
     @page = @object
     @objects = Project.find(:all, :order => :position)
     respond_to do |format|
@@ -43,7 +44,8 @@ class ProjectsController < CrudController
     params[:list].each_with_index do |id, position|
       Project.update(id, :position => position + 1)
     end
-    @object = Page.find(:first, :conditions => {:title => 'Order'})
+    @object = Page.find(:first, :conditions => {:advanced_path => 'project_positions_path'})
+    @object = @object.nil? ? Page.admin_home : @object
     @page = @object
     @objects = Project.find(:all, :order => :position)
     render :layout => false, :action => 'order'
