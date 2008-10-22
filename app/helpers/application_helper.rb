@@ -193,8 +193,9 @@ module ApplicationHelper
   end
   
   # finds the current item in a collection, as well as indexes for the next and previous items.
-  def get_indices(collection = nil, index = 0)
+  def get_indices(collection = nil, index = nil)
     return nil if collection.nil? || collection.blank?
+    index = 0 if index.nil?
     index = index.to_i if index.class.name.eql?("String")
     if index == 0
       current_medium  = collection.first
