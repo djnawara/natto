@@ -1,5 +1,17 @@
 class Page < ActiveRecord::Base
+  #################
+  # CONSTANTS
+  NORMAL      = "Normal"
+  BLOG        = "Blog"
+  PORTFOLIO   = "Portfolio"
+  BIOGRAPHY   = "Biography"
+  NO_NAV      = "No navigation"
+  # for select boxes
+  TYPES       = [NORMAL, NO_NAV, BLOG, PORTFOLIO, BIOGRAPHY]
+
+  # for easy page retrieval
   named_scope :home, :conditions => {:is_home_page => 1}
+  named_scope :navigation, :conditions => [['page_type <> :unallowed_page_type', {:unallowed_page_type => Page::NO_NAV}]]
 
   has_and_belongs_to_many :roles
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
@@ -8,15 +20,6 @@ class Page < ActiveRecord::Base
   before_save   :sanitize_title
   before_create :set_author, :initialize_display_order
 
-  #################
-  # CONSTANTS
-  NORMAL      = "Normal"
-  BLOG        = "Blog"
-  PORTFOLIO   = "Portfolio"
-  BIOGRAPHY   = "Biography"
-  # for select boxes
-  TYPES       = [NORMAL, BLOG, PORTFOLIO, BIOGRAPHY]
-  
   #################
   # VALIDATIONS
 

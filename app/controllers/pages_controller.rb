@@ -123,7 +123,7 @@ class PagesController < CrudController
     # Handle advanced pathing
     unless @object.advanced_path.blank?
       begin
-        redirect_to(self.send(@object.advanced_path))
+        redirect_to(self.send(@object.advanced_path, params[:args]))
         return
       rescue Exception => err
         flash_exception(err, "Advanced Path Error")
