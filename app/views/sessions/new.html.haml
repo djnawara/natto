@@ -1,5 +1,8 @@
+- content_for :title, "Login"
+- content_for :page_title, "Login"
 .column.float_left
   - form_tag :action => 'create' do
+    = token_tag
     %fieldset
       %legend Log In
       %fieldset
