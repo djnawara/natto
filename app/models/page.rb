@@ -11,6 +11,7 @@ class Page < ActiveRecord::Base
 
   # for easy page retrieval
   named_scope :home, :conditions => {:is_home_page => 1}
+  named_scope :admin_home, :conditions => {:is_admin_home_page => 1}
   named_scope :navigation, :conditions => [['page_type <> :unallowed_page_type', {:unallowed_page_type => Page::NO_NAV}]]
 
   has_and_belongs_to_many :roles
