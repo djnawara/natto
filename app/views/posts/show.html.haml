@@ -1,6 +1,6 @@
 - content_for :head, stylesheet_link_tag('blog')
 - content_for :title, "#{Natto.site_title} - #{@object.title}"
-- content_for :page_title, @object.title
+- content_for :page_title, @object.page.title
 - # locate create and update information
 - create = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::CREATE})
 - update = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::UPDATE})
