@@ -1,4 +1,4 @@
-- content_for :head, stylesheet_link_tag('blog')
+- content_for :javascript, javascript_include_tag('treemenu', :plugin => 'natto')
 - content_for :title, "#{Natto.site_title} - #{@object.title}"
 - content_for :page_title, @object.page.title
 - # locate create and update information

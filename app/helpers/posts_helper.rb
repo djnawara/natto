@@ -7,11 +7,14 @@ module PostsHelper
   end
   
   def get_old_posts_hash(object, oldest_post = 1.month.ago.to_s(:db))
+    @current_year = @current_month = nil
     case (object.class.name)
     when Page.name
       page = object
     when Post.name
       page = object.page
+      @current_year = object.created_at.year
+      @current_month = object.created_at.strftime('%B')
     when Comment.name
       page = object.post.page
     else

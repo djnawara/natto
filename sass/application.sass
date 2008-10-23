@@ -289,9 +289,14 @@ img.tiny-gravatar
   :vertical-align middle
 // Blogs
 #blog
-  :width 500px
+  :width = !page_width + !pixel
   :margin 0 0 20px 0
-  :border-bottom 1px solid #cccccc
+  .open:before
+    :content url(/plugin_assets/natto/images/tree-open.png)
+  .closed:before
+    :content url(/plugin_assets/natto/images/tree-closed.png)
+  #blog_posts
+    :width 470px
 #comments_form
   :width 470px
   :font-size .8em
@@ -328,8 +333,7 @@ img.tiny-gravatar
 #archived_posts
   :padding 0 10px 20px 10px
 .year
-.month
-  :margin 0 0 0 20px
+.months
   li
     :margin 0 0 0 20px
 // Posts

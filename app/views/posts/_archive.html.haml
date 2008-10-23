@@ -1,9 +1,11 @@
-- get_old_posts_hash(@object).sort.reverse.each do |key,value| # draw links to old posts
-  .year
-    = key
-    - value.each do |month_key,month_value|
-      .month
-        = month_key
-        %ul
-          - month_value.each do |post|
-            %li= link_to post.title, post
+%ul.years
+  - get_old_posts_hash(@object).sort.reverse.each do |key,value| # draw links to old posts
+    %li.year
+      .year{:class => " #{@current_year.eql?(key.to_i) ? 'open' : 'closed'}"}= key
+      %ul.months
+        - value.each do |month_key,month_value|
+          %li.month
+            .month{:class => " #{@current_month.eql?(month_key) ? 'open' : 'closed'}"}= month_key
+            %ul.archived_posts
+              - month_value.each do |post|
+                %li.archived_post= link_to post.title, post
