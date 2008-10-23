@@ -1,0 +1,9 @@
+- get_old_posts_hash(@object).sort.reverse.each do |key,value| # draw links to old posts
+  .year
+    = key
+    - value.each do |month_key,month_value|
+      .month
+        = month_key
+        %ul
+          - month_value.each do |post|
+            %li= link_to post.title, post
