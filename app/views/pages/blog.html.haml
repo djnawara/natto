@@ -2,13 +2,6 @@
 - content_for :title, "#{Natto.site_title} - #{@object.title}"
 - content_for :page_title, @object.title
 #blog
-  #blog_sidebar
-    #sidebar_content= @object.content
-    - old_posts = get_old_posts_hash(@object)
-    - unless old_posts.nil? || old_posts.size == 0
-      #archived_posts
-        %h4 Blog archive
-        = render :partial => 'posts/archive'
   #blog_posts
     - get_recent_posts(@object).each do |post| # render recent posts for the page
       .blog_post
@@ -32,4 +25,11 @@
             %p
               = link_to("View and post comments (#{post.comments.size})", post)
               = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)
+  #blog_sidebar
+    #sidebar_content= @object.content
+    - old_posts = get_old_posts_hash(@object)
+    - unless old_posts.nil? || old_posts.size == 0
+      #archived_posts
+        %h4 Blog archive
+        = render :partial => 'posts/archive'
 .clear
