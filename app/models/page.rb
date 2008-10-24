@@ -12,7 +12,7 @@ class Page < ActiveRecord::Base
   # for easy page retrieval
   named_scope :home, :conditions => {:is_home_page => 1}
   named_scope :admin_home, :conditions => {:is_admin_home_page => 1}
-  named_scope :navigation, :conditions => ["page_type <> :unallowed_page_type AND parent_id IS NULL", {:unallowed_page_type => Page::NO_NAV}], :order => 'is_home_page DESC, is_admin_home_page, display_order'
+  named_scope :navigation, :conditions => ["page_type <> :unallowed_page_type AND parent_id IS NULL AND aasm_state = 'published'", {:unallowed_page_type => Page::NO_NAV}], :order => 'is_home_page DESC, is_admin_home_page, display_order'
 
   has_and_belongs_to_many :roles
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
