@@ -1,8 +1,6 @@
-- content_for :head do
-  %title= "#{Natto.site_title} - #{@object.title}"
+- content_for :title, "#{Natto.site_title} - #{@object.title}"
 - content_for :page_title, @object.title
-#portfolio_projects
-  = render :partial => 'projects/order'
+#portfolio_projects= render :partial => 'projects/order'
 = sortable_element('list', :constraint => false, :update => 'portfolio_projects', :complete => visual_effect(:highlight, 'list'), :url => {:action => :update_positions})
 .clear
 %br

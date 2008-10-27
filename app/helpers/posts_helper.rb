@@ -6,27 +6,19 @@ module PostsHelper
            ], :order => 'created_at DESC')
   end
   
-  def get_old_posts_hash(object, oldest_post = 1.month.ago.to_s(:db))
+  def get_posts_hash(object)
     @current_year = @current_month = nil
-    case (object.class.name)
-    when Page.name
-      page = object
-    when Post.name
-      page = object.page
-      @current_year = object.created_at.year
+    case(object.class.name)
+    when "Page"
+      posts = object.posts
+    when "Post"
       @current_month = object.created_at.strftime('%B')
-    when Comment.name
-      page = object.post.page
-    else
-      return {}
+      @current_year = object.created_at.year.to_s
+      posts = object.page.posts
     end
-    # collect all posts for the parent page
-    old_posts = page.posts.find(:all, :conditions => [
-                  "created_at <= :youngest_post",
-                  {:youngest_post => 1.month.ago.to_s(:db)}
-                ], :order => 'created_at DESC')
     hash = {}
-    old_posts.each do |post|
+    return hash if posts.nil? || posts.empty?
+    posts.each do |post|
       year  = post.created_at.year.to_s
       month = post.created_at.strftime("%B")
       hash[year] = Hash.new unless hash[year].class.name.eql?("Hash")

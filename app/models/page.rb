@@ -6,8 +6,9 @@ class Page < ActiveRecord::Base
   PORTFOLIO   = "Portfolio"
   BIOGRAPHY   = "Biography"
   NO_NAV      = "No navigation"
+  CONTAINER   = "Container"
   # for select boxes
-  TYPES       = [NORMAL, NO_NAV, BLOG, PORTFOLIO, BIOGRAPHY]
+  TYPES       = [NORMAL, CONTAINER, NO_NAV, BLOG, PORTFOLIO, BIOGRAPHY]
 
   # for easy page retrieval
   named_scope :home, :conditions => {:is_home_page => 1}

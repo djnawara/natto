@@ -27,9 +27,5 @@
               = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)
   #blog_sidebar
     #sidebar_content= @object.content
-    - old_posts = get_old_posts_hash(@object)
-    - unless old_posts.nil? || old_posts.size == 0
-      #archived_posts
-        %h4 Blog archive
-        = render :partial => 'posts/archive'
+    = render :partial => 'posts/archive'
 .clear
