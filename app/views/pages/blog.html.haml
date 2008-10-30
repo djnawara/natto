@@ -27,9 +27,5 @@
               = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)
   #blog_sidebar
     #sidebar_content= @object.content
-    #feeds
-      = link_to("Atom", feeds_url("atom"))
-      |
-      = link_to("RSS", feeds_url("rss"))
-    = render :partial => 'posts/archive'
+    = render :partial => 'posts/sidebar'
 .clear
