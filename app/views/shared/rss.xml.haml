@@ -1,0 +1,13 @@
+!!! XML
+%rss{:version => "2.0"}
+  %channel
+    %title= Natto.site_title
+    %link= "http://#{Natto.host}"
+    %description= "The #{Natto.site_title} RSS 2.0 feed."
+    %language en-us
+    - @objects.each do |post|
+      %item
+        %title= post.title
+        %link= post_url(post)
+        %description= post.description
+        %content= post.content

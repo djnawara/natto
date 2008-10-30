@@ -1,0 +1,22 @@
+!!! XML
+%feed{"xmlns" => "http://www.w3.org/2005/Atom", "xml:lang" => "en-US"}
+  %title= Natto.site_title
+  %link= "http://#{Natto.host}"
+  %link{:rel => "self"}= feeds_url("atom")
+  %author= Natto.site_title
+  %generator{:uri => "http://www.nattodesigns.com", :version => "1.0"} Natto CMS
+  %modified= @objects.first.created_at.to_s(:db) if @objects.size > 0 unless @objects.first.created_at.nil?
+  //  %subtitle A blog feed by Chicago Creative Partnership
+  %copyright= "Copyright (c) #{Time.now.year}, #{Natto.site_title}"
+  - @objects.each do |post|
+    %entry
+      %title= post.title
+      %link= post_url(post)
+      %updates= post.updated_at.to_s(:db) unless post.updated_at.nil?
+      %issued= post.created_at.to_s(:db)
+      - unless post.author.nil?
+        %author
+          %name= post.author.name
+          %email= post.author.email
+      %summary= post.description
+      %content= post.content

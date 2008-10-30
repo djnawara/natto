@@ -1,6 +1,6 @@
 class PostsController < CrudController
-  skip_before_filter :login_required, :only => [:show]
-  skip_before_filter :admin_required, :only => [:show]
+  skip_before_filter :login_required, :only => [:show, :feeds]
+  skip_before_filter :admin_required, :only => [:show, :feeds]
   
   # GET /posts/new
   # GET /posts/new.xml
@@ -65,5 +65,14 @@ class PostsController < CrudController
     @comment = Comment.new
     @comment.post_id  = @object.id
     super
+  end
+  
+  def feeds
+    @objects = Post.find(:all, :order => 'created_at DESC')
+    response.headers["Content-Type"] = "application/xml; charset=utf-8"
+    respond_to do |format|
+      format.rss  {render :layout => false, :template => 'shared/rss.xml.haml'}
+      format.atom {render :layout => false, :template => 'shared/atom.xml.haml'}
+    end
   end
 end

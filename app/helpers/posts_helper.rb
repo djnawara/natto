@@ -1,8 +1,8 @@
 module PostsHelper
-  def get_recent_posts(parent, oldest_post = 1.month.ago.to_s(:db))
+  def get_recent_posts(parent, oldest_post = 1.month.ago)
     return parent.posts.find(:all, :conditions => [
               "created_at > :oldest_post",
-              {:oldest_post => 1.month.ago.to_s(:db)}
+              {:oldest_post => oldest_post.to_s(:db)}
            ], :order => 'created_at DESC')
   end
   

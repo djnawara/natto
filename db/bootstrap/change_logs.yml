@@ -101,3 +101,51 @@ media_administration_create:
   action: create
   performed_at: <%= Time.now.to_s(:db) %>
   comments: Media administration page bootstrap.
+
+recent_post_create:
+  object_class: post
+  object_id: 64566234
+  user: admin
+  action: create
+  performed_at: <%= 1.day.ago.to_s(:db) %>
+  comments: Recent post bootstrap.
+
+recent_post_update:
+  object_class: post
+  object_id: 64566234
+  user: admin
+  action: update
+  performed_at: <%= Time.now.to_s(:db) %>
+  comments: Recent post update.
+
+middle_post_create:
+  object_class: post
+  object_id: 64566233
+  user: admin
+  action: create
+  performed_at: <%= 1.month.ago.to_s(:db) %>
+  comments: Recent post bootstrap.
+
+old_post_create:
+  object_class: post
+  object_id: 64566232
+  user: admin
+  action: create
+  performed_at: <%= 6.months.ago.to_s(:db) %>
+  comments: Old post bootstrap.
+
+old_post_2_create:
+  object_class: post
+  object_id: 64566231
+  user: admin
+  action: create
+  performed_at: <%= 14.months.ago.to_s(:db) %>
+  comments: Old post 2 bootstrap.
+
+ancient_post_create:
+  object_class: post
+  object_id: 64566230
+  user: admin
+  action: create
+  performed_at: <%= 3.years.ago.to_s(:db) %>
+  comments: Ancient post bootstrap.
