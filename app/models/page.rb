@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Page < NattoBase
   #################
   # CONSTANTS
   NORMAL      = "Normal"

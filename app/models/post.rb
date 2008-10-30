@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Post < NattoBase
   #################
   # ASSOCIATIONS
   has_and_belongs_to_many :media

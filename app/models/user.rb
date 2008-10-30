@@ -1,6 +1,6 @@
 require 'digest/sha1'
 
-class User < ActiveRecord::Base
+class User < NattoBase
   #################
   # CONSTANTS
   
@@ -268,39 +268,6 @@ class User < ActiveRecord::Base
       true
     end
   end
-  
-  ####################################
-  # Retrieve times from the change log
-  def created_at
-    action_performed_at('create')
-  end
-  
-  def updated_at
-    action_performed_at('update')
-  end
-  
-  def deleted_at
-    action_performed_at('destroy')
-  end
-  
-  def activated_at
-    action_performed_at('activate')
-  end
-  
-  def suspended_at
-    action_performed_at('suspend')
-  end
-  
-  def unsuspended_at
-    action_performed_at('unsuspend')
-  end
-  
-  def action_performed_at(action = 'create')
-    if log = ChangeLog.find(:first, :conditions => {:object_class => 'user', :object_id => self.id, :action => action}, :order => 'performed_at DESC')
-      log.performed_at
-    end
-  end
-  protected :action_performed_at
   
   #############################
   # ROLE FUNCTIONS
