@@ -6,17 +6,10 @@
 - update = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::UPDATE})
 #blog
   #blog_posts
+    .post_date= format_date(create.performed_at, :long) unless create.nil?
     %h2= @object.title
-    %p
-      - unless @object.description.blank?
-        %em= @object.description
-        %br
-      - unless create.nil?
-        %span.small= "Posted #{format_date(create.performed_at, :long, true)} by #{create.user.name}"
-        %br
-      - unless update.nil?
-        %span.small= "Last updated #{format_date(create.performed_at, :long, true)}"
-    %p= @object.content
+    .post_description= @object.description unless @object.description.blank?
+    .post_content= @object.content
     = render :partial => "posts/share"
     - if logged_in? && current_user.is_administrator?
       .post_controls
