@@ -5,10 +5,10 @@
   #blog_posts
     - get_recent_posts(@object).each do |post| # render recent posts for the page
       .blog_post
+        #date= format_date(post.created_at, :long)
         %h2= post.title
         %p
-          = "<em>#{post.description}</em><br/>" unless post.description.blank?
-          = "<span class=\"small\">Posted #{format_date(post.created_at, :long, true)}</span><br/>"
+          %em>= post.description unless post.description.blank?
         %p= truncate_words(post.content)
         - if logged_in? && current_user.is_administrator?
           .post_controls
