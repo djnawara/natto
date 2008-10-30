@@ -7,6 +7,7 @@
     %language en-us
     - @objects.each do |post|
       %item
+        %published= post.created_at
         %title= post.title
         %link= post_url(post)
         %description= post.description
