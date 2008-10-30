@@ -10,6 +10,7 @@
         %p
           %em>= post.description unless post.description.blank?
         %p= truncate_words(post.content)
+        = render :partial => "posts/share"
         - if logged_in? && current_user.is_administrator?
           .post_controls
             = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))

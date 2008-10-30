@@ -1,0 +1,8 @@
+- post = @object if post.nil?
+.share
+  .delicious
+    = link_to(image_tag("delicious.jpg", :plugin => "natto"), "http://del.icio.us/post?url=#{post_url(post)}&title=#{post.title}")
+    = link_to("Del.icio.us", "http://del.icio.us/post?url=#{post_url(post)}&title=#{post.title}")
+  .digg
+    = link_to(image_tag("digg.gif", :plugin => "natto"), "http://del.icio.us/post?url=#{post_url(post)}&title=#{post.title}")
+    = link_to("Digg", "http://del.icio.us/post?url=#{post_url(post)}&title=#{post.title}")

@@ -17,6 +17,7 @@
       - unless update.nil?
         %span.small= "Last updated #{format_date(create.performed_at, :long, true)}"
     %p= @object.content
+    = render :partial => "posts/share"
     - if logged_in? && current_user.is_administrator?
       .post_controls
         = link_to(monitor_icon('Statistics'), instance_logs_path('post', @object))
