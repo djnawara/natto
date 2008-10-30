@@ -1,5 +1,5 @@
 - content_for :javascript, javascript_include_tag('treemenu', :plugin => 'natto')
-- content_for :title, "#{Natto.site_title} - #{@object.title}"
+- content_for :title, @object.title
 - content_for :page_title, @object.title
 #blog
   #blog_posts
@@ -9,7 +9,7 @@
         %p
           = "<em>#{post.description}</em><br/>" unless post.description.blank?
           = "<span class=\"small\">Posted #{format_date(post.created_at, :long, true)}</span><br/>"
-        %p= post.content
+        %p= truncate_words(post.content)
         - if logged_in? && current_user.is_administrator?
           .post_controls
             = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))
@@ -27,5 +27,9 @@
               = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)
   #blog_sidebar
     #sidebar_content= @object.content
+    #feeds
+      = link_to("Atom", feeds_url("atom"))
+      |
+      = link_to("RSS", feeds_url("rss"))
     = render :partial => 'posts/archive'
 .clear

@@ -208,4 +208,9 @@ module ApplicationHelper
     end
     return current_medium, previous_medium, next_medium
   end
+
+  def truncate_words(text, word_count = 50, end_string = ' …')
+    words = text.split()
+    words[0..(word_count - 1)].join(' ') + (words.length > word_count ? end_string : '')
+  end
 end
