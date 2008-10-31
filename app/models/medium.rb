@@ -28,7 +28,7 @@ class Medium < ActiveRecord::Base
 
   validates_as_attachment
 
-  attr_accessible :title, :url, :description, :medium_type
+  attr_accessible :title, :url, :description, :medium_type, :uploaded_data, :content_type, :filename, :temp_path, :thumbnail_resize_options
 
   def not_thumbnail?
     thumbnail.nil?
