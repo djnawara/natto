@@ -37,6 +37,9 @@
       - unless @object.nil?
         %li.toolbar
           = link_to show_icon('Show this ' + params[:controller].singularize, :large), {:controller => params[:controller], :action => 'show', :id => @object.id }
+    - when 'media'
+      %li.toolbar
+        = link_to(media_icon('Manage media', :large), media_path)
     - unless params[:action].eql?('admin')
       %li.toolbar
         = link_to back_icon('Back', :large), {:controller => @controller_for, :action => "index"} unless (params[:action].eql?('index') && !(params[:controller].eql?('change_logs') && !params[:object_class].nil?))
