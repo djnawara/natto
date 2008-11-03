@@ -1,21 +1,22 @@
 - content_for :page_title, "Media for #{@object.name}"
 %fieldset
   %legend Currently assigned media
-  .small The first item in this list will be shown in the biography.  Click items to remove them.
+  .small.italic The first item in this list will be shown in the biography.
   - if @object.media.size == 0
-    %p No media found for project.
+    %br
+    %p No media found for this biography.
   - else
+    %p Click items to remove them.
     - @object.media.each do |medium|
-      = link_to(image_tag(medium.public_filename(:thumb)), "/biographies/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Remove this item from the biography")
-  .clear
-  \&nbsp;
+      = link_to(image_tag(medium.public_filename(:thumb)), {:controller => 'biographies', :action => 'process_medium', :id => @object.id, :medium_id => medium.id}, :title => "Remove this item from the biography")
 .float_left
   %fieldset
     %legend Unassigned media
     .small Click items to assign them to the biography.
+    %br
     - if @available_media.size == 0
-      %p= link_to("Manage media", media_path)
-      %p.small (This project has all available media.)
+      %p.small (This biography has all available media.)
     - else
       - @available_media.each do |medium|
-        = link_to(image_tag(medium.public_filename(:thumb)), "/biographies/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Add this item to the biography")
+        = link_to(image_tag(medium.public_filename(:thumb)), {:controller => 'biographies', :action => 'process_medium', :id => @object.id, :medium_id => medium.id}, :title => "Add this item to the biography")
+.clear
