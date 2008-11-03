@@ -1,5 +1,7 @@
 - content_for :page_title, "Media for #{@object.name}"
 %fieldset
+  %legend Currently assigned media
+  .small The first item in this list will be shown in the biography.  Click items to remove them.
   - if @object.media.size == 0
     %p No media found for project.
   - else
@@ -9,7 +11,8 @@
   \&nbsp;
 .float_left
   %fieldset
-    %legend Assign media to the project
+    %legend Unassigned media
+    .small Click items to assign them to the biography.
     - if @available_media.size == 0
       %p= link_to("Manage media", media_path)
       %p.small (This project has all available media.)
