@@ -16,4 +16,4 @@
     - unless navigation_node.children.empty?
       - # Draw child links
       %ul
-        = render :partial => 'pages/navigation_node', :collection => navigation_node.children.reject {|page| page.page_type.eql? Page::NO_NAV}
+        = render :partial => 'pages/navigation_node', :collection => navigation_node.children.reject {|page| page.page_type.eql? Page::NO_NAV}.reject {|page| page.current_state != :published}
