@@ -53,11 +53,11 @@ class PostsController < CrudController
       @object.destroy
       # add a change log entry
       create_change_log_entry(id)
-    end
-    respond_to do |format|
-      format.html { page.nil? ? redirect_to(posts_path) : redirect_to(page) }
-      format.html { redirect_to(posts_path) }
-      format.xml  { head :ok }
+      respond_to do |format|
+        format.html { page.nil? ? redirect_to(posts_path) : redirect_to(page) }
+        format.html { redirect_to(posts_path) }
+        format.xml  { head :ok }
+      end
     end
   end
   
