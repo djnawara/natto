@@ -108,8 +108,10 @@ class UsersController < CrudController
     logout_keeping_session! unless logged_in? && current_user.is_administrator?
     @object = User.new(params[:user])
     # Add attributes not available to mass-assign
-    @object.login         = params[:user][:login]
-    @object.identity_url  = params[:user][:identity_url]
+    login         = params[:user][:login]
+    identity_url  = params[:user][:identity_url]
+    @object.login         = (login.blank? ? nil : login)
+    @object.identity_url  = (identity_url.blank? ? nil : identity_url)
     success = @object && @object.valid?
     @object.save! if success
     # the normal case of user signup
