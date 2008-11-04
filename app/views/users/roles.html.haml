@@ -40,7 +40,7 @@
     - if removable_roles.size == 0
       %p.small= message
     - else
-      - options = removable_roles.collect {|role| '<option id="' + role.id.to_s + '">' + role.title.chars.capitalize + '</option>'}.join
+      - options = removable_roles.collect {|role| '<option value="' + role.id.to_s + '">' + role.title.chars.capitalize + '</option>'}.join
       - form_tag :action => 'process_role' do
         = hidden_field_tag :id, @object.id
         %div
