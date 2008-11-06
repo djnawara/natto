@@ -32,8 +32,9 @@ class ProjectsController < CrudController
   # POST /objects
   # POST /objects.xml
   def create
+    position = Project.count + 1
     @object = Project.new(params[:project])
-    @object.position = Project.count + 1
+    @object.position = position
     Project.transaction do
       @object.save!
       create_change_log_entry
