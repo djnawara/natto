@@ -12,6 +12,17 @@ class ProjectsController < CrudController
     @objects = Project.find(:all, :order => :position)
   end
   
+  # GET /objects/new
+  # GET /objects/new.xml
+  def new
+    @object = Project.new
+    @object.position = Project.count(:all).size + 1
+    respond_to do |format|
+      format.html { render :template => views_directory + '/form' }
+      format.xml  { render :xml => @object }
+    end
+  end
+  
   def process_medium
     medium = Medium.find_by_id(params[:medium_id])
     if @object.media.include?(medium)
