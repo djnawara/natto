@@ -1,27 +1,28 @@
 - # Draw a row in the pages index
-%div.tree_node{:class => cycle('even', 'odd') + " #{admin_node.current_state} #{admin_node.title.downcase.gsub(/ /, '_')} #{'home_page' if admin_node.is_home_page} #{'admin_home_page' if admin_node.is_admin_home_page}"}
-  %div.float_right
-    - unless admin_node.is_home_page? || admin_node.is_admin_home_page?
-      = link_to(down_icon, {:action => 'set_display_order', :id => admin_node, :display_order => admin_node.display_order+1}, :method => :put) unless admin_node.is_max_display_order? || admin_node.current_state == :deleted
-      = link_to(up_icon, {:action => 'set_display_order', :id => admin_node, :display_order => admin_node.display_order-1}, :method => :put) unless admin_node.is_min_display_order? || admin_node.current_state == :deleted
-      = link_to(previous_icon, {:action => 'set_parent', :id => admin_node, :parent_id => admin_node.parent.parent_id}, :method => :put) unless admin_node.parent_id.nil? || admin_node.current_state == :deleted
-      = link_to(next_icon, {:action => 'set_parent', :id => admin_node, :parent_id => admin_node.get_sibling_id}, :method => :put) unless admin_node.siblings.size == 0 || (admin_node.is_min_display_order? && !admin_node.parent_id.nil?) || admin_node.current_state == :deleted
-    = link_to(monitor_icon('Statistics'), instance_logs_path('page', admin_node))
-    = link_to(new_icon('New child'), new_page_path(:parent_id => admin_node.id))
-    = link_to(edit_icon('Edit'), edit_page_path(admin_node))
-    = link_to(roles_icon('Manage roles'), roles_page_path(admin_node))
-    = link_to(destroy_icon('Destroy'), admin_node, :method => :delete) unless admin_node.current_state == :deleted || admin_node.is_important?
-    = link_to(purge_icon('Permanently delete!'), {:action => 'purge', :id => admin_node}, :method => :delete) if admin_node.current_state == :deleted
-    = link_to(refresh_icon('Undelete page'), {:action => 'undelete', :id => admin_node}) if admin_node.current_state == :deleted
-    = link_to(tango('actions/process-stop', 'Unpublish page'), {:action => 'unpublish', :id => admin_node}, :confirm => "Are you sure you want to unpublish " + admin_node.title + "?", :method => :put) if admin_node.current_state == :published && !admin_node.is_important?
-    = link_to(publish_icon('Publish page'), {:action => 'publish', :id => admin_node}, :method => :put) if (admin_node.current_state == :approved || admin_node.current_state == :unpublished)
-    = link_to(approve_icon('Approve page'), {:action => 'approve', :id => admin_node}) if admin_node.current_state == :pending_review
+%li{:id => "page_#{admin_node.id}"}
+  %div.tree_node{:class => cycle('even', 'odd') + " #{admin_node.current_state} #{admin_node.title.downcase.gsub(/ /, '_')} #{'home_page' if admin_node.is_home_page} #{'admin_home_page' if admin_node.is_admin_home_page}"}
+    %div.float_right
+      - unless admin_node.is_home_page? || admin_node.is_admin_home_page?
+        = link_to(down_icon, {:action => 'set_display_order', :id => admin_node, :display_order => admin_node.display_order+1}, :method => :put) unless admin_node.is_max_display_order? || admin_node.current_state == :deleted
+        = link_to(up_icon, {:action => 'set_display_order', :id => admin_node, :display_order => admin_node.display_order-1}, :method => :put) unless admin_node.is_min_display_order? || admin_node.current_state == :deleted
+        = link_to(previous_icon, {:action => 'set_parent', :id => admin_node, :parent_id => admin_node.parent.parent_id}, :method => :put) unless admin_node.parent_id.nil? || admin_node.current_state == :deleted
+        = link_to(next_icon, {:action => 'set_parent', :id => admin_node, :parent_id => admin_node.get_sibling_id}, :method => :put) unless admin_node.siblings.size == 0 || (admin_node.is_min_display_order? && !admin_node.parent_id.nil?) || admin_node.current_state == :deleted
+      = link_to(monitor_icon('Statistics'), instance_logs_path('page', admin_node))
+      = link_to(new_icon('New child'), new_page_path(:parent_id => admin_node.id))
+      = link_to(edit_icon('Edit'), edit_page_path(admin_node))
+      = link_to(roles_icon('Manage roles'), roles_page_path(admin_node))
+      = link_to(destroy_icon('Destroy'), admin_node, :method => :delete) unless admin_node.current_state == :deleted || admin_node.is_important?
+      = link_to(purge_icon('Permanently delete!'), {:action => 'purge', :id => admin_node}, :method => :delete) if admin_node.current_state == :deleted
+      = link_to(refresh_icon('Undelete page'), {:action => 'undelete', :id => admin_node}) if admin_node.current_state == :deleted
+      = link_to(tango('actions/process-stop', 'Unpublish page'), {:action => 'unpublish', :id => admin_node}, :confirm => "Are you sure you want to unpublish " + admin_node.title + "?", :method => :put) if admin_node.current_state == :published && !admin_node.is_important?
+      = link_to(publish_icon('Publish page'), {:action => 'publish', :id => admin_node}, :method => :put) if (admin_node.current_state == :approved || admin_node.current_state == :unpublished)
+      = link_to(approve_icon('Approve page'), {:action => 'approve', :id => admin_node}) if admin_node.current_state == :pending_review
     
-  #page_title_link
-    = link_page(admin_node)
-    = (admin_node.is_home_page? ? home_icon : '')
-    = (admin_node.is_admin_home_page? ? account_icon('Admin home') : '')
+    #page_title_link
+      = link_page(admin_node)
+      = (admin_node.is_home_page? ? home_icon : '')
+      = (admin_node.is_admin_home_page? ? account_icon('Admin home') : '')
     
-  - # recurse on children
-  %ul
-    = render :partial => 'pages/admin_node', :collection => admin_node.children
+    - # recurse on children
+    %ul
+      = render :partial => 'pages/admin_node', :collection => admin_node.children
