@@ -12,17 +12,6 @@ class ProjectsController < CrudController
     @objects = Project.find(:all, :order => :position)
   end
   
-  # GET /objects/new
-  # GET /objects/new.xml
-  def new
-    @object = Project.new
-    @object.position = Project.count(:all).size + 1
-    respond_to do |format|
-      format.html { render :template => views_directory + '/form' }
-      format.xml  { render :xml => @object }
-    end
-  end
-  
   def process_medium
     medium = Medium.find_by_id(params[:medium_id])
     if @object.media.include?(medium)
@@ -37,6 +26,22 @@ class ProjectsController < CrudController
     respond_to do |format|
       format.html { redirect_to(media_project_path(@object)) }
       format.xml  { head :ok }
+    end
+  end
+  
+  # POST /objects
+  # POST /objects.xml
+  def create
+    @object = Project.new(params[:project])
+    @object.position = Project.count + 1
+    Project.transaction do
+      @object.save!
+      create_change_log_entry
+    end
+    respond_to do |format|
+      flash[:notice] = 'Project was successfully created.'
+      format.html { redirect_to(@object) }
+      format.xml  { render :xml => @object, :status => :created, :location => @object }
     end
   end
   
