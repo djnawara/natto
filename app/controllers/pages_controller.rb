@@ -63,10 +63,37 @@ class PagesController < CrudController
   # GET /pages
   # GET /pages.xml
   def index
-    @objects = Page.find(:all, :conditions => {:parent_id => nil}, :order => 'is_home_page DESC, is_admin_home_page, display_order')
+    @objects = Page.find(:all, :conditions => {:parent_id => nil}, :order => 'display_order')
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => 'ajax', :template => 'pages/index' }
       format.xml  { render :xml => @objects }
+    end
+  end
+  
+  def update_positions
+    counter = 1
+    params[:page_tree].each do |index, branch|
+      update_tree(branch, nil, counter)
+      counter += 1
+    end
+    @objects = Page.find(:all, :conditions => {:parent_id => nil}, :order => 'display_order')
+    render :layout => false, :template => "pages/index"
+  end
+  
+  # assumes that each set of nodes contains a key "id", and that the rest are ordered numeric keys
+  def update_tree(branch, parent_id = nil, position = 1)
+    page = Page.find_by_id(branch["id"])
+    unless page.nil?
+      page.parent_id = parent_id
+      page.display_order = position
+      page.save(false) # save without validating the page
+      # if anything is left after removing the id, we have children
+      branch.delete("id")
+      counter = 1
+      branch.sort.each do |index, child|
+        update_tree(child, page.id, counter)
+        counter += 1
+      end
     end
   end
   
