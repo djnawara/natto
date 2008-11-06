@@ -8,32 +8,39 @@
     = f.select :page_type, Page::TYPES
   %div
     = f.label :title, nil, {:class => 'required'}
+    .small The main title when viewing the page, and the navigation label.
     = f.text_field :title
   %div
     = f.label :description, nil, {:class => 'required'}
+    .small Description shows on the navigation tooltip.
     = f.text_area :description, :class => "mceNoEditor small"
   %div
     = f.label :content, nil, {:class => 'required'}
     = f.text_area :content, :class => "mceEditor"
-  %div
-    = f.label :sass
-    %p.small Comma separated list of sass files to link on this page
-    = f.text_field :sass
-  %div.checkbox
-    %div
-      = f.check_box :is_home_page
-      = f.label :is_home_page
-    %div
-      = f.check_box :is_admin_home_page
-      = f.label :is_admin_home_page
   %fieldset
-    %legend Advanced Pathing
-    %p.small You may use this field to enter custom routes for the page.
-    %div
-      = f.label :advanced_path
-      = f.text_field :advanced_path
+    %legend Advanced functions
+    .small Please be careful, as checking these can have dramatic affects on your site; you may have only one of each.
+    %div.checkbox
+      %div
+        = f.check_box :is_home_page
+        = f.label :is_home_page
+      %div
+        = f.check_box :is_admin_home_page
+        = f.label :is_admin_home_page
   %fieldset
-    %legend{:class => @object.new_record? ? '' : 'required'} Comments
-    %p.small Please enter comments for the change log.
-    %p= text_area :change_log, :comments, {:class => 'small', :rows => 3}
+    %legend Advanced functions
+    %div
+      = f.label :sass
+      %p.small Comma separated list of sass files to link on this page
+      = f.text_field :sass
+    %fieldset
+      %legend Pathing
+      %p.small You may use this field to enter custom routes for the page.
+      %div
+        = f.label :advanced_path
+        = f.text_field :advanced_path
+    %fieldset
+      %legend{:class => @object.new_record? ? '' : 'required'} Comments
+      %p.small Please enter comments for the change log.  This will help for audit trails.
+      %p= text_area :change_log, :comments, {:class => 'small', :rows => 3}
   %p= f.submit(submit_label(@object))
