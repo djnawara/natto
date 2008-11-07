@@ -20,7 +20,11 @@ class MediaController < CrudController
       @object.content_type = File.mime_type?(@object.filename) if @object.content_type.blank?
       if @object.save
         flash[:notice] = 'Medium was successfully created.'
-        redirect_to crop_thumb_path(@object)
+        if @object.content_type.include?('image')
+          redirect_to crop_thumb_path(@object)
+        else
+          redirect_to media_path
+        end
       else
         render :action => "new", :template => 'media/form'
       end
