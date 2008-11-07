@@ -7,7 +7,7 @@
     = stylesheet_link_tag 'application', 'administration', :plugin => 'natto'
     /[if lte IE 7]
       = stylesheet_link_tag "ie"
-    = javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'admin', 'application', :cache => false, :plugin => 'natto'
+    = javascript_include_tag 'prototype', 'effects', 'admin', 'application', :cache => false, :plugin => 'natto'
     = yield :javascript
     - if !@page.nil?
       - @page.get_sass.each do |file|
