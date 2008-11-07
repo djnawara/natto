@@ -1,0 +1,45 @@
+- content_for :head, stylesheet_link_tag('cropper/cropper', :plugin => 'natto')
+- # Do some prep berfore we create our cropper
+- thumbnail = (params[:thumbnail].nil? ? 'thumb' : params[:thumbnail])
+- case thumbnail
+- when Medium::SMALL
+  - cropper = "new Cropper.ImgWithPreview('image_to_crop', {previewWrap:'preview', minWidth:80, minHeight:80, ratioDim:{ x: 1, y: 1 }, onEndCrop:onEndCrop});"
+- else
+  - # show no preview unless on thumbnail (can only do so with fixed dimensions)
+  - cropper = "new Cropper.Img('image_to_crop', {onEndCrop:onEndCrop});"
+- # add necessary JS for the cropper
+- content_for :javascript do
+  = javascript_include_tag('scriptaculous.js?load=builder,dragdrop', 'cropper/cropper', :plugin => 'natto')
+  :javascript
+    // setup the callback function
+    function onEndCrop(coords, dimensions) {
+      $('offset_x').value = coords.x1;
+      $('offset_y').value = coords.y1;
+      $('width').value    = dimensions.width;
+      $('height').value   = dimensions.height;
+    }
+    Event.observe(window, 'load', function() {
+      #{cropper}
+    })
+%h1= "Crop this image ('#{thumbnail}' version)"
+#image_wrapper= image_tag(@object.public_filename(:large), :id => "image_to_crop")
+- # hide if not on thumb
+- if thumbnail.eql?(Medium::SMALL)
+  #preview_wrapper
+    %h2 Preview:
+    #preview
+  - # grab the current image
+  - thumb = Medium.find(:first, :conditions => {:parent_id => @object.id, :thumbnail => thumbnail})
+  - unless thumb.nil?
+    #default_wrapper
+      %h2 Current Image
+      #default_thumb= image_tag(@object.public_filename(thumbnail))
+      #default_dimensions= "#{thumb.width}x#{thumb.height} pixels"
+#instructions
+  %h2 Instructions
+  %b.italic This is destructive!  You will lose the current version you are editing!
+  %ul
+    %li Hold shift while dragging/resizing to limit select area to a square (<em>not applicable when ratios are applied</em>).
+    %li Use cursor keys to nudge the select area by one pixel, holding shift will nudge area by 10 pixels.
+%br
+= render :partial => "media/crop_form"

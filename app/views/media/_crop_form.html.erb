@@ -1,0 +1,12 @@
+<%
+thumbnail = (params[:thumbnail].nil? ? 'thumb' : params[:thumbnail])
+form_tag(crop_path, :method => 'post') do
+  %><%= hidden_field_tag("thumbnail", thumbnail)
+  %><%= hidden_field_tag("medium_id", @object.id)
+  %><%= hidden_field_tag("offset_x")
+  %><%= hidden_field_tag("offset_y")
+  %><%= hidden_field_tag("width")
+  %><%= hidden_field_tag("height")
+  %><%= submit_tag("Update thumbnail")
+  %><%= submit_tag("Skip") -%>
+<% end %>
