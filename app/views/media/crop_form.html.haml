@@ -1,4 +1,3 @@
-- content_for :head, stylesheet_link_tag('cropper/cropper', :plugin => 'natto')
 - # Do some prep berfore we create our cropper
 - thumbnail = (params[:thumbnail].nil? ? 'thumb' : params[:thumbnail])
 - case thumbnail
@@ -28,18 +27,17 @@
   #preview_wrapper
     %h2 Preview:
     #preview
-  - # grab the current image
-  - thumb = Medium.find(:first, :conditions => {:parent_id => @object.id, :thumbnail => thumbnail})
-  - unless thumb.nil?
-    #default_wrapper
-      %h2 Current Image
-      #default_thumb= image_tag(@object.public_filename(thumbnail))
-      #default_dimensions= "#{thumb.width}x#{thumb.height} pixels"
+    - # grab the current image
+    - thumb = Medium.find(:first, :conditions => {:parent_id => @object.id, :thumbnail => thumbnail})
+    - unless thumb.nil?
+      #default_wrapper
+        %h2 Current:
+        #default_thumb= image_tag(@object.public_filename(thumbnail))
+.clear
+= render :partial => "media/crop_form"
 #instructions
   %h2 Instructions
   %b.italic This is destructive!  You will lose the current version you are editing!
   %ul
     %li Hold shift while dragging/resizing to limit select area to a square (<em>not applicable when ratios are applied</em>).
     %li Use cursor keys to nudge the select area by one pixel, holding shift will nudge area by 10 pixels.
-%br
-= render :partial => "media/crop_form"
