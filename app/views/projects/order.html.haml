@@ -1,6 +1,7 @@
+- content_for :javascript, javascript_include_tag('dragdrop', :cache => false, :plugin => 'natto')
 - content_for :title, "#{Natto.site_title} - #{@object.title}"
 - content_for :page_title, @object.title
 #portfolio_projects= render :partial => 'projects/order'
-= sortable_element('list', :constraint => false, :update => 'portfolio_projects', :complete => visual_effect(:highlight, 'list'), :url => {:action => :update_positions})
+= sortable_element('list', :constraint => false, :scroll => 'window', :update => 'portfolio_projects', :complete => visual_effect(:pulsate, 'portfolio_projects', {:duration => 0.4, :from => 0.4, :pulses => 1}), :url => {:action => :update_positions})
 .clear
 %br
