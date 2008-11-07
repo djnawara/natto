@@ -73,6 +73,7 @@ class MediaController < CrudController
         logger.debug(" >>>>>> WRITING: #{target_filename}")
         File.delete(target_filename)
         source_image.write(target_filename)
+        File.chmod(0711, target_filename) # make sure the file is readable by others
         redirect_to image_version_path(medium, params[:thumbnail])
         return
       end
