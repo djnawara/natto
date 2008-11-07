@@ -165,6 +165,7 @@ class Page < NattoBase
   def remove_from_display_order
     self.siblings.each do |sibling|
       sibling.display_order -= 1 if sibling.display_order > self.display_order unless sibling.display_order.nil?
+      sibling.save(false)
     end
     self.display_order = nil
   end
@@ -181,7 +182,21 @@ class Page < NattoBase
   private :set_author
   
   def initialize_display_order
-    self.display_order = Page.max_display_order(self) + 1 if self.display_order.nil?
+    if self.display_order.nil?
+      last = Page.count(:all, :conditions => {:parent_id => self.parent_id}) + 1
+      # adjust admin page, if it's last and a sibling
+      if admin = Page.find_by_is_admin_home_page(true)
+        logger.debug(" >>>>> FOUND ADMIN PAGE")
+        logger.debug(" TRUE????? #{self.parent_id} = #{admin.parent_id} && #{admin.display_order} == #{last - 1}")
+        if self.parent_id == admin.parent_id && admin.display_order == (last - 1)
+          logger.debug(" >>>>> SETTING ADMIN DO TO #{last}")
+          admin.display_order = last
+          admin.save(false)
+          last -= 1
+        end
+      end
+      self.display_order = last
+    end
   end
   private :initialize_display_order
 end
