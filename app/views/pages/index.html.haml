@@ -1,8 +1,9 @@
+- content_for :javascript, javascript_include_tag('dragdrop', :cache => false, :plugin => 'natto')
 #page_index
   - content_for :page_title, "Listing pages"
   %ul#page_tree
     = render :partial => "pages/admin_node", :collection => @objects
-  - effect = "new Effect.Pulsate('page_tree', {duration:0.4, from:0.4, pulses:1});"
+  - effect = visual_effect(:pulsate, 'page_tree', {:duration => 0.4, :from => 0.4, :pulses => 1})
   - link = "function(){" + remote_function(:update => "page_index", :complete => effect, :url => {:controller => 'pages', :action => 'update_positions'}, :with => 'Sortable.serialize("page_tree")') + "}"
   :javascript
-    Sortable.create("page_tree", { tree:true, constraint:false, scroll:window, onUpdate:#{link} });
+    Sortable.create("page_tree", {tree:true, constraint:false, scroll:window, onUpdate:#{link}});
