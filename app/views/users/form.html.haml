@@ -13,18 +13,21 @@
         %legend Roles
         %p.small Choose roles for the user.
         - Role.find(:all).each do |role|
-          %div
-            = check_box_tag("user[role_ids][]", role.id, @object.roles.include?(role), :readonly => (@object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)))
-            = f.label role.title.capitalize
-            - if @object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)
-              %span.small.required (not removable)
+          %div.checkbox
+            %div
+              = check_box_tag("user[role_ids][]", role.id, @object.roles.include?(role), :readonly => (@object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)))
+              = f.label role.title.capitalize
+              - if @object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)
+                %span.small.required (not removable)
         - if @object.current_state == :passive
           %div
             %fieldset
               %legend Activate user?
               %p.small Checking this will skip the email activation process.
-              = check_box_tag('activate')
-              = f.label :activate
+              %div.checkbox
+                %div
+                  = check_box_tag('activate')
+                  = f.label :activate
     %fieldset
       %legend Register with OpenID
       %p.small If your OpenID account contains your personal information, this may speed things up for you.  Just enter your OpenID URL and click the "Sign Up" button.
