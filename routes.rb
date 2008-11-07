@@ -53,10 +53,13 @@ ActionController::Routing::Routes.draw do |map|
   comment_violation '/comments/violation/:id', :controller => 'comments', :action => 'violation', :conditions => {:method => :get}
   
   # media
-  image_version '/images/:id/:version', :controller => 'media', :action => 'show'
-  image         '/images/:id', :controller => 'media', :action => 'show'
-  batch         '/batch', :controller => 'media', :action => 'batch'
-  run_batch     '/batch/run', :controller => 'media', :action => 'run_batch'
+  image_version   '/images/:id/:version', :controller => 'media', :action => 'show'
+  image           '/images/:id', :controller => 'media', :action => 'show'
+  batch           '/batch', :controller => 'media', :action => 'batch'
+  run_batch       '/batch/run', :controller => 'media', :action => 'run_batch'
+  crop_thumb      '/media/:id/crop', :controller => 'media', :action => 'crop_form'
+  crop_image      '/media/:id/crop/:thumbnail', :controller => 'media', :action => 'crop_form'
+  crop            '/media/crop', :controller => 'media', :action => 'crop', :conditions => {:method => :post}
   
   # projects
   project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show'
