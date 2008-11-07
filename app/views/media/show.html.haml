@@ -1,17 +1,30 @@
-- params[:version].blank? ? version = :resized : version = params[:version]
+- params[:version].blank? ? version = "" : version = params[:version]
+%h1= @object.content_type.include?("image") ? (version.blank? ? 'Original' : version.capitalize) : @object.content_type
 - if @object.content_type.include?("image")
   = image_tag @object.public_filename(version)
-  %p
+  #view_or_crop
+    = link_to(tango("actions/view-fullscreen", "Crop thumbnail"), crop_thumb_path(@object))
     = link_to("Thumbnail", image_version_path(@object, :thumb))
+    %br
+    = link_to(tango("actions/view-fullscreen", "Crop medium size version"), crop_image_path(@object, Medium::MEDIUM))
     = link_to("Resized", image_version_path(@object, :resized))
-    = link_to("Original", image_version_path(@object, :large))
+    %br
+    = link_to(tango("actions/view-fullscreen", "Crop large version"), crop_image_path(@object, Medium::LARGE))
+    = link_to("Large", image_version_path(@object, :large))
+    %br
+    = link_to("Original", image_path(@object))
+  %br
+  %p
+    %b> File: 
+    = " #{link_to(@object.public_filename(version), @object.public_filename(version))}"
+    %p.small (You may need to refresh your browser, if the image has not updated after a crop or edit.)
 - if @object.content_type.include?("video")
-  = javascript_include_tag 'swfobject'
+  = javascript_include_tag 'swfobject', :plugin => 'natto'
   #preview
   :javascript
-    var s1 = new SWFObject('/jwplayer/player.swf','ply','470','320','9','#ffffff');
+    var s1 = new SWFObject('/plugin_assets/natto/jwplayer/player.swf','ply','470','320','9','#ffffff');
     s1.addParam('allowfullscreen','true');
     s1.addParam('allowscriptaccess','always');
     s1.addParam('wmode','opaque');
-    s1.addParam('flashvars','file=#{@object.public_filename}&controlbar=bottom&duration=34&fullscreen=true&stretching=fill&backcolor=a2896b');
+    s1.addParam('flashvars','file=#{@object.public_filename}&controlbar=bottom&duration=34&fullscreen=true&stretching=fill&backcolor=cccccc');
     s1.write('preview');
