@@ -8,6 +8,10 @@ class Medium < ActiveRecord::Base
   DIGITAL   = "Digital"
   # for select boxes
   TYPES       = [PRINT, TV, RADIO, DIGITAL]
+  # SIZES
+  SMALL     = "thumb"
+  MEDIUM    = "resized"
+  LARGE     = "large"
   #################
   # ASSOCIATIONS
   
