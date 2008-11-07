@@ -2,7 +2,7 @@
 - thumbnail = (params[:thumbnail].nil? ? 'thumb' : params[:thumbnail])
 - case thumbnail
 - when Medium::SMALL
-  - cropper = "new Cropper.ImgWithPreview('image_to_crop', {previewWrap:'preview', minWidth:80, minHeight:80, ratioDim:{ x: 1, y: 1 }, onEndCrop:onEndCrop});"
+  - cropper = "new Cropper.ImgWithPreview('image_to_crop', {previewWrap:'preview', minWidth:#{Natto.small_image_width}, minHeight:#{Natto.small_image_height}, ratioDim:{x:1, y:1}, onEndCrop:onEndCrop});"
 - else
   - # show no preview unless on thumbnail (can only do so with fixed dimensions)
   - cropper = "new Cropper.Img('image_to_crop', {onEndCrop:onEndCrop});"
