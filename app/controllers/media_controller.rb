@@ -1,3 +1,4 @@
+require 'mini_magick'
 class MediaController < CrudController
   # GET /objects
   # GET /objects.xml
@@ -19,7 +20,7 @@ class MediaController < CrudController
       @object.content_type = File.mime_type?(@object.filename) if @object.content_type.blank?
       if @object.save
         flash[:notice] = 'Medium was successfully created.'
-        redirect_to media_path
+        redirect_to crop_thumb_path(@object)
       else
         render :action => "new", :template => 'media/form'
       end
@@ -33,6 +34,46 @@ class MediaController < CrudController
       flash[:error] = e.message
       redirect_to :action => "new", :template => 'media/form'
     end
+  end
+  
+  def crop_form
+    @object = Medium.find(params[:id])
+    respond_to do |format|
+      format.html { render :layout => 'ajax', :template => 'media/crop_form' }
+      format.xml  { render :xml => @object }
+    end
+  end
+  
+  def crop
+    unless params[:commit].eql?("Skip")
+      if medium = Medium.find_by_id(params[:medium_id])
+        # the image to crop
+        source_filename = File.join(RAILS_ROOT, "public", medium.public_filename(:large))
+        # the image to overwrite
+        target_filename = File.join(RAILS_ROOT, "public", medium.public_filename(params[:thumbnail]))
+        # load the source image
+        source_image = MiniMagick::Image.from_file(source_filename)
+        # perform the crop
+        logger.debug(" >>>>>> CROP: #{params[:width]}x#{params[:height]}+#{params[:offset_x]}+#{params[:offset_y]}!")
+        source_image.crop("#{params[:width]}x#{params[:height]}+#{params[:offset_x]}+#{params[:offset_y]}!")
+        # resize to appropriate size
+        case(params[:thumbnail])
+        when Medium::SMALL
+          source_image.resize(Natto.small_image_size)
+        when Medium::MEDIUM
+          source_image.resize(Natto.medium_image_size)
+        when Medium::LARGE
+          source_image.resize(Natto.large_image_size)
+        end
+        # write to the target
+        logger.debug(" >>>>>> WRITING: #{target_filename}")
+        File.delete(target_filename)
+        source_image.write(target_filename)
+        redirect_to image_version_path(medium, params[:thumbnail])
+        return
+      end
+    end
+    redirect_to media_path
   end
   
   def batch
