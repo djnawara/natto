@@ -73,9 +73,10 @@ class PagesController < CrudController
   def update_positions
     counter = 1
     params[:page_tree].each do |index, branch|
-      update_tree(branch, nil, counter)
-      counter += 1
+      # only advance the counter if a display order was set
+      counter += 1 if update_tree(branch, nil, counter)
     end
+    # load objects for the page index, and render
     @objects = Page.find(:all, :conditions => {:parent_id => nil}, :order => 'display_order')
     render :layout => false, :template => "pages/index"
   end
@@ -83,7 +84,8 @@ class PagesController < CrudController
   # assumes that each set of nodes contains a key "id", and that the rest are ordered numeric keys
   def update_tree(branch, parent_id = nil, position = 1)
     page = Page.find_by_id(branch["id"])
-    unless page.nil?
+    # ignore if the id is bad, or the page is deleted
+    unless page.nil? || page.current_state == :deleted
       page.parent_id = parent_id
       page.display_order = position
       page.save(false) # save without validating the page
@@ -94,7 +96,9 @@ class PagesController < CrudController
         update_tree(child, page.id, counter)
         counter += 1
       end
+      return true # we did something, so return true
     end
+    return false # we did nothing if we made it this far
   end
   
   def home
@@ -179,19 +183,7 @@ class PagesController < CrudController
     end
     respond_to do |format|
       flash[:notice] = 'The page was successfully created.'
-      format.html do
-        if @object.advanced_path.blank?
-          redirect_to @object
-        else
-          # make sure we catch bad paths here
-          begin
-            redirect_to(self.send(@object.advanced_path))
-          rescue Exception => err
-            flash_exception(err, "Advanced Path Error")
-            redirect_to pages_path
-          end
-        end
-      end
+      format.html { redirect_to pages_path }
       format.xml  { render :xml => @object, :status => :created, :location => @object }
     end
   end
@@ -238,13 +230,8 @@ class PagesController < CrudController
   # see purge.
   def destroy
     Page.transaction do
+      @object.remove_from_display_order
       @object.delete!
-      reorder(Page.find(:all, 
-        :conditions => {:parent_id => @object.parent_id, 
-                        :is_home_page => false, 
-                        :is_admin_home_page => false, 
-                        :aasm_state => Page.states.collect{|state|state.to_s}.reject{|state| state.eql?('deleted')}}, 
-        :order => 'display_order ASC'))
       create_change_log_entry
     end
     respond_to do |format|
@@ -368,12 +355,8 @@ class PagesController < CrudController
     @object.parent = parent
     @object.display_order = Page.max_display_order(@object) + 1
     @object.save(false)
-    
     # Reset all of the display order values.
-    # Make sure to exclude the home and admin pages from the reorder,
-    # when the parent_id was nil.
-    reorder(Page.find(:all, :conditions => {:parent_id => old_parent_id, :is_home_page => false, :is_admin_home_page => false}, :order => 'display_order ASC'))
-    
+    @object.remove_from_display_order
     create_change_log_entry
     
     respond_to do |format|
@@ -381,18 +364,6 @@ class PagesController < CrudController
       format.xml  { head :ok }
     end
   end
-  
-  # Redo the display orders for the supplied nodes.
-  def reorder(pages = [])
-    counter = 1
-    pages.each do |page|
-      page.display_order = counter
-      page.save(false)
-      counter += 1
-    end
-    counter > 1 ? true : false
-  end
-  private :reorder
   
   def roles
     @available_roles = Role.find(:all).reject {|role| @object.roles.include?(role)}
