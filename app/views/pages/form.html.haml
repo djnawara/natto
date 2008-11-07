@@ -5,7 +5,7 @@
   = f.hidden_field :parent_id
   %div
     = f.label :page_type, "Type", {:class => 'required'}
-    = f.select :page_type, Page.get_available_types
+    = f.select :page_type, Page::TYPES
   %div
     = f.label :title, nil, {:class => 'required'}
     .small The main title when viewing the page, and the navigation label.
