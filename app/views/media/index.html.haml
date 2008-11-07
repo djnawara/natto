@@ -6,15 +6,14 @@
     %th &nbsp;
     %th Media Type
     %th Mime Type
-    %th Filename
     %th &nbsp;
   - for medium in @objects
     %tr{:class => cycle('even','odd')}
       %td= link_to(image_tag(medium.public_filename(:thumb)), medium.public_filename(:resized), :rel => 'lightbox') if medium.content_type.include?("image")
       %td=h medium.medium_type
       %td=h medium.content_type
-      %td= link_to medium.filename, image_version_path(medium, Medium::MEDIUM)
       %td
+        = link_to(show_icon, (medium.content_type.include?("image") ? image_version_path(medium, Medium::MEDIUM) : medium_path(medium)))
         = link_to(monitor_icon('Statistics'), instance_logs_path('medium', medium))
         = link_to edit_icon('Edit'), edit_medium_path(medium)
         = link_to(tango("actions/view-fullscreen", "Crop thumbnail"), crop_thumb_path(medium)) if medium.content_type.include?("image")
