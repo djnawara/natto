@@ -8,26 +8,6 @@
       Fields which appear
       %span.required like this
       are required.
-    - if logged_in? && current_user.is_administrator?
-      %fieldset
-        %legend Roles
-        %p.small Choose roles for the user.
-        - Role.find(:all).each do |role|
-          %div.checkbox
-            %div
-              = check_box_tag("user[role_ids][]", role.id, @object.roles.include?(role), :readonly => (@object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)))
-              = f.label role.title.capitalize
-              - if @object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)
-                %span.small.required (not removable)
-        - if @object.current_state == :passive
-          %div
-            %fieldset
-              %legend Activate user?
-              %p.small Checking this will skip the email activation process.
-              %div.checkbox
-                %div
-                  = check_box_tag('activate')
-                  = f.label :activate
     %fieldset
       %legend Register with OpenID
       %p.small If your OpenID account contains your personal information, this may speed things up for you.  Just enter your OpenID URL and click the "Sign Up" button.
@@ -77,6 +57,26 @@
           = f.label :password_confirmation, nil, {:class => (@object.new_record? ? 'required' : '')}
           = f.password_field :password_confirmation
     - if logged_in? && current_user.is_administrator?
+      %fieldset
+        %legend Roles
+        %p.small Choose roles for the user.
+        - if Role.count > 0
+          %div.checkbox
+            - Role.find(:all).each do |role|
+              %div
+                = check_box_tag("user[role_ids][]", role.id, @object.roles.include?(role), :readonly => (@object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)))
+                = f.label role.title.capitalize
+                - if @object.name.capitalize.eql?(role.title.capitalize) or (role.title.eql?('administrator') && @object == current_user)
+                  %span.small.required (not removable)
+      - if @object.current_state == :passive
+        %div
+          %fieldset
+            %legend Activate user?
+            %p.small Checking this will skip the email activation process.  If you know the user's email is valid, this may save them some time.
+            %div.checkbox
+              %div
+                = check_box_tag('activate')
+                = f.label :activate
       %fieldset
         %legend{:class => @object.new_record? ? nil : 'required'} Comments
         %p.small Please enter comments for the change log.
