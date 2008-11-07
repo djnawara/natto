@@ -8,6 +8,7 @@
     /[if lte IE 7]
       = stylesheet_link_tag "ie"
     = javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'admin', 'application', :cache => false, :plugin => 'natto'
+    = yield :javascript
     - if !@page.nil?
       - @page.get_sass.each do |file|
         = stylesheet_link_tag file
@@ -31,7 +32,6 @@
       #footer
         = link_to('Sitemap', sitemap_path)
         #copyright &copy; 2008 Dan &amp; Dave J. Nawara
-    = yield :javascript
     :javascript
       document.observe("dom:loaded",function(ev){
         #{'admin = new DJN.Admin();' if logged_in? && current_user.is_administrator?}
