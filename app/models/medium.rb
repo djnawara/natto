@@ -28,7 +28,10 @@ class Medium < ActiveRecord::Base
                  :max_size    => 5.megabytes,
                  :path_prefix => "public/media",
                  :partition   => false,
-                 :thumbnails => { :thumb => Natto.small_image_size, :resized => Natto.medium_image_size, :large => Natto.large_image_size }
+                 :thumbnails => { :thumb => Natto.small_image_size,
+                                  :resized => Natto.medium_image_size,
+                                  :large => Natto.large_image_size,
+                                  :croppable => Natto.croppable_image_size }
 
   validates_as_attachment
 

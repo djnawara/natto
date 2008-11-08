@@ -21,7 +21,7 @@
       #{cropper}
     })
 %h1= "Crop this image ('#{thumbnail}' version)"
-#image_wrapper= image_tag(@object.public_filename(:large), :id => "image_to_crop")
+#image_wrapper= image_tag(@object.public_filename(:croppable), :id => "image_to_crop")
 - # hide if not on thumb
 - if thumbnail.eql?(Medium::SMALL)
   #preview_wrapper

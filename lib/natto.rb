@@ -13,6 +13,9 @@ module Natto
   mattr_accessor :large_image_size        # big stuff!
     mattr_accessor :large_image_width
     mattr_accessor :large_image_height
+  mattr_accessor :croppable_image_size    # never used except when cropping others
+    mattr_accessor :croppable_image_width
+    mattr_accessor :croppable_image_height
   mattr_accessor :portoflio_projects_max  # Max projects to display on portfolio pages
 
   self.site_title               = "Natto CMS"
@@ -33,4 +36,8 @@ module Natto
   self.large_image_width        = '700'
   self.large_image_height       = '700'
   self.large_image_size         = "#{self.large_image_width}x#{self.large_image_height}>"
+  
+  self.croppable_image_width    = '500'
+  self.croppable_image_height   = '700'
+  self.croppable_image_size     = "#{self.croppable_image_width}x#{self.croppable_image_height}>"
 end

@@ -52,7 +52,7 @@ class MediaController < CrudController
     unless params[:commit].eql?("Skip")
       if medium = Medium.find_by_id(params[:medium_id])
         # the image to crop
-        source_filename = File.join(RAILS_ROOT, "public", medium.public_filename(:large))
+        source_filename = File.join(RAILS_ROOT, "public", medium.public_filename(:croppable))
         # the image to overwrite
         target_filename = File.join(RAILS_ROOT, "public", medium.public_filename(params[:thumbnail]))
         # load the source image
