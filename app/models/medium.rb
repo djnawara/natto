@@ -24,7 +24,8 @@ class Medium < ActiveRecord::Base
   # VALIDATIONS
   validates_presence_of   :medium_type, :if => :not_thumbnail?
 
-  has_attachment :storage     => :file_system, 
+  has_attachment :processor   => 'MiniMagick',
+                 :storage     => :file_system, 
                  :max_size    => 5.megabytes,
                  :path_prefix => "public/media",
                  :partition   => false,
