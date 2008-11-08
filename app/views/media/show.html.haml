@@ -3,13 +3,16 @@
 - if @object.content_type.include?("image")
   = image_tag @object.public_filename(version)
   #view_or_crop
-    = link_to(tango("actions/view-fullscreen", "Crop thumbnail"), crop_thumb_path(@object))
     = link_to("Thumbnail", image_version_path(@object, :thumb))
+    %span.small
+      - text_link = link_to("Crop", crop_thumb_path(@object))
+      = "(#{text_link})"
     %br
-    = link_to(tango("actions/view-fullscreen", "Crop medium size version"), crop_image_path(@object, Medium::MEDIUM))
-    = link_to("Resized", image_version_path(@object, :resized))
+      = link_to("Resized", image_version_path(@object, :resized))
+      %span.small
+        - text_link = link_to("Crop", crop_image_path(@object, Medium::MEDIUM))
+        = "(#{text_link})"
     %br
-    = link_to(tango("actions/view-fullscreen", "Crop large version"), crop_image_path(@object, Medium::LARGE))
     = link_to("Large", image_version_path(@object, :large))
     %br
     = link_to("Original", image_path(@object))

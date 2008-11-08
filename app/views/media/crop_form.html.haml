@@ -20,7 +20,7 @@
     Event.observe(window, 'load', function() {
       #{cropper}
     })
-%h1= "Crop this image ('#{thumbnail}' version)"
+%h1= "Crop image ('#{thumbnail}' version)"
 #image_wrapper= image_tag(@object.public_filename(:croppable), :id => "image_to_crop")
 - # hide if not on thumb
 - if thumbnail.eql?(Medium::SMALL)
