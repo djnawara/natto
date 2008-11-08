@@ -1,7 +1,7 @@
 namespace :media do
   desc "Updates all thumbnails for media"
   task(:update => :environment) do
-    Medium.parentless.each do |medium|
+    Medium.find(:all, :conditions => "parent_id IS NULL AND content_type LIKE '%image%'").each do |medium|
       #destroy the thumbnails first
       medium.thumbnails.each { |thumbnail| thumbnail.destroy } if medium.thumbnailable?
       #then recreate the thumbnails
