@@ -1,4 +1,4 @@
-- content_for :page_title, "New post"
+- content_for :page_title, (@object.new_record? ? "New post" : "Edit post")
 = render :partial => "shared/advanced_tiny_mce"
 - form_for(@object) do |f|
   = f.error_messages
