@@ -11,9 +11,12 @@
     %h2= @object.title
     .post_description= @object.description unless @object.description.blank?
     .post_content= @object.content
-    = render :partial => "posts/share"
+    %p= render :partial => "posts/share"
+    %p
+      = link_to(image_tag("link.png", :plugin => 'natto'), post_path(@object))
+      = link_to("Permalink", post_path(@object))
     - if logged_in? && current_user.is_administrator?
-      .post_controls
+      %p.post_controls
         = link_to(monitor_icon('Statistics'), instance_logs_path('post', @object))
         = link_to edit_icon('Edit'), edit_post_path(@object)
         = link_to destroy_icon('Destroy'), @object, :confirm => "Are you sure you want to permanently delete this post?", :method => :delete
@@ -31,7 +34,7 @@
             = "#{format_date(comment.created_at, :short, false)}" unless comment.created_at.strftime("%Y%j").eql?(Time.now.strftime("%Y%j"))
     = render :partial => 'shared/post_comments_form'
   #blog_sidebar
-    #sidebar_content= @object.page.content
+    #sidebar_content= @object.page.content unless @object.page.nil?
     #archived_posts
       %h4 Blog archive
       = render :partial => 'posts/sidebar'
