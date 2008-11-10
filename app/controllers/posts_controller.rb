@@ -31,12 +31,12 @@ class PostsController < CrudController
   # PUT /objects/1
   # PUT /objects/1.xml
   def update
-    @model_class.transaction do
-      @object.update_attributes!(params[@object.class.name.tableize.singularize.to_sym])
+    Post.transaction do
+      @object.update_attributes!(params[:post])
       create_change_log_entry
     end
     respond_to do |format|
-      flash[:notice] = @model_class.name + ' was successfully updated.'
+      flash[:notice] = 'Post successfully updated.'
       format.html { @object.page.nil? ? redirect_to(@object) : redirect_to(@object.page) }
       format.xml  { head :ok }
     end
