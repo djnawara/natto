@@ -12,6 +12,7 @@ module PostsHelper
     when "Page"
       posts = object.posts
     when "Post"
+      return nil if @object.page.nil?
       @current_month = object.created_at.strftime('%B')
       @current_year = object.created_at.year.to_s
       posts = object.page.posts
