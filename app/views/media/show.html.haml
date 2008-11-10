@@ -20,7 +20,9 @@
   %p
     %b> File: 
     = " #{link_to(@object.public_filename(version), @object.public_filename(version))}"
-    %p.small (You may need to refresh your browser, if the image has not updated after a crop or edit.)
+    %p.small
+      = tango("emblems/emblem-important")
+      (You may need to refresh your browser, if the image has not updated after a crop or edit.)
 - if @object.content_type.include?("video")
   = javascript_include_tag 'swfobject', :plugin => 'natto'
   #preview
