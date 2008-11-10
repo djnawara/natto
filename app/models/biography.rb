@@ -17,5 +17,4 @@ class Biography < ActiveRecord::Base
   validates_format_of       :job_title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
 
   validates_presence_of     :content
-  validates_length_of       :content, :within => 1..9999
 end
