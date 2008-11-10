@@ -1,5 +1,3 @@
-- content_for :head, stylesheet_link_tag('lightbox.css', :plugin => 'natto')
-- content_for :javascript, javascript_include_tag('lightbox', 'scriptaculous.js?load=effects,builder', :cache => false, :plugin => 'natto')
 - content_for :page_title, "Listing media"
 %table
   %tr
@@ -9,7 +7,7 @@
     %th &nbsp;
   - for medium in @objects
     %tr{:class => cycle('even','odd')}
-      %td= link_to(image_tag(medium.public_filename(:thumb)), medium.public_filename(:resized), :rel => 'lightbox') if medium.content_type.include?("image")
+      %td= link_to(image_tag(medium.public_filename(:thumb)), image_version_path(medium, Medium::MEDIUM)) if medium.content_type.include?("image")
       %td=h medium.medium_type
       %td=h medium.content_type
       %td
