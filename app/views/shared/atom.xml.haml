@@ -5,7 +5,7 @@
   %link{:rel => "self"}= feeds_url("atom")
   %author= Natto.site_title
   %generator{:uri => "http://www.nattodesigns.com", :version => "1.0"} Natto CMS
-  %modified= @objects.first.created_at.to_s if @objects.size > 0 && !@objects.first.created_at.nil?
+  %modified= @objects.first.published_at.to_s if @objects.size > 0 && !@objects.first.published_at.nil?
   /  %subtitle A blog feed by Chicago Creative Partnership
   %copyright= "Copyright (c) #{Time.now.year}, #{Natto.site_title}"
   - @objects.each do |post|
@@ -13,7 +13,7 @@
       %title= post.title
       %link= post_url(post)
       %updates= post.updated_at.to_s unless post.updated_at.nil?
-      %issued= post.created_at.to_s
+      %issued= post.published_at.to_s
       - unless post.author.nil?
         %author
           %name= post.author.name

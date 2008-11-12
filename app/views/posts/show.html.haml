@@ -3,11 +3,15 @@
 - page_title = (@object.page.nil? ? @object.title : @object.page.title)
 - content_for :page_title, page_title
 - # locate create and update information
-- create = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::CREATE})
-- update = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::UPDATE})
+- create  = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::CREATE})
+- publish = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::PUBLISH})
 #blog
   #blog_posts
-    .post_date= format_date(create.performed_at, :long) unless create.nil?
+    .post_date
+      - if publish.nil?
+        = format_date(create.performed_at, :long) unless create.nil?
+      - else
+        = format_date(publish.performed_at, :long)
     %h2= @object.title
     .post_description= @object.description unless @object.description.blank?
     .post_content= @object.content

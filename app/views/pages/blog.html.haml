@@ -5,7 +5,13 @@
   #blog_posts
     - get_recent_posts(@object).each do |post| # render recent posts for the page
       .blog_post
-        .post_date= format_date(post.created_at, :long)
+        .post_date
+          - create  = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::CREATE})
+          - publish = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::PUBLISH})
+          - if publish.nil?
+            = format_date(create.performed_at, :long) unless create.nil?
+          - else
+            = format_date(publish.performed_at, :long)
         %h2= post.title
         .post_description= post.description unless post.description.blank?
         .post_content= truncate_words(post.content)

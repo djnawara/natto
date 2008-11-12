@@ -1,4 +1,14 @@
 module AuthenticatedSystem
+  public
+    # Checks if the user has any of the roles supplied.
+    def check_any_role(roles)
+      access_denied unless logged_in?
+      roles.each do |role|
+        return true if @current_user.has_role?(role)
+      end
+      permission_denied
+    end
+
   protected
     # Returns true or false if the user is logged in.
     # Preloads @current_user with the user model if they're logged in.

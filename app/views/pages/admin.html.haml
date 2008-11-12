@@ -12,6 +12,11 @@
   %p= link_to('Pages', pages_url)
 
 .dashboard_button
+  = link_to(posts_icon('Manage posts', :large), posts_url)
+  %br
+  %p= link_to('Posts', posts_url)
+
+.dashboard_button
   = link_to(roles_icon('Manage roles', :large), roles_url)
   %br
   %p= link_to('Roles', roles_url)

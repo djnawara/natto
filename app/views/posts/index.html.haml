@@ -2,13 +2,18 @@
 %table
   %tr
     %th Title
-    %th Description
+    %th Created
     %th &nbsp;
   - for post in @objects
-    %tr{:class => cycle('even', 'odd')}
+    %tr{:class => "#{post.state} #{cycle('even', 'odd')}"}
       %td= link_to(post.title, post)
-      %td=h post.description
+      %td=h format_date(post.created_at, :short, true)
       %td
         = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))
         = link_to edit_icon('Edit'), edit_post_path(post)
-        = link_to destroy_icon('Destroy'), post, :confirm => "Are you sure you want to permanently delete this post?", :method => :delete
+        = link_to(destroy_icon('Destroy'), post, :method => :delete) unless post.current_state == :deleted
+        = link_to(purge_icon('Permanently delete!'), {:action => 'purge', :id => post}, :method => :delete) if post.current_state == :deleted
+        = link_to(refresh_icon('Undelete page'), {:action => 'undelete', :id => post}) if post.current_state == :deleted
+        = link_to(tango('actions/process-stop', 'Unpublish page'), {:action => 'unpublish', :id => post}, :confirm => "Are you sure you want to unpublish " + post.title + "?", :method => :put) if post.current_state == :published
+        = link_to(publish_icon('Publish page'), {:action => 'publish', :id => post}, :method => :put) if (post.current_state == :approved || post.current_state == :unpublished)
+        = link_to(approve_icon('Approve page'), {:action => 'approve', :id => post}) if post.current_state == :pending_review
