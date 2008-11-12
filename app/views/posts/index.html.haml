@@ -3,11 +3,13 @@
   %tr
     %th Title
     %th Created
+    %th Author
     %th &nbsp;
   - for post in @objects
     %tr{:class => "#{post.state} #{cycle('even', 'odd')}"}
       %td= link_to(post.title, post)
       %td=h format_date(post.created_at, :short, true)
+      %td= post.author.name
       %td
         = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))
         = link_to edit_icon('Edit'), edit_post_path(post)
