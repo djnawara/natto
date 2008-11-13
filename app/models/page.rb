@@ -183,13 +183,14 @@ class Page < NattoBase
   
   def initialize_display_order
     if self.display_order.nil?
-      last = Page.count(:all, :conditions => {:parent_id => self.parent_id}) + 1
+      if self.parent_id.nil?
+        last = Page.count(:all, :conditions => "parent_id IS NULL AND display_order IS NOT NULL") + 1
+      else
+        last = Page.count(:all, :conditions => ["parent_id = :parent_id AND display_order IS NOT NULL", {:parent_id => self.parent_id}]) + 1
+      end
       # adjust admin page, if it's last and a sibling
       if admin = Page.find_by_is_admin_home_page(true)
-        logger.debug(" >>>>> FOUND ADMIN PAGE")
-        logger.debug(" TRUE????? #{self.parent_id} = #{admin.parent_id} && #{admin.display_order} == #{last - 1}")
         if self.parent_id == admin.parent_id && admin.display_order == (last - 1)
-          logger.debug(" >>>>> SETTING ADMIN DO TO #{last}")
           admin.display_order = last
           admin.save(false)
           last -= 1
