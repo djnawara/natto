@@ -2,9 +2,11 @@
 = render :partial => "shared/advanced_tiny_mce"
 - form_for(@object) do |f|
   = f.error_messages
-  = f.hidden_field :page_id
   %fieldset
     %legend Post Details
+    %div
+      = f.label :page_id, "Page", {:class => 'required'}
+      = f.select :page_id, Page.find(:all, :conditions => {:page_type => Page::BLOG}).collect {|page| [page.title, page.id]}, :include_blank => "Please select"
     %div
       = f.label :title, nil, {:class => 'required'}
       = f.text_field :title
