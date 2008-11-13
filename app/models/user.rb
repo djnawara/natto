@@ -261,11 +261,14 @@ class User < NattoBase
   def self.authorized_for_page?(user, page)
     if user.nil?
       page.roles.empty?
+    elsif page.roles.empty?
+      return true
     else
+      return true if user.is_administrator?
       page.roles.each do |role|
-        return false unless user.has_role?(role.title)
+        return true if user.has_role?(role.title)
       end
-      true
+      return false
     end
   end
   
