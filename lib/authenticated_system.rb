@@ -69,12 +69,7 @@ module AuthenticatedSystem
     
     def check_role(role_name)
       access_denied unless logged_in?
-      
-      if @current_user.has_role?(role_name)
-        true
-      else
-        permission_denied
-      end
+      @current_user.has_role?(role_name) ? true : permission_denied
     end
  
     def admin_required
