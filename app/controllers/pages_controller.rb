@@ -403,9 +403,14 @@ class PagesController < CrudController
   
   # Checks all page roles against current user roles
   def role_check_required
-    @object.roles.each do |role|
+    unless @object.roles.empty?
       if logged_in?
-        access_denied unless current_user.has_role?(role.title)
+        return if current_user.is_administrator?
+        not_denied = false
+        @object.roles.each do |role|
+          not_denied = true if current_user.has_role?(role.title) # user OK if has any role
+        end
+        access_denied unless not_denied
       else
         permission_denied
       end
