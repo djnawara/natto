@@ -16,6 +16,7 @@ module Natto
   mattr_accessor :croppable_image_size    # never used except when cropping others
     mattr_accessor :croppable_image_width
     mattr_accessor :croppable_image_height
+  mattr_accessor :media_thumbnails_hash   # holds all thumbnail settings
   mattr_accessor :portoflio_projects_max  # Max projects to display on portfolio pages
 
   self.site_title               = "Natto CMS"
@@ -40,4 +41,9 @@ module Natto
   self.croppable_image_width    = '500'
   self.croppable_image_height   = '700'
   self.croppable_image_size     = "#{self.croppable_image_width}x#{self.croppable_image_height}>"
+
+  self.media_thumbnails_hash    = { :thumb => self.small_image_size,
+                                    :resized => self.medium_image_size,
+                                    :large => self.large_image_size,
+                                    :croppable => self.croppable_image_size }
 end
