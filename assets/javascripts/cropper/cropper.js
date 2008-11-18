@@ -539,14 +539,14 @@ this.options.onEndCrop(this.areaCoords,{width:this.calcW(),height:this.calcH()})
 Cropper.ImgWithPreview=Class.create();
 Object.extend(Object.extend(Cropper.ImgWithPreview.prototype,Cropper.Img.prototype),{subInitialize:function(){
 this.hasPreviewImg=false;
-if(typeof (this.options.previewWrap)!="undefined"&&this.options.minWidth>0&&this.options.minHeight>0){
+if(typeof (this.options.previewWrap)!="undefined"&&this.options.previewWidth>0&&this.options.previewHeight>0){
 this.previewWrap=$(this.options.previewWrap);
 this.previewImg=this.img.cloneNode(false);
 this.previewImg.id="imgCrop_"+this.previewImg.id;
 this.options.displayOnInit=true;
 this.hasPreviewImg=true;
 this.previewWrap.addClassName("imgCrop_previewWrap");
-this.previewWrap.setStyle({width:this.options.minWidth+"px",height:this.options.minHeight+"px"});
+this.previewWrap.setStyle({width:this.options.previewWidth+"px",height:this.options.previewHeight+"px"});
 this.previewWrap.appendChild(this.previewImg);
 }
 },subDrawArea:function(){
@@ -554,8 +554,8 @@ if(this.hasPreviewImg){
 var _5d=this.calcW();
 var _5e=this.calcH();
 var _5f={x:this.imgW/_5d,y:this.imgH/_5e};
-var _60={x:_5d/this.options.minWidth,y:_5e/this.options.minHeight};
-var _61={w:Math.ceil(this.options.minWidth*_5f.x)+"px",h:Math.ceil(this.options.minHeight*_5f.y)+"px",x:"-"+Math.ceil(this.areaCoords.x1/_60.x)+"px",y:"-"+Math.ceil(this.areaCoords.y1/_60.y)+"px"};
+var _60={x:_5d/this.options.previewWidth,y:_5e/this.options.previewHeight};
+var _61={w:Math.ceil(this.options.previewWidth*_5f.x)+"px",h:Math.ceil(this.options.previewHeight*_5f.y)+"px",x:"-"+Math.ceil(this.areaCoords.x1/_60.x)+"px",y:"-"+Math.ceil(this.areaCoords.y1/_60.y)+"px"};
 var _62=this.previewImg.style;
 _62.width=_61.w;
 _62.height=_61.h;
