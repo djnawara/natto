@@ -150,7 +150,6 @@ class Page < NattoBase
   def get_sass
     return [] if sass.blank?
     sass.include?(",") ? sass.gsub(/ /, '').split(',') : [sass.gsub(/ /, '')]
-    sass
   end
   
   def add_to_display_order
