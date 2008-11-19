@@ -58,22 +58,28 @@ class MediaController < CrudController
         # load the source image
         source_image = MiniMagick::Image.from_file(source_filename)
         # perform the crop
-        logger.debug(" >>>>>> CROP: #{params[:width]}x#{params[:height]}+#{params[:offset_x]}+#{params[:offset_y]}!")
         source_image.crop("#{params[:width]}x#{params[:height]}+#{params[:offset_x]}+#{params[:offset_y]}!")
         # resize to appropriate size
         case(params[:thumbnail])
         when Medium::SMALL
           source_image.resize(Natto.small_image_size)
+          version = medium.thumbnails.find_by_thumbnail(Medium::SMALL)
         when Medium::MEDIUM
           source_image.resize(Natto.medium_image_size)
+          version = medium.thumbnails.find_by_thumbnail(Medium::MEDIUM)
         when Medium::LARGE
           source_image.resize(Natto.large_image_size)
+          version = medium.thumbnails.find_by_thumbnail(Medium::LARGE)
         end
+        # set the version's width and height
+        version.width = source_image[:width]
+        version.height = source_image[:height]
+        version.save(false)
         # write to the target
-        logger.debug(" >>>>>> WRITING: #{target_filename}")
         File.delete(target_filename)
         source_image.write(target_filename)
         File.chmod(0744, target_filename) # make sure the file is readable by others
+        # done, redirect
         redirect_to image_version_path(medium, params[:thumbnail])
         return
       end
