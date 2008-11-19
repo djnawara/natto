@@ -28,7 +28,7 @@ class Medium < ActiveRecord::Base
                  :storage     => :file_system, 
                  :max_size    => 5.megabytes,
                  :path_prefix => "public/media",
-                 :partition   => false,
+                 :partition   => true,
                  :thumbnails  => Natto.media_thumbnails_hash
 
   validates_as_attachment
@@ -44,18 +44,20 @@ class Medium < ActiveRecord::Base
     mime_types[File.extname(file)]
   end
   
-  # overridden to store thumbs in their own directory
-  def full_filename(thumbnail = nil)
-    file_system_path = (thumbnail ? thumbnail_class : self).attachment_options[:path_prefix].to_s
-    if thumbnail.blank? && self.thumbnail.blank?
-      File.join(RAILS_ROOT, file_system_path, *partitioned_path(thumbnail_name_for(thumbnail)))
+  def uploaded_data=(file_data)
+    return nil if file_data.nil? || file_data.size == 0
+    self.content_type = file_data.content_type
+    extension = file_data.original_filename.slice(/\.\w+$/)
+    # generate a random filename to avoid conflicts
+    rand = Digest::SHA1.hexdigest(Time.now.to_s)
+    rand = rand[0,14] if rand.length > 15
+    self.filename = "#{rand}#{extension}"
+    File.extname(file_data.original_filename) if respond_to?(:filename)
+    if file_data.is_a?(StringIO)
+      file_data.rewind
+      self.temp_data = file_data.read
     else
-      File.join(RAILS_ROOT, file_system_path, (thumbnail.blank? ? self.thumbnail.to_s : thumbnail.to_s), *partitioned_path(thumbnail_name_for(thumbnail)))
+      self.temp_path = file_data.path
     end
-  end
-  
-  # Gets the thumbnail name for a filename.  'foo.jpg' becomes 'foo_thumbnail.jpg'
-  def thumbnail_name_for(thumbnail = nil)
-    return filename
   end
 end
