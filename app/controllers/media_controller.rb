@@ -76,7 +76,7 @@ class MediaController < CrudController
         version.height = source_image[:height]
         version.save(false)
         # write to the target
-        File.delete(target_filename)
+        File.delete(target_filename) if File.exists?(target_filename)
         source_image.write(target_filename)
         File.chmod(0744, target_filename) # make sure the file is readable by others
         # done, redirect
