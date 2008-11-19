@@ -2,13 +2,11 @@
 %table
   %tr
     %th &nbsp;
-    %th Media Type
     %th Mime Type
     %th &nbsp;
   - for medium in @objects
     %tr{:class => cycle('even','odd')}
-      %td= link_to(image_tag(medium.public_filename(:thumb)), image_version_path(medium, Medium::MEDIUM)) if medium.content_type.include?("image")
-      %td=h medium.medium_type
+      %td= link_to(image_tag(medium.public_filename(:thumb), :alt => medium.alt_text, :title => "Click for details."), image_version_path(medium, Medium::MEDIUM)) if medium.content_type.include?("image")
       %td=h medium.content_type
       %td
         = link_to(show_icon, (medium.content_type.include?("image") ? image_version_path(medium, Medium::MEDIUM) : medium_path(medium)))

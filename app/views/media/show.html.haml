@@ -1,7 +1,8 @@
 - params[:version].blank? ? version = "" : version = params[:version]
 %h1= @object.content_type.include?("image") ? (version.blank? ? 'Original' : version.capitalize) : @object.content_type
 - if @object.content_type.include?("image")
-  = image_tag @object.public_filename(version)
+  - image_version = version.blank? ? @object : @object.thumbnails.find_by_thumbnail(version)
+  = image_tag(image_version.public_filename, :alt => @object.alt_text)
   #view_or_crop
     = link_to("Thumbnail", image_version_path(@object, :thumb))
     %span.small
@@ -17,8 +18,13 @@
     %br
     = link_to("Original", image_path(@object))
   %br
+  %b Dimensions:
+  = " #{image_version.width} x #{image_version.height}"
+  %br
+  %b Size:
+  = " #{number_to_human_size(File.size(File.join(RAILS_ROOT, 'public', image_version.public_filename)))}"
   %p
-    %b> File: 
+    %b> File:
     = " #{link_to(@object.public_filename(version), @object.public_filename(version))}"
     %p.small
       = tango("emblems/emblem-important")

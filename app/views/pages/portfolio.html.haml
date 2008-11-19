@@ -14,10 +14,4 @@
         - unless project.description.blank?
           %p
             %em= project.title
-          %br
-        - project.media.each {|medium| types << medium.medium_type unless types.include?(medium.medium_type) }
-        - if types.size > 0
-          %ul
-            - types.each do |medium_type|
-              %li{:class => medium_type}= medium_type
 .clear

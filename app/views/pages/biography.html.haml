@@ -6,7 +6,7 @@
 - # collect the current medium, and indexes for the previous/next
 - current_biography, previous_biography, next_biography = get_indices(@objects, args)
 #biography
-  #media_column{:style => "background-image:url(#{current_biography.media.first.public_filename});"}
+  #media_column{:style => "background-image:url(#{current_biography.media.first.public_filename});", :title => current_biography.media.first.alt_text}
     - if @objects.size > 1
       #previous= link_to("", show_path(@object.title.gsub(/ /, '_'), previous_biography))
       #next= link_to("", show_path(@object.title.gsub(/ /, '_'), next_biography))

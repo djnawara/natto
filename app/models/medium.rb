@@ -22,7 +22,7 @@ class Medium < ActiveRecord::Base
 
   #################
   # VALIDATIONS
-  validates_presence_of   :medium_type, :if => :not_thumbnail?
+  validates_presence_of   :alt_text, :if => :not_thumbnail?
 
   has_attachment :processor   => 'MiniMagick',
                  :storage     => :file_system, 
@@ -33,7 +33,7 @@ class Medium < ActiveRecord::Base
 
   validates_as_attachment
 
-  attr_accessible :title, :url, :description, :medium_type, :uploaded_data, :content_type, :filename, :temp_path, :thumbnail_resize_options
+  attr_accessible :alt_text, :uploaded_data, :content_type, :filename, :temp_path, :thumbnail_resize_options
 
   def not_thumbnail?
     thumbnail.nil?
