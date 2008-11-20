@@ -9,7 +9,7 @@
       = f.text_field :alt_text
   - if @object.new_record?
     %fieldset
-      %legend Choose one method
+      %legend{:class => 'required'} Choose one method
       %fieldset
         %legend Upload
         %div
