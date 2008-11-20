@@ -17,11 +17,11 @@ class ProjectsController < CrudController
     if @object.media.include?(medium)
       @object.media.delete(medium)
       @object.save(false)
-      create_change_log_entry(nil, nil, 'remove medium', "Removing the '#{medium.title}' medium.")
+      create_change_log_entry(nil, nil, 'remove medium', "Removing medium #{medium.id}.")
     else
       @object.media << medium unless @object.media.include?(medium)
       @object.save(false)
-      create_change_log_entry(nil, nil, 'add medium', "Adding the '#{medium.title}' medium.")
+      create_change_log_entry(nil, nil, 'add medium', "Adding medium #{medium.id}.")
     end
     respond_to do |format|
       format.html { redirect_to(media_project_path(@object)) }
