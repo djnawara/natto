@@ -53,17 +53,17 @@ ActionController::Routing::Routes.draw do |map|
   comment_violation '/comments/violation/:id', :controller => 'comments', :action => 'violation', :conditions => {:method => :get}
   
   # media
-  image_version   '/images/:id/:version', :controller => 'media', :action => 'show'
-  image           '/images/:id', :controller => 'media', :action => 'show'
+  image_version   '/images/:id/:version', :controller => 'media', :action => 'show',            :id => /\d+/
+  image           '/images/:id', :controller => 'media', :action => 'show',                     :id => /\d+/
   batch           '/batch', :controller => 'media', :action => 'batch'
   run_batch       '/batch/run', :controller => 'media', :action => 'run_batch'
-  crop_thumb      '/media/:id/crop', :controller => 'media', :action => 'crop_form'
-  crop_image      '/media/:id/crop/:thumbnail', :controller => 'media', :action => 'crop_form'
+  crop_thumb      '/media/:id/crop', :controller => 'media', :action => 'crop_form',            :id => /\d+/
+  crop_image      '/media/:id/crop/:thumbnail', :controller => 'media', :action => 'crop_form', :id => /\d+/
   crop            '/media/crop', :controller => 'media', :action => 'crop', :conditions => {:method => :post}
   
   # projects
-  project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show'
-  project_details_default   '/project/:id', :controller => 'projects', :action => 'show'
+  project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show', :id => /\d+/
+  project_details_default   '/project/:id', :controller => 'projects', :action => 'show',         :id => /\d+/
   project_positions         '/projects/order', :controller => 'projects', :action => 'order'
   
   # biographies
