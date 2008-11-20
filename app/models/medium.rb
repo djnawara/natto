@@ -22,8 +22,6 @@ class Medium < ActiveRecord::Base
 
   #################
   # VALIDATIONS
-  validates_presence_of   :alt_text, :if => :not_thumbnail?
-
   has_attachment :processor   => 'MiniMagick',
                  :storage     => :file_system, 
                  :max_size    => 5.megabytes,
