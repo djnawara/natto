@@ -1,4 +1,5 @@
 require 'mini_magick'
+require 'mimetype-fu'
 class MediaController < CrudController
   # GET /objects
   # GET /objects.xml
@@ -17,7 +18,7 @@ class MediaController < CrudController
       @object.uploaded_data = LocalFile.new(params[:medium][:filename]) if (@object.uploaded_data.nil? || @object.uploaded_data.empty?) unless params[:medium][:filename].blank?
       @object.parent_id = nil
       # set the mime type via the mimetype-fu plugin, as needed
-      @object.content_type = File.mime_type?(@object.filename) if @object.content_type.blank?
+      @object.content_type = File.mime_type?(@object.filename) if @object.content_type.blank? && !(@object.filename.nil? || @object.filename.blank?)
       if @object.save
         flash[:notice] = 'Medium was successfully created.'
         if @object.content_type.include?('image')
@@ -120,7 +121,7 @@ class MediaController < CrudController
     end
     respond_to do |format|
       flash[:notice] = 'Medium was successfully updated.'
-      format.html { redirect_to(@object) }
+      format.html { redirect_to image_version_path(@object, Medium::MEDIUM) }
       format.xml  { head :ok }
     end
   end
