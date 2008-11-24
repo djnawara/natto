@@ -1,4 +1,4 @@
-- params[:version].blank? ? version = "" : version = params[:version]
+- version = params[:version].blank? ? "" : params[:version]
 %h1= @object.content_type.include?("image") ? (version.blank? ? 'Original' : version.capitalize) : @object.content_type
 - if @object.content_type.include?("image")
   - image_version = version.blank? ? @object : @object.thumbnails.find_by_thumbnail(version)
