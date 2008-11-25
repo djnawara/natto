@@ -5,14 +5,28 @@
 - # collect the current medium, and indexes for the previous/next
 - current_medium, previous_medium, next_medium = get_indices(@object.media, params[:medium])
 - # retrieve width and height of the current medium
-- resized_medium = current_medium.nil? ? nil : current_medium.thumbnails.find_by_thumbnail("resized")
+- if current_medium.is_image?
+  - resized_medium = current_medium.nil? ? nil : current_medium.thumbnails.find_by_thumbnail("resized")
+  - full_image = current_medium.thumbnails.find_by_thumbnail(Medium::LARGE).public_filename
+- elsif current_medium.is_video?
+  - full_image = current_medium.public_filename
 - # drop in margin adjustments to get a horizontal AND vertical center on our medium
 - unless current_medium.nil?
   - content_for :head do
     %style{:type => "text/css"}
-      = "#media_column_wrapper { width:#{resized_medium.width}px; height:#{resized_medium.height}px; margin-left:-#{resized_medium.width / 2}px; margin-top:-#{resized_medium.height / 2}px; }"
+      - if current_medium.is_image?
+        = "#media_column_wrapper { width:#{resized_medium.width}px; height:#{resized_medium.height}px; margin-left:-#{resized_medium.width / 2}px; margin-top:-#{resized_medium.height / 2}px; }"
+        - elsif current_medium.is_video?
+          = "#media_column_wrapper { width:320px; height:240px; margin-left:-160px; margin-top:-120px; }"
+        - elsif current_medium.is_audio?
+          = "#media_column_wrapper { width:320px; height:40px; margin-left:-160px; margin-top:-20px; }"
 #media_column
-  #media_column_wrapper= link_to(image_tag(resized_medium.public_filename, :alt => current_medium.alt_text), current_medium.public_filename(:large), :rel => "lightbox") unless current_medium.nil?
+  #media_column_wrapper
+    - unless current_medium.nil?
+      - if current_medium.is_image?
+        = link_to(image_tag(resized_medium.public_filename, :alt => current_medium.alt_text), full_image, :rel => "lightbox")
+      - else
+        = render :partial => 'shared/embed', :locals => {:medium => current_medium}
   #previous= link_to("", project_details_path(@object, previous_medium))
   #next= link_to("", project_details_path(@object, next_medium)) unless next_medium.nil?
 #information_column
@@ -25,7 +39,6 @@
     No media have been associated to this project.
     - if logged_in? && current_user.is_administrator?
       = link_to("Manage media", media_project_path(@object))
-  %p.small= @object.description
   %ul
     - counter = 0
     - @object.media.each do |medium|
@@ -33,6 +46,6 @@
         = link_to((counter + 1), :medium => counter)
         - counter += 1
   #project_navigation
-    = link_to("View full size", current_medium.public_filename, :rel => "lightbox") unless current_medium.nil?
+    = link_to("View full size", full_image, :rel => "lightbox") unless current_medium.nil?
     = link_to("Close", {:controller => 'pages', :action => 'show_by_title', :title => "Portfolio"})
 .clear
