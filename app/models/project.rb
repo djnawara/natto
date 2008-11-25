@@ -21,7 +21,4 @@ class Project < ActiveRecord::Base
 
   validates_presence_of     :client
   validates_length_of       :client, :within => 2..40
-
-  validates_presence_of     :description
-  validates_length_of       :description, :within => 1..9999
 end
