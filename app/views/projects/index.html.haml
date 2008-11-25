@@ -3,11 +3,10 @@
   %tr
     %th Client
     %th Title
-    %th Description
     %th &nbsp;
   - for project in @objects
-    %tr{:class => cycle('even', 'odd'), :title => project.description}
-      %td= project.website.blank? ? project.client : link_to(project.client, project.website)
+    %tr{:class => cycle('even', 'odd')}
+      %td= project.client
       %td= link_to project.title, project
       %td
         = link_to(monitor_icon('Statistics'), instance_logs_path('project', project))
