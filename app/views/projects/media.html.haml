@@ -4,7 +4,10 @@
     %p No media found for project.
   - else
     - @object.media.each do |medium|
-      = link_to(image_tag(medium.public_filename(:thumb)), "/projects/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Remove this item from the project")
+      - if medium.is_image?
+        = link_to(image_tag(medium.public_filename(:thumb)), project_process_medium_path(@object, medium), :title => "Add this item to the project")
+      - else
+        = link_to(medium.alt_text, project_process_medium_path(@object, medium), :title => "Add this item to the project")
 .clear
 .float_left
   %fieldset
@@ -14,5 +17,8 @@
       %p.small (This project has all available media.)
     - else
       - @available_media.each do |medium|
-        = link_to(image_tag(medium.public_filename(:thumb)), "/projects/process_medium/#{@object.id}/?medium_id=#{medium.id}", :title => "Add this item to the project")
+        - if medium.is_image?
+          = link_to(image_tag(medium.public_filename(:thumb)), project_process_medium_path(@object, medium), :title => "Add this item to the project")
+        - else
+          = link_to(medium.alt_text, project_process_medium_path(@object, medium), :title => "Add this item to the project")
 .clear
