@@ -1,0 +1,7 @@
+var tinyMCEMediaList = new Array(
+- counter = 1
+- @objects.each do |medium|
+  - title = medium.alt_text.blank? ? medium.filename : medium.alt_text
+  = "    [\"#{title}\", \"#{medium.public_filename}\"]#{',' unless counter == @objects.size}"
+  - counter += 1
+);
