@@ -1,11 +1,14 @@
-- content_for(:page_title, "New medium")
+- content_for(:page_title, @object.new_record? ? "New medium" : "Edit medium")
 - form_for(@object, :html => { :multipart => true }) do |f|
   = f.error_messages
   %fieldset
     %legend File details
     %div
       = f.label :alt_text
-      %p.small This text will be used in the image's alt tag (for screen readers and text browsers, for example), and in its title tag for mouse-over tooltips.
+      %p.small 
+        This is used in alt tags (for screen readers and text browsers that can't show images,
+        for example), in the image's title tag (for mouse-over tooltips), and in the WYSIWYG
+        editor's image list.
       = f.text_field :alt_text
   - if @object.new_record?
     %fieldset
