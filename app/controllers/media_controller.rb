@@ -1,5 +1,5 @@
 require 'mini_magick'
-require 'mimetype-fu'
+require 'mimetype_fu'
 class MediaController < CrudController
   # GET /objects
   # GET /objects.xml
@@ -126,4 +126,35 @@ class MediaController < CrudController
     end
   end
   
+  def tiny_mce_image_list
+    @objects = Medium.find(:all, :conditions => "content_type LIKE '%image%' AND parent_id IS NULL")
+    respond_to do |format|
+      format.html { render :layout => false, :template => 'media/tiny_mce_image_list' }
+      format.js   { render :layout => false, :template => 'media/tiny_mce_image_list' }
+    end
+  end
+  
+  def tiny_mce_video_list
+    @objects = Medium.find(:all, :conditions => "content_type LIKE '%video%' AND parent_id IS NULL")
+    respond_to do |format|
+      format.html { render :layout => false, :template => 'media/tiny_mce_media_list' }
+      format.js   { render :layout => false, :template => 'media/tiny_mce_media_list' }
+    end
+  end
+  
+  def tiny_mce_audio_list
+    @objects = Medium.find(:all, :conditions => "content_type LIKE '%audio%' AND parent_id IS NULL")
+    respond_to do |format|
+      format.html { render :layout => false, :template => 'media/tiny_mce_media_list' }
+      format.js   { render :layout => false, :template => 'media/tiny_mce_media_list' }
+    end
+  end
+  
+  def tiny_mce_media_list
+    @objects = Medium.find(:all, :conditions => "content_type NOT LIKE '%image%' AND parent_id IS NULL")
+    respond_to do |format|
+      format.html { render :layout => false, :template => 'media/tiny_mce_media_list' }
+      format.js   { render :layout => false, :template => 'media/tiny_mce_media_list' }
+    end
+  end
 end
