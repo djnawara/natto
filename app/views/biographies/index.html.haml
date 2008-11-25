@@ -1,15 +1,11 @@
 - content_for :page_title, "Listing biographies"
-%table
-  %tr
-    %th Name
-    %th Job title
-    %th &nbsp;
-  - for biography in @objects
-    %tr{:class => cycle('even', 'odd')}
-      %td= link_to(biography.name, biography)
-      %td= biography.job_title
-      %td
-        = link_to(monitor_icon('Statistics'), instance_logs_path('biography', biography))
-        = link_to edit_icon('Edit'), edit_biography_path(biography)
-        = link_to media_icon('Manage biography media'), media_biography_path(biography)
-        = link_to destroy_icon('Destroy'), biography, :confirm => "Are you sure you want to permanently delete this biography?", :method => :delete
+- content_for :javascript, javascript_include_tag('dragdrop', :cache => false, :plugin => 'natto')
+#biographies_index
+  %b
+    %u Name and title
+  %ul#biographies_tree
+    = render :partial => "biographies/admin_node", :collection => @objects
+  - effect = visual_effect(:pulsate, 'biographies_tree', {:duration => 0.4, :from => 0.4, :pulses => 1})
+  - link = "function(){" + remote_function(:update => "biographies_index", :complete => effect, :url => {:controller => 'biographies', :action => 'update_positions'}, :with => 'Sortable.serialize("biographies_tree")') + "}"
+  :javascript
+    Sortable.create("biographies_tree", {tree:true, constraint:false, scroll:window, onUpdate:#{link}});
