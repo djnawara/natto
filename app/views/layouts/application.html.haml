@@ -10,6 +10,13 @@
     - if !@page.nil?
       - @page.get_sass.each do |file|
         = stylesheet_link_tag file
+    = javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'admin', 'application', "tiny_mce/embed.js", :cache => false, :plugin => 'natto'
+    = yield :javascript
+    :javascript
+      document.observe("dom:loaded",function(ev){
+        #{'admin = new DJN.Admin();' if logged_in? && current_user.is_administrator?}
+        #{yield :onReady}
+      });
     = yield :head
   %body
     #page
@@ -30,10 +37,3 @@
       #footer
         = link_to('Sitemap', sitemap_path)
         #copyright &copy; 2008 Dan &amp; Dave J. Nawara
-    = javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'admin', 'application', :cache => false, :plugin => 'natto'
-    = yield :javascript
-    :javascript
-      document.observe("dom:loaded",function(ev){
-        #{'admin = new DJN.Admin();' if logged_in? && current_user.is_administrator?}
-        #{yield :onReady}
-      });
