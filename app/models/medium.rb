@@ -6,8 +6,9 @@ class Medium < ActiveRecord::Base
   TV        = "Television"
   RADIO     = "Radio"
   DIGITAL   = "Digital"
+  OTHER     = "Other"
   # for select boxes
-  TYPES       = [PRINT, TV, RADIO, DIGITAL]
+  TYPES       = [PRINT, TV, RADIO, DIGITAL, OTHER]
   # SIZES
   SMALL     = "thumb"
   MEDIUM    = "resized"
@@ -57,5 +58,17 @@ class Medium < ActiveRecord::Base
     else
       self.temp_path = file_data.path
     end
+  end
+  
+  def is_image?
+    self.content_type.include?("image")
+  end
+  
+  def is_video?
+    self.content_type.include?("video")
+  end
+  
+  def is_audio?
+    self.content_type.include?("audio")
   end
 end
