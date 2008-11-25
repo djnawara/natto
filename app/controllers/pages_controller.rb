@@ -138,7 +138,7 @@ class PagesController < CrudController
           @objects = Project.active
           render :template => "pages/portfolio"
         when Page::BIOGRAPHY
-          @objects = Biography.find(:all, :order => "name")
+          @objects = Biography.find(:all, :order => "position")
           render :template => "pages/biography"
         else
           render :template => "pages/show"
