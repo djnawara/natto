@@ -1,0 +1,5 @@
+- if medium.is_video?
+  - case medium.content_type
+  - when 'video/quicktime'
+    :javascript
+      writeQuickTime({"src":"#{medium.public_filename}","width":"320","height":"240"});
