@@ -10,10 +10,4 @@
     %div
       = f.label :title, nil, {:class => 'required'}
       = f.text_field :title
-    %div
-      = f.label :website
-      = f.text_field :website
-    %div
-      = f.label :description, nil, {:class => 'required'}
-      = f.text_area :description, :class => "mceEditor"
     %div= f.submit(submit_label(@object))
