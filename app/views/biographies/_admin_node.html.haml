@@ -1,0 +1,10 @@
+- # Draw a row in the pages index
+%li{:id => "biography_#{admin_node.id}"}
+  %div.tree_node{:class => cycle('even', 'odd')}
+    %div.float_right
+      = link_to(monitor_icon('Statistics'), instance_logs_path('biography', admin_node))
+      = link_to edit_icon('Edit'), edit_biography_path(admin_node)
+      = link_to media_icon('Manage biography media'), media_biography_path(admin_node)
+      = link_to destroy_icon('Destroy'), admin_node, :confirm => "Are you sure you want to permanently delete this biography?", :method => :delete
+    .biography_for
+      = link_to("#{admin_node.name}, #{admin_node.job_title}", admin_node)
