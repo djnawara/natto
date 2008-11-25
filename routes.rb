@@ -60,11 +60,18 @@ ActionController::Routing::Routes.draw do |map|
   crop_thumb      '/media/:id/crop', :controller => 'media', :action => 'crop_form',            :id => /\d+/
   crop_image      '/media/:id/crop/:thumbnail', :controller => 'media', :action => 'crop_form', :id => /\d+/
   crop            '/media/crop', :controller => 'media', :action => 'crop', :conditions => {:method => :post}
+  medium          '/media/:id', :controller => 'media', :action => 'show', :id => /\d+/, :conditions => {:method => :get}
+  # for tiny mce
+  tiny_mce_image_list  '/tiny_mce/image_list.:format', :controller => 'media', :action => 'tiny_mce_image_list', :conditions => {:method => :get}
+  tiny_mce_video_list  '/tiny_mce/video_list.:format', :controller => 'media', :action => 'tiny_mce_video_list', :conditions => {:method => :get}
+  tiny_mce_audio_list  '/tiny_mce/audio_list.:format', :controller => 'media', :action => 'tiny_mce_audio_list', :conditions => {:method => :get}
+  tiny_mce_media_list  '/tiny_mce/media_list.:format', :controller => 'media', :action => 'tiny_mce_media_list', :conditions => {:method => :get}
   
   # projects
   project_details           '/project/:id/:medium', :controller => 'projects', :action => 'show', :id => /\d+/
   project_details_default   '/project/:id', :controller => 'projects', :action => 'show',         :id => /\d+/
   project_positions         '/projects/order', :controller => 'projects', :action => 'order'
+  project_process_medium    '/projects/:id/process/:medium_id', :controller => 'projects', :action => 'process_medium'
   
   # biographies
   biography_details           '/biography/:id/:medium', :controller => 'biographies', :action => 'show'
