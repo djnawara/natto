@@ -11,7 +11,7 @@
     %a{:href => project_url(project)}
       .portfolio_project
         %h4= project.client
-        - unless project.description.blank?
+        - unless project.title.blank?
           %p
             %em= project.title
 .clear
