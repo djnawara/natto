@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   private :administrative_page
   #don't render template for xmlhttp request.
   def render(*args)
-    args.first[:layout] = false if request.xhr? and args.first[:layout].nil?
+    args.first[:layout] = false if request.xhr? and args.first[:layout].nil? unless args.nil?
     super
   end
 end
