@@ -12,6 +12,8 @@ function writeShockWave(p) {
 }
 
 function writeQuickTime(p) {
+  // add height of controls
+  p.height = parseInt(p.height) + 16;
   writeEmbed(
     '02BF25D5-8C17-4B23-BC80-D3488ABDDC6B',
     'http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0',
@@ -41,24 +43,20 @@ function writeWindowsMedia(p) {
 
 function writeEmbed(cls, cb, mt, p) {
   var h = '', n;
-  p.height = parseInt(p.height) + 20;
   h += '<object classid="clsid:' + cls + '" codebase="' + cb + '"';
   h += typeof(p.id) != "undefined" ? 'id="' + p.id + '"' : '';
   h += typeof(p.name) != "undefined" ? 'name="' + p.name + '"' : '';
   h += typeof(p.width) != "undefined" ? 'width="' + p.width + '"' : '';
-  h += typeof(p.height) != "undefined" ? 'height="' + (p.height + 10) + '"' : '';
+  h += typeof(p.height) != "undefined" ? 'height="' + p.height + '"' : '';
   h += typeof(p.align) != "undefined" ? 'align="' + p.align + '"' : '';
   h += '>';
-
-  for (n in p)
-  h += '<param name="' + n + '" value="' + p[n] + '">';
-
-  h += '<embed autoplay="false" type="' + mt + '"';
-
-  for (n in p)
-  h += n + '="' + p[n] + '" ';
-
+  for (n in p) {
+    h += '<param name="' + n + '" value="' + p[n] + '">';
+  }
+  h += '<embed autoplay="false" scale="aspect" type="' + mt + '"';
+  for (n in p) {
+    h += n + '="' + p[n] + '" ';
+  }
   h += '></embed></object>';
-
   document.write(h);
 }
