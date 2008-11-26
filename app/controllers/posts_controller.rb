@@ -35,7 +35,7 @@ class PostsController < CrudController
     end
     flash[:notice] = 'The post was successful.'
     respond_to do |format|
-      format.html { @object.page.nil? ? redirect_to(@object) : redirect_to(@object.page) }
+      format.html { redirect_to posts_path }
       format.xml  { render :xml => @object, :status => :created, :location => @object }
     end
   end
