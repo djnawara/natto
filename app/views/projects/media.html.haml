@@ -1,5 +1,7 @@
 - content_for :page_title, "Media for '#{@object.title}'"
 %fieldset
+  %legend Assigned media
+  %p.small.italic Click an item to remove
   - if @object.media.size == 0
     %p No media found for project.
   - else
@@ -13,6 +15,7 @@
 .float_left
   %fieldset
     %legend Assign media to the project
+    %p.small.italic Click an item to add
     - if @available_media.size == 0
       %p= link_to("Manage media", media_path)
       %p.small (This project has all available media.)
