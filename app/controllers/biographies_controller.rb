@@ -42,9 +42,7 @@ class BiographiesController < CrudController
       biography.position = index.to_i + 1
       biography.save
     end
-    respond_to do |format|
-      format.html { redirect_to(biographies_path) }
-      format.xml  { head :ok }
-    end
+    @objects = Biography.find(:all, :order => 'position')
+    render :layout => false, :template => "biographies/index"
   end
 end
