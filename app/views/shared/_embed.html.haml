@@ -2,4 +2,7 @@
   - case medium.content_type
   - when 'video/quicktime'
     :javascript
-      writeQuickTime({"src":"#{medium.public_filename}","width":"320","height":"240"});
+      writeQuickTime({"src":"#{medium.public_filename}","width":"320","height":"240","autoplay":"false"});
+- if medium.is_audio?
+  :javascript
+    writeQuickTime({"src":"#{medium.public_filename}","width":"320","height":"0","autoplay":"true"});
