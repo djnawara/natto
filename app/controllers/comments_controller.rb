@@ -30,4 +30,19 @@ class CommentsController < CrudController
       format.xml  { render :xml => @object }
     end
   end
+  
+  # DELETE /objects/:id
+  # DELETE /objects/:id.xml
+  def destroy
+    Comment.transaction do
+      post = @object.post
+      id = @object.id
+      @object.destroy
+      create_change_log_entry(id)
+      respond_to do |format|
+        format.html { redirect_to post }
+        format.xml  { head :ok }
+      end
+    end
+  end
 end
