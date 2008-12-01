@@ -2,13 +2,14 @@ class Page < NattoBase
   #################
   # CONSTANTS
   NORMAL      = "Normal"
-  BLOG        = "Blog"
-  PORTFOLIO   = "Portfolio"
   BIOGRAPHY   = "Biography"
+  BLOG        = "Blog"
+  NEWS        = "News"
+  PORTFOLIO   = "Portfolio"
   NO_NAV      = "No navigation"
   CONTAINER   = "Container"
   # for select boxes
-  TYPES       = [NORMAL, CONTAINER, NO_NAV, BLOG, PORTFOLIO, BIOGRAPHY]
+  TYPES       = [NORMAL, BIOGRAPHY, BLOG, NEWS, PORTFOLIO, CONTAINER, NO_NAV]
 
   # for easy page retrieval
   named_scope :home, :conditions => {:is_home_page => 1}
@@ -135,7 +136,7 @@ class Page < NattoBase
   end
   
   def content_required?
-    !(!advanced_path.blank? || page_type.eql?(Page::BLOG) || page_type.eql?(Page::PORTFOLIO) || page_type.eql?(Page::BIOGRAPHY))
+    !(!advanced_path.blank? || page_type.eql?(Page::BLOG) || page_type.eql?(Page::NEWS) || page_type.eql?(Page::PORTFOLIO) || page_type.eql?(Page::BIOGRAPHY))
   end
   
   def self.parents(state = :published, should_hide_admin_pages = false)
