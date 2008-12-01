@@ -134,6 +134,8 @@ class PagesController < CrudController
           render :template => "pages/show"
         when Page::BLOG
           render :template => "pages/blog"
+        when Page::NEWS
+          render :template => "pages/news"
         when Page::PORTFOLIO
           @objects = Project.active
           render :template => "pages/portfolio"
