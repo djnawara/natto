@@ -20,6 +20,8 @@
           - case @object.page_type
           - when Page::BLOG
             = link_to new_icon('New post', :large), new_blog_post_path(@object)
+          - when Page::NEWS
+            = link_to new_icon('New post', :large), new_blog_post_path(@object)
           - when Page::PORTFOLIO
             = link_to new_icon('New project', :large), new_project_path
       - unless @object.nil?
