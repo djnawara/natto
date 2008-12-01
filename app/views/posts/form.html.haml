@@ -6,7 +6,7 @@
     %legend Post Details
     %div
       = f.label :page_id, "Page", {:class => 'required'}
-      = f.select :page_id, Page.find(:all, :conditions => {:page_type => Page::BLOG}).collect {|page| [page.title, page.id]}, :include_blank => "Please select"
+      = f.select :page_id, Page.find(:all, :conditions => {:page_type => [Page::BLOG, Page::NEWS]}).collect {|page| [page.title, page.id]}, :include_blank => "Please select"
     %div
       = f.label :title, nil, {:class => 'required'}
       = f.text_field :title
