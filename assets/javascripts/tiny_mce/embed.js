@@ -53,7 +53,7 @@ function writeEmbed(cls, cb, mt, p) {
   for (n in p) {
     h += '<param name="' + n + '" value="' + p[n] + '">';
   }
-  h += '<embed autoplay="false" scale="aspect" type="' + mt + '"';
+  h += '<embed scale="aspect" type="' + mt + '"';
   for (n in p) {
     h += n + '="' + p[n] + '" ';
   }
