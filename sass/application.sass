@@ -137,9 +137,21 @@ body
     :text-decoration none
     &:hover
       :text-decoration underline
-  #header
-    #user_bar
-      :margin-bottom 1em
-      li
-        :display inline
-        :font-size 1.2em
+  #page
+    :width= !page_width
+    :margin 0 auto
+    #header
+      #user_bar
+        :margin-bottom 1em
+        li
+          :display inline
+          :font-size 1.2em
+    #content
+      .dialog
+        :border 1px solid #DDD
+        :background-color #EEE
+        :padding 1em
+        :-moz-border-radius .5em
+        :-webkit-border-radius .5em
+    #footer
+      :margin 1em 0 0
