@@ -21,10 +21,9 @@
   %body
     #page
       #header
-        #branding
-          #user_bar= render :partial => 'users/user_bar'
-          #site_title= link_to(Natto.site_title, root_path)
-        #navigation= render :partial => 'shared/navigation'
+        %ul#user_bar= render :partial => 'users/user_bar'
+        %h1#site_title= link_to(Natto.site_title, root_path)
+        %ul#navigation= render :partial => 'shared/navigation'
       #content
         - # let's only show the h1 tag if there is title content to display;
         - # we don't want to require passing it explicitly
