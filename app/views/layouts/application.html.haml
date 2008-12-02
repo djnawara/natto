@@ -6,10 +6,9 @@
   %body
     #page
       #header
-        #branding
-          #user_bar= render :partial => 'users/user_bar'
-          #site_title= link_to(Natto.site_title, root_path)
-        #navigation= render :partial => 'shared/navigation'
+        %ul#user_bar= render :partial => 'users/user_bar'
+        %h1#site_title= link_to(Natto.site_title, root_path)
+        %ul#navigation= render :partial => 'shared/navigation'
       #content
         %h1#page_title= render :partial => 'shared/page_title'
         = render :partial => 'shared/admin_toolbar'

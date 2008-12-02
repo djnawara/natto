@@ -1,531 +1,145 @@
 @import constants.sass
-// Default everything
-*
-  :font-family Verdana,Geneva,Arial,Helvetica,sans-serif
-  :margin 0
-  :padding 0
-  :color #333333
-body
-  :background-color #ffffff
-  :font-size 90%
-  :width 100%
-p  
-  :margin 0 0 10px 0
-img
-  :border 0
-  :vertical-align bottom
-b,i
-  :color inherit
-// LISTS
-ul
-  :list-style-type none
-// Definition lists
-dl
-  :margin 20px
-  :font
-    :size .9em
-dt
-  :font
-    :weight bold
-  :float left
-  :width 25%
-  :border-bottom 1px dotted #cccccc
-  :margin 3px 0
-  :padding 0 0 2px 0
-  :clear left
-dt:after
-  :content ':'
-dd
-  :padding 3px 0 6px 0
-// Headings
-h1
-  :background url(/plugin_assets/natto/images/stripes-eeeeee-up_right.png)
-  :margin 10px 0
-  :padding 1px 0 4px 0
-h1,h2,h3,h4,h5
-  :color #666666
-  :width 100%
-  :margin 0 0 10px 0
-// Tables
-table,tr
-  :width 100%
-table
-  :margin 10px 0
-th
-  :text-align left
-  :font
-    :size 1.2em
-    :weight normal
-  :color #666666
-  :padding 0 0 2px 0
-  :border
-    :style solid
-    :color #cccccc
-    :width 0 0 2px 0
-// Forms
-form
-  :color #666666
-  div
-    :margin 5px 0 0 0
-fieldset
-  :border 4px solid #cccccc
-  :padding 5px 10px
-  :margin 0 0 10px 0
-  :background #ffffff
-  fieldset
-    :background #f4f4f4
-    :border 2px solid #cccccc
-    :margin 10px 0 20px 0
-legend
-  :font
-    :size 1.2em
-    :weight bold
-  :color #999999
-  :padding 0 5px
-input,textarea
-  :color #333333
-  :font
-    :weight normal
-    :size 1.1em
-  :margin 2px 0 10px 0
-  :width 300px
-  :padding 3px 3px 5px 3px
-textarea
-  :width 99%
-  :height 200px
-  &.small
-    :height 30px
-  &.mceEditor
-    :margin 10px 0 20px 0
-input[type=submit]
-  :width auto
-  :background #666666
-  :padding .3em .5em
-  :color #cccccc
-  :font-size 1.1em
-  &:hover
-    :background #999999
-    :color #ffffff
-    :cursor pointer
-  &:active
-    :background #333333
-    :color #999999
-    :cursor pointer
-input[type=radio],input[type=checkbox]
-  :width auto
-  :vertical-align top
-select
-  :margin 5px 0
-label
-  :display block
-  :font-weight bold
-  :color #666666
-.checkbox
-  :margin 20px 0 10px 0
-  label
-    :display inline
-    :width auto
-// Form required items
-.required
-  :color #ff6600
-  &:after
-    :content '*'
-    :color #ff6600
-.required_example
-  :font-size .9em
-  :color #666666
-// Error Explanations
-#errorExplanation
-  :background #ff3300
-  :padding 10px 5px
-  :border 4px solid #cc3300
-  :margin 0 0 10px 0
-  h2
-    :color #ffffff
-  p
-    :color #ffffff
-    :font-style italic
-  ul
-    :margin 10px 0 10px 40px
-    :list-style-type disc
-  li
-    :color #ffffff
-    :font-size 1.1em
-// Form element errors
-.fieldWithErrors
-  :margin 0
-  :padding 0
-  :background transparent
-  input
-    :border 2px solid #ff3300
-  textarea
-    :border 2px solid #ff3300
-  label
-    :color #ff3300
-    &:after
-      :content '*'
-// Flash notices
-#notice, .notice
-  :background #00ff33
-  :border 4px solid #00cc33
-  :color #ffffff
-  :padding 5px
-  h2, p
-    :color #ffffff
-#warning, .warning
-  :background #ffcc33
-  :border 4px solid #cc9900
-  :color #333333
-  :padding 5px
-  h2, p
-    :color #333333
-#error, .error
-  :background #ff3300
-  :border 4px solid #cc3300
-  :color #ffffff
-  :padding 5px
-  :color #ffffff
-  h2, p
-    :color #ffffff
-// Code
-code
-  :font-family "Courier New",Courier,monospace
-// Layout
-#page
-  :width 100%
-  :margin 0
-#content
-  :width = !page_width + !pixel
-  :margin 0 auto
-#header
-  :width 100%
-#user_bar
-  :float right
-  #greeting
-    :display inline
-  #action
-    :display inline
-// Branding
-#branding
-  :width 770px
-  :margin 0 auto
-  #site_title
-    a
-      :text-decoration none
-      :color #666666
-      :font
-        :size 1.4em
-        :weight bold
-// Generic Anchors
-a
-  :color #0033ff
-  &:visited
-    :color #990099
-  &:hover
-    :color #3366ff
-// Navigation
-#navigation
-  :width 100%
-  :margin 10px 0 15px 0
-  :clear both
-  ul
-    :list-style-type none
-    :width 770px
-    :margin 0 auto
-    :clear both
-    li.active
-      :padding 5px 14px 5px 0
-    li
-      :display inline
-      :padding 5px 0
-      // Inactive sub-navigation
-      ul
-        :display none
-      .active
-        :margin 0 1em 0 0
-        :font
-          :size .9em
-          :weight bold
-        a
-          :font-weight bold
-        // Active sub-nav block
-        ul
-          :display block
-          a
-            :font
-              :weight normal
-              :size .9em
-  a
-    :margin 0 1em 0 0
-  div
-    :display inline
+html
+  :color= !font_color
+  :background = !page_color
+  :font-size 16px
 
-// Footer
-#footer
-  :width 770px
-  :margin 40px auto 0 auto
-  :clear both
-  :padding 3px
-  :font-size .8em
-  :border-top 1px solid #cccccc
-#copyright
-  :margin 5px 0 0 0
-  :font-size .9em
-// Sitemap
-.sitemap_node
-  :margin 5px 0
-  // Nested node
-  .sitemap_node
-    :margin 5px 10px
-// Login
-#user_identity_url, #openid_url
-  :background url(/plugin_assets/natto/images/login-bg.gif) no-repeat #ffffff 5px
-  :width 275px
-  :padding-left 25px
-// Gravatars
-img.gravatar
-  :border 4px solid #cccccc
-img.tiny-gravatar
-  :border 2px solid #cccccc
-  :vertical-align middle
-// Blogs
-#blog
-  :width = !page_width + !pixel
-  :margin 0 0 20px 0
-  .open:before
-    :content url(/plugin_assets/natto/images/tree-open.png)
-  .closed:before
-    :content url(/plugin_assets/natto/images/tree-closed.png)
-  #blog_posts
-    :width 470px
-    :float left
-    h2
-      :margin 0
-    .post_description
-      :font
-        :style italic
-        :size .8em
-      :margin 0 0 10px 0
-#comments_form
-  :width 470px
-  :font-size .8em
-  :border-top 1px solid #cccccc
-  :margin 20px 0 0 0
-  :padding 10px 15px
-  textarea
-    :width 300px
-#comments
-  :margin 10px 15px
-  :width 470px
-  :font-size .9em
-.comment
-  :padding 15px 5px 10px 5px
-  :margin 0
-  :border
-    :style dotted
-    :color #cccccc
-    :width 0 0 1px 0
-.comment_tools
-  :font-size .9em
-  :float right
-// Sidebar
-#blog_sidebar
-  :float right
-  :width 260px
-#sidebar_content
-  :border
-    :style solid
-    :color #cccccc
-    :width 1px 0
-  :padding 10px 10px 5px 10px
-  :margin 0 0 15px 0
-#archived_posts
-  :padding 0 10px 20px 10px
-.year
-.months
-  li
-    :margin 0 0 0 20px
-// Posts
-.blog_post
-  :border-bottom 1px dotted #cccccc
-// Projects (bio also inherits)
-#media_column
-  :float left
-  :width 400px
-  :min-height 400px
-  :position relative
-  :padding 0
-  :margin-bottom 15px
-  :background-color #999999
-  a
-    :display block
-    :width 100%
-    :height 100%
-    :z-index 1
-#next, #previous
-  :width 50%
-  :height 100%
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td
   :margin 0
   :padding 0
-  :position absolute
-  :top 0
-#next
-  :background transparent url(/plugin_assets/natto/images/next.png) right center no-repeat
-  :right 0
-  &:hover
-    :background transparent url(/plugin_assets/natto/images/next_hover.png) right center no-repeat
-    :right 0
-#previous
-  :background transparent url(/plugin_assets/natto/images/previous.png) left center no-repeat
-  :left 0
-  &:hover
-    :background transparent url(/plugin_assets/natto/images/previous_hover.png) left center no-repeat
-    :left 0
-#media_column_wrapper
-  :position absolute
-  :top 50%
-  :left 50%
-  :z-index 2
-#previous_placeholder
-  :width 32px
-  :height 32px
-  :display inline-block
-#information_column
-  :float right
-  :width 360px
-  ul
-    :list-style-type none
-    :margin 0 0 25px 0
-  li
-    :display inline
-    :margin 0 2px
-    :padding-bottom 20px
-  a
-    :padding 1px 5px 2px 5px
-    :background #cccccc
-  li.active
-    :background transparent url(/plugin_assets/natto/images/tango-icon-theme/16x16/actions/go-up.png) center bottom no-repeat
-    a
-      :background #eeeeee
-#project_navigation
-  :margin 0 0 25px 0
-// Biographies
-#biography
-  #media_column
-    :padding 0
-    :width 400px
-    :height 400px
-    :background
-      :color transparent
-      :position center center
-      :repeat no-repeat
-// Portfolio
-!portfolio_project_padding_h = 5
-!portfolio_project_border = 1
-#portfolio_projects
-  .portfolio_project
-    :width = ((!page_width / 5) - ((!portfolio_project_border * 2) + (!portfolio_project_padding_h * 2))) + !pixel
-    :height 170px
-    :float left
-    :background #eeeeee
-    :border
-      :style solid
-      :color #cccccc
-      :width = !portfolio_project_border + !pixel
-    :padding
-      :top 10px
-      :right = !portfolio_project_padding_h + !pixel
-      :bottom 0
-      :left = !portfolio_project_padding_h + !pixel
-  a
-    :text-decoration none
-#portfolio_projects
-  ul#list
-    li
-      :cursor move
-    li.extra
-      :background #999999
-// Utility
-// Lists
-.even
-  :background #f4f4f4
-.odd
-// Columns
-.column
-  :width 45%
-// Floats
-.float_left
-  :float left
-.float_right
-  :float right
-.clear
-  :clear both
-// Fonts
-.italic
-  :font-style italic
-.big
-  :font-size 1.2em
-.small
-  :font-size .8em
-.tiny
-  :font-size .7em
-.fixed_width
-  :font-family "Courier New",Courier,monospace
-.light
-  :color #666666
-.center
+
+table
+  :border-collapse collapse
+  :border-spacing 0
+
+fieldset, img
+  :border 0
+
+address,caption,cite,code,dfn,em,strong,th,var
+  :style normal
+  :weight normal
+
+li
+  :list-style none
+
+caption, th
+  :text-align left
+
+h1,h2,h3,h4,h5,h6
+  :font-size 100%
+  :font-weight normal
+
+q:before, q:after
+  :content ''
+
+abbr,acronym
+  :border 0
+  :font-variant normal
+
+sup
+  :vertical-align text-top
+sub
+  :vertical-align text-bottom
+
+input,textarea,select
+  :font-family inherit
+  :font-size 1.4em
+  :font-weight inherit
+
+legend
+  :color #000
+
+fieldset
+  :margin 1em 0 1.5em 0
+  :padding 1.4em
+  :border 1px solid #ccc
+  label
+    :margin-left 0
+
+.Growler
   :text-align center
-// Admin modals
-.admin_modal
-  :background #333333
-  :width 300px
-  :height 200px
-  :opacity .75
-  h1
-    :background none
-    :color #CCCCCC
-    :margin 20px
-    :font-size 18px
-  input
-    :background transparent
-    :border none
-    :color #CCCCCC
-    :font-weight bold
-    :font-size 18px
-  ul
-    strong
-      :color #333333
-      :background #CCCCCC
-    li
-      :background none
-      :color #CCCCCC
-      :margin 10px 20px
-      :font-size 18px
-      .selected
-        :background #666666
-        :color #EEEEEE
-        :margin 10px 20px
-        :font-size 18px
-      a
-        :color #CCCCCC
-        :text-decoration none
-// Visual elements
-div.separator
-  :margin 15px 0
-  :background #cccccc
-  :height 1px
-  :width 100%
-/* CLEARFIX
-.clearfix
-  :display inline-block
-  &:after
-    :content "."
-    :display block
-    :clear both
-    :visibility hidden
-    :line-height 0
+.Growler-notice,
+.error
+  :background #FFF url(/images/icons/warning.png) no-repeat 1.5em .5em
+  :color #333
+  :opacity .5
+  :font-family Tahoma, Arial, Helvetica, sans-serif
+  :font-size 1.4em
+  :-moz-border-radius 5px
+  :-webkit-border-radius 5px
+  :min-height 40px
+  :width 28em
+  :border-color= !link_color
+  :border-width .1em
+  :border-style solid
+  :margin 0 auto
+  :font-weight bold
+  :padding-left 4em
+  .Growler-notice-body
+    :padding 1em
+    :text-align center
+  .Growler-notice-exit
+    :text-align right
+    :padding .1em
+    :font-size 2em
+  .Growler-notice-head
+    :text-align left
     :height 0
-html[xmlns] .clearfix
-  :display block
-* html .clearfix
-  :height 1%
+.error
+  :background #FFF url(/images/icons/error.png) no-repeat 1.5em .5em
+  :color #000
+  :border-color #900
+legend
+  :padding 0 .4em
+  :font-size 1.2em
+  :background-color #e3dfdf
+  :color #333
+
+.modal_overlay
+  :width 100%
+  :height 100%
+  :background #000
+  :opacity 0.5
+  :position fixed
+  :left 0em
+  :top 0em
+
+body
+  :margin 0
+  :padding 0
+  :font-family= !font
+  :font-size 62.5%
+  :line-height 1.8em
+  :background url(/images/gradient.png) repeat-x top
+  :letter-spacing .05em
+  h1
+    :font-size 2em
+    :font-weight bold
+    :margin-bottom 1.25em
+  h2
+    :font-size 1.8em
+    :font-weight bold
+  h3
+    :font-size 1.6em
+    :font-weight bold
+  td,
+  p
+    :font-size 1.4em
+    :margin-bottom 1.666666667em
+  strong
+    :font-weight bold
+  em
+    :font-style italic
+  .quiet
+    :color= !font_color + #666
+  a
+    :color= !link_color
+    :text-decoration none
+    &:hover
+      :text-decoration underline
+  #header
+    #user_bar
+      :margin-bottom 1em
+      li
+        :display inline
+        :font-size 1.2em
