@@ -1,0 +1,8 @@
+= render :partial => 'comments/form', :locals => {:comment => @object}
+.separator
+#post
+  %fieldset
+    %legend The post
+    %h2= @object.post.title
+    %p.small= @object.post.description
+    .content= @object.post.content

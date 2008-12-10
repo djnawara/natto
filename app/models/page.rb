@@ -20,7 +20,6 @@ class Page < NattoBase
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
   has_many :posts
 
-  before_save   :sanitize_title
   before_create :set_author, :initialize_display_order
 
   #################
@@ -29,12 +28,8 @@ class Page < NattoBase
     #################
     # VALIDATION CONSTANTS
 
-    RE_TITLE_OK      = /\A[^[:cntrl:]\\<>\/]*\z/
-    MSG_TITLE_BAD   = "must not contain non-printing characters or \\&gt;&lt;&amp;/ please."
-
   validates_presence_of     :title
-  validates_length_of       :title, :within => 2..40
-  validates_format_of       :title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
+  validates_length_of       :title, :within => 2..100
 
   validates_presence_of     :content,                 :if => :content_required?
   validates_length_of       :content, :minimum => 20, :if => :content_required?
@@ -169,12 +164,6 @@ class Page < NattoBase
     end
     self.display_order = nil
   end
-  
-  def sanitize_title
-    # this needs to check that it hasn't already been escaped
-    self.title = self.title.gsub(/&/, '&amp;')
-  end
-  private :sanitize_title
   
   def set_author
     self.author = @current_user

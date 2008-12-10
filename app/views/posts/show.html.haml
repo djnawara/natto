@@ -36,9 +36,9 @@
               Posted by
               %br
               .comment_tools= link_to("Mark as violation", comment_violation_path(comment))
-              = "#{comment.commentor}, #{format_time(comment.created_at, :twenty_four, false)}"
+              = "#{comment.name}, #{format_time(comment.created_at, :twenty_four, false)}"
               = "#{format_date(comment.created_at, :short, false)}" unless comment.created_at.strftime("%Y%j").eql?(Time.now.strftime("%Y%j"))
-      = render :partial => 'shared/post_comments_form'
+      = render :partial => 'comments/form', :locals => {:comment => @comment}
   #blog_sidebar
     #sidebar_content= @object.page.content unless @object.page.nil?
     #archived_posts
