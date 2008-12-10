@@ -11,11 +11,11 @@
   - @objects.each do |post|
     %entry
       %title= post.title
-      %link= post_url(post)
+      %link{:href => post_url(post)}
       %updates= post.updated_at.to_s unless post.updated_at.nil?
       %issued= post.published_at.to_s
       - unless post.author.nil?
         %author
           %name= post.author.name
       %summary= post.description
-      %content= post.content
+      %content{:type => "xhtml", "xmlns:xhtml" => "http://www.w3.org/1999/xhtml"}= post.content
