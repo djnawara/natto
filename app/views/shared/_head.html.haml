@@ -14,6 +14,10 @@
 %meta{:name => "description", :content => description }
 %meta{:name => "keywords", :content => keywords }
 - ###############################
+- # link our bookmark/address bar icon
+%link{:href => "/favicon.ico", :type => "image/x-icon", :rel => "shortcut icon"}
+%link{:href => "/favicon.ico", :type => "image/x-icon", :rel => "icon"}
+- ###############################
 - # build our browser title
 %title
   = Natto.site_title
