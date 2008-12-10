@@ -7,8 +7,10 @@ namespace :media do
     Medium.find(:all, :conditions => "parent_id IS NULL").each do |medium|
       # destroy the thumbnails first
       medium.thumbnails.each { |thumbnail| thumbnail.destroy } if medium.thumbnailable?
+      # first, pad the id and make sure we have 8 characters
+      medium_id = medium.id.to_s.rjust(8, '0')
       # make sure its partition exists
-      partition = File.join(media_base, medium.id.to_s[0,4], medium.id.to_s[4,4])
+      partition = File.join(media_base, medium_id[0,4], medium_id[4,4])
       File.makedirs(partition) unless File.exists?(partition)
       # check for a file in the base folder
       old_storage_file = File.join(media_base, medium.filename)
