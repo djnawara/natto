@@ -2,7 +2,7 @@
 %feed{"xmlns" => "http://www.w3.org/2005/Atom", "xml:lang" => "en-US"}
   %title= Natto.site_title
   %link= "http://#{Natto.host}"
-  %link{:rel => "self"}= feeds_url("atom")
+  %link{:rel => "self"}= feeds_url(@objects.first.page.title.gsub(/ /, "_"), "atom")
   %author= Natto.site_title
   %generator{:uri => "http://www.nattodesigns.com", :version => "1.0"} Natto CMS
   %modified= @objects.first.published_at.to_s if @objects.size > 0 && !@objects.first.published_at.nil?

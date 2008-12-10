@@ -1,4 +1,12 @@
+- if @page.nil?
+  - case @object.class.name
+  - when "Post"
+    - page = @object.page
+  - when "Page"
+    - page = @object
+- else
+  - page = @page
 #feeds
   XML:
-  = "#{link_to("Atom", feeds_url("atom"))}, #{link_to("RSS", feeds_url("rss"))}"
+  = "#{link_to("Atom", feeds_url(page.title.gsub(/ /, "_"), "atom"))}, #{link_to("RSS", feeds_url(page.title.gsub(/ /, "_"), "rss"))}"
 = render :partial => 'posts/archive'

@@ -45,8 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   
   # posts (blog posts, news, etc)
   new_blog_post     '/posts/new/:page_id', :controller => 'posts', :action => 'new', :conditions => {:method => :get}
-  feeds             '/feeds/:format', :controller => 'posts', :action => 'feeds', :conditions => {:method => :get}
-  default_feed      '/feeds', :controller => 'posts', :action => 'feeds', :format => 'atom', :conditions => {:method => :get}
+  feeds             '/feeds/:page_title/:format', :controller => 'posts', :action => 'feeds', :conditions => {:method => :get}
   
   # post comments
   new_post_comment  '/comments/new/:post_id', :controller => 'comments', :action => 'new', :conditions => {:method => :get}
