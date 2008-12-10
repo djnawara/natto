@@ -12,8 +12,12 @@
     = f.text_field :title
   %div
     = f.label :description, nil, {:class => 'required'}
-    .small Description shows on the navigation tooltip.
+    .small This shows on the navigation tooltip, and in the meta description tag.
     = f.text_area :description, :class => "mceNoEditor small"
+  %div
+    = f.label :keywords
+    .small This will create your meta keywords tag.
+    = f.text_area :keywords, :class => "mceNoEditor small"
   %div
     = f.label :content, nil, {:class => 'required'}
     = f.text_area :content, :class => "mceEditor"
