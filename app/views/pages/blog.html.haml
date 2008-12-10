@@ -1,6 +1,4 @@
 - content_for :javascript, javascript_include_tag('treemenu', :plugin => 'natto')
-- content_for :title, @object.title
-- content_for :page_title, @object.title
 #blog
   #blog_posts
     - get_recent_posts(@object).each do |post| # render recent posts for the page

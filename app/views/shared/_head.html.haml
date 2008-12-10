@@ -1,0 +1,38 @@
+- # build SEO meta tags
+%meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
+- if @content_for_description.blank?
+  - unless @page.nil? || @page.description.blank?
+    - description = @page.description
+- else
+  - description = yield(:description)
+- if @content_for_keywords.blank?
+  -unless @page.nil? || @page.keywords.blank?
+    - keywords = @page.keywords
+- else
+  - keywords = yield(:keywords)
+%meta{:name => "description", :content => description }
+%meta{:name => "keywords", :content => keywords }
+- # build our browser title
+%title
+  = Natto.site_title
+  - if @content_for_title.blank?
+    - unless @page.nil? || @page.title.blank?
+      &raquo;
+      = @page.title
+  - else
+    &raquo;
+    = yield :title
+= stylesheet_link_tag 'application', 'administration', :plugin => 'natto'
+/[if lte IE 7]
+  = stylesheet_link_tag "ie"
+- if !@page.nil?
+  - @page.get_sass.each do |file|
+    = stylesheet_link_tag file
+= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'admin', 'application', "tiny_mce/embed.js", :cache => false, :plugin => 'natto'
+= yield :javascript
+:javascript
+  document.observe("dom:loaded",function(ev){
+    #{'admin = new DJN.Admin();' if logged_in? && current_user.is_administrator?}
+    #{yield :onReady}
+  });
+= yield :head

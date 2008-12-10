@@ -1,0 +1,7 @@
+- # let's only show the h1 tag if there is title content to display;
+- # we don't want to require passing it explicitly
+- if @content_for_page_title.blank?
+  - unless @page.nil? || @page.title.blank?
+    ~ @page.title
+- else
+  ~ yield(:page_title)
