@@ -1,6 +1,7 @@
 - if medium.is_video?
   - case medium.content_type
   - when 'video/quicktime'
+    = javascript_include_tag 'tiny_mce/embed', :plugin => 'natto'
     :javascript
       writeQuickTime({"src":"#{medium.public_filename}","width":"320","height":"240","autoplay":"false"});
   - when 'application/x-flash-video'
@@ -13,6 +14,7 @@
       s1.addParam('wmode','opaque');
       s1.addParam('flashvars','file=#{@object.public_filename}&controlbar=bottom&duration=34&fullscreen=true&stretching=fill&backcolor=cccccc');
       s1.write('preview');
-- if medium.is_audio?
+- elsif medium.is_audio?
+  = javascript_include_tag 'tiny_mce/embed', :plugin => 'natto'
   :javascript
     writeQuickTime({"src":"#{medium.public_filename}","width":"320","height":"0","autoplay":"true"});
