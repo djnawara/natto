@@ -3,11 +3,11 @@ var tinyMCEImageList = new Array(
 - @objects.each do |medium|
   - title = medium.alt_text.blank? ? medium.filename : medium.alt_text
   - if medium.is_image?
-    = "    [\"#{title}, Small\", \"#{medium.public_filename(Medium::SMALL)}\"],"
-    = "    [\"#{title}, Medium\", \"#{medium.public_filename(Medium::MEDIUM)}\"],"
-    = "    [\"#{title}, Large\", \"#{medium.public_filename(Medium::LARGE)}\"],"
-    = "    [\"#{title}, Original\", \"#{medium.public_filename}\"]#{',' unless counter == @objects.size}"
+    = "    [\"#{escape_javascript(title)}, Small\", \"#{medium.public_filename(Medium::SMALL)}\"],"
+    = "    [\"#{escape_javascript(title)}, Medium\", \"#{medium.public_filename(Medium::MEDIUM)}\"],"
+    = "    [\"#{escape_javascript(title)}, Large\", \"#{medium.public_filename(Medium::LARGE)}\"],"
+    = "    [\"#{escape_javascript(title)}, Original\", \"#{medium.public_filename}\"]#{',' unless counter == @objects.size}"
   - else
-    = "    [\"#{title}\", \"#{medium.public_filename}\"]#{',' unless counter == @objects.size}"
+    = "    [\"#{escape_javascript(title)}\", \"#{medium.public_filename}\"]#{',' unless counter == @objects.size}"
   - counter += 1
 );
