@@ -10,6 +10,16 @@
         for example), in the image's title tag (for mouse-over tooltips), and in the WYSIWYG
         editor's image list.
       = f.text_field :alt_text
+    %fieldset
+      %legend Width and Height
+      %p.small A video may require that you set the width and height manually.
+      %p.small.italic Images will have their width and height set automatically.
+      %div
+        = f.label :width
+        = f.text_field :width
+      %div
+        = f.label :height
+        = f.text_field :height
   - if @object.new_record?
     %fieldset
       %legend{:class => 'required'} Choose one method
