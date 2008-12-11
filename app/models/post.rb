@@ -7,16 +7,10 @@ class Post < NattoBase
   
   #################
   # VALIDATIONS
-    #################
-    # CONSTANTS
-    RE_TITLE_OK     = /\A[^[:cntrl:]\\<>\/&]*\z/              # Unicode, permissive
-    MSG_TITLE_BAD   = "must not contain non-printing characters or \\&gt;&lt;&amp;/ please."
-
   validates_presence_of     :page, :message => "must be selected"
 
   validates_presence_of     :title
   validates_length_of       :title, :within => 2..254
-  validates_format_of       :title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
 
   validates_presence_of     :content
   
