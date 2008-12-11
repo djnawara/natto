@@ -15,6 +15,8 @@
       %legend{:class => 'required'} Choose one method
       %fieldset
         %legend Upload
+        %p
+          %b>= "#{tango("emblems/emblem-important")} #{number_to_human_size(Natto.file_limit)} file size limit!"
         %div
           %label{:for => "location"} Upload
           = f.file_field :uploaded_data

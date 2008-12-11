@@ -18,6 +18,7 @@ module Natto
     mattr_accessor :croppable_image_height
   mattr_accessor :media_thumbnails_hash   # holds all thumbnail settings
   mattr_accessor :portoflio_projects_max  # Max projects to display on portfolio pages
+  mattr_accessor :file_limit  # Max file size for attachment_fu
 
   self.site_title               = "Natto CMS"
   self.host                     = "localhost:3000"
@@ -46,4 +47,5 @@ module Natto
                                     :resized => self.medium_image_size,
                                     :large => self.large_image_size,
                                     :croppable => self.croppable_image_size }
+  self.file_limit = 5.megabytes
 end
