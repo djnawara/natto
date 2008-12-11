@@ -8,16 +8,8 @@ class Project < ActiveRecord::Base
   
   #################
   # VALIDATIONS
-
-    #################
-    # CONSTANTS
-  
-    RE_TITLE_OK     = /\A[^[:cntrl:]\\<>\/&]*\z/              # Unicode, permissive
-    MSG_TITLE_BAD   = "must not contain non-printing characters or \\&gt;&lt;&amp;/ please."
-
   validates_presence_of     :title
   validates_length_of       :title, :within => 2..40
-  validates_format_of       :title, :with => RE_TITLE_OK, :message => MSG_TITLE_BAD
 
   validates_presence_of     :client
   validates_length_of       :client, :within => 2..40
