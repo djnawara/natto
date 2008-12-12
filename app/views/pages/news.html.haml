@@ -5,13 +5,14 @@
       .blog_post
         %h3= link_to(post.title, post)
         .news_description= post.description unless post.description.blank?
-        .small
+        %p.small
           - create  = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::CREATE})
           - publish = ChangeLog.find(:first, :conditions => {:object_class => @object.class.name.tableize.singularize, :object_id => @object.id, :action => ChangeLog::PUBLISH})
           - if publish.nil?
             = format_date(create.performed_at, :long) unless create.nil?
           - else
             = format_date(publish.performed_at, :long)
+        %p.small= link_to("Read more", post)
         - if logged_in? && current_user.is_administrator?
           %p.post_controls
             = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))
