@@ -146,6 +146,10 @@ module ApplicationHelper
     tango('apps/preferences-system-session', title, size)
   end
   
+  def contact_categories_icon(title = 'Contact categories', size = 1)
+    tango('mimetypes/x-office-address-book', title, size)
+  end
+  
   def format_date(date = Time.now, style = :short, time = false, zone = true)
     date = Time.parse(date) if date.class.name.eql?("String")
     case style

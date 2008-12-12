@@ -7,6 +7,11 @@
   %p= link_to('Biographies', biographies_url)
 
 .dashboard_button
+  = link_to(contact_categories_icon('Manage email categories', :large), contact_categories_path)
+  %br
+  %p= link_to('Email categories', contact_categories_path)
+
+.dashboard_button
   = link_to(pages_icon('Manage pages', :large), pages_url)
   %br
   %p= link_to('Pages', pages_url)
