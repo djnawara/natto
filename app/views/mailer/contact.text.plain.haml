@@ -1,0 +1,13 @@
+USER CONTACT
+\------------
+* You can respond to this email directly.
+
+= "FROM:  #{@contact.name}"
+= "EMAIL: #{@contact.email}"
+= "REASON FOR CONTACT: #{ContactCategory.find_by_id(@contact.message_type).title}"
+
+= @contact.message
+
+\------------
+= "&copy; #{Natto.site_title}"
+= Time.now.to_s

@@ -1,0 +1,9 @@
+- # do some setup
+- content_for :page_title, @object.title
+- content_for :title, @object.title
+#contact_category
+  %label Email
+  %p= mail_to(@object.named_email, @object.email)
+  - unless @object.name.blank?
+    %label Name
+    %p= @object.name

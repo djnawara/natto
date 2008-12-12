@@ -140,8 +140,13 @@ class PostsController < CrudController
   end
   
   def feeds
-    @page = Page.find_by_title(params[:page_title].gsub(/_/, " "))
-    @objects = Post.find_in_state(:all, :published, :conditions => {:page_id => @page}, :order => 'published_at DESC')
+    if params[:page_title].eql?("all")
+      @page = Page.find_in_state(:first, :published, :conditions => {:page_type => Page::BLOG})
+      @objects = Post.find_in_state(:all, :published, :conditions => "page_id = 3", :order => 'published_at DESC')
+    else 
+      @page = Page.find_by_title(params[:page_title].gsub(/_/, " "))
+      @objects = Post.find_in_state(:all, :published, :conditions => {:page_id => @page}, :order => 'published_at DESC')
+    end
     response.headers["Content-Type"] = "application/xml; charset=utf-8"
     respond_to do |format|
       format.rss  {render :layout => false, :template => 'shared/rss.xml.haml'}

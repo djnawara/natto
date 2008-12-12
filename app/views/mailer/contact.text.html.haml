@@ -1,0 +1,25 @@
+%h1 User Contact
+%p
+  %em> You can respond to this email directly.
+%p
+  %b> From:
+  %br
+  = @contact.name
+%p
+  %b Email:
+  %br
+  = @contact.email
+%p
+  %b Reason for contact:
+  %br
+  = ContactCategory.find_by_id(@contact.message_type).title
+%pre
+  = @contact.message
+%hr
+
+%p
+  %em>
+    &copy;
+    = Natto.site_title
+%p
+  %em>= Time.now.to_s

@@ -1,0 +1,18 @@
+- content_for :page_title, "New contact category"
+- form_for(@object) do |f|
+  = f.error_messages
+  %fieldset
+    %legend Contact Category Details
+    %div
+      = f.label :title, nil, {:class => 'required'}
+      %p.small This title will show in the contact form drop-down.
+      = f.text_field :title
+    %div
+      = f.label :email, nil, {:class => 'required'}
+      %p.small Assign an email to this category.
+      = f.text_field :email
+    %div
+      = f.label :name
+      %p.small This allows you to assign a name to the email, which will show up in your email client.
+      = f.text_field :name
+    %div= f.submit(submit_label(@object))

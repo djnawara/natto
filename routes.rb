@@ -96,5 +96,5 @@ ActionController::Routing::Routes.draw do |map|
   resources :biographies, :member => {:media => :get}
   
   # map all of our objects
-  resources :sessions, :roles, :posts, :comments, :media, :projects, :biographies
+  resources :sessions, :roles, :posts, :comments, :media, :projects, :biographies, :contact_categories, :contacts
 end

@@ -1,0 +1,10 @@
+- # Draw a row in the pages index
+%li{:id => "contact_category_#{admin_node.id}"}
+  %div.tree_node{:class => cycle('even', 'odd')}
+    %div.float_right
+      = link_to(monitor_icon('Statistics'), instance_logs_path('contact_category', admin_node))
+      = link_to edit_icon('Edit'), edit_contact_category_path(admin_node)
+      = link_to destroy_icon('Destroy'), admin_node, :confirm => "Are you sure you want to permanently delete this contact category?", :method => :delete
+    .biography_for
+      = "#{link_to(admin_node.title, admin_node)}, "
+      %span.small= admin_node.email

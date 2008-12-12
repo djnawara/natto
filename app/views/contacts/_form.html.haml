@@ -1,0 +1,15 @@
+- form_tag :controller => 'contacts', :action => 'send_contact' do
+  = error_messages_for :contact
+  %div
+    = label_tag "name", nil, {:class => 'required'}
+    = text_field :contact, :name
+  %div
+    = label_tag "email", nil, {:class => 'required'}
+    = text_field :contact, :email
+  %div
+    = label_tag "message_type", "Reason for getting in touch", {:class => 'required'}
+    = select(:contact, :message_type, ContactCategory.find(:all, :order => 'position').collect {|category| [category.title, category.id]})
+  %div
+    = label_tag "message", "Your message", {:class => 'required'}
+    = text_area :contact, :message
+  %div= submit_tag("Send")

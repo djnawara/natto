@@ -129,21 +129,26 @@ class PagesController < CrudController
     end
     respond_to do |format|
       format.html do
-        case @object.page_type
-        when Page::NORMAL
-          render :template => "pages/show"
-        when Page::BLOG
-          render :template => "pages/blog"
-        when Page::NEWS
-          render :template => "pages/news"
-        when Page::PORTFOLIO
-          @objects = Project.active
-          render :template => "pages/portfolio"
-        when Page::BIOGRAPHY
-          @objects = Biography.find(:all, :order => "position")
-          render :template => "pages/biography"
+        if @object.is_contact_page?
+          @contact = Contact.new
+          render :template => "pages/contact"
         else
-          render :template => "pages/show"
+          case @object.page_type
+          when Page::NORMAL
+            render :template => "pages/show"
+          when Page::BLOG
+            render :template => "pages/blog"
+          when Page::NEWS
+            render :template => "pages/news"
+          when Page::PORTFOLIO
+            @objects = Project.active
+            render :template => "pages/portfolio"
+          when Page::BIOGRAPHY
+            @objects = Biography.find(:all, :order => "position")
+            render :template => "pages/biography"
+          else
+            render :template => "pages/show"
+          end
         end
       end
       format.xml  { render :xml => @object }
