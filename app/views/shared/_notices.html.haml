@@ -1,4 +1,7 @@
-= '<div id="notice">'  + flash[:notice]  + '</div>' unless flash[:notice].blank?
-= '<div id="warning">' + flash[:warning] + '</div>' unless flash[:warning].blank?
-= '<div id="error">'   + flash[:error]   + '</div>' unless flash[:error].blank?
-%p.clear &nbsp;
+- content = ""
+- content += '<div id="notice">'  + flash[:notice]  + '</div>' unless flash[:notice].blank?
+- content += '<div id="warning">' + flash[:warning] + '</div>' unless flash[:warning].blank?
+- content += '<div id="error">'   + flash[:error]   + '</div>' unless flash[:error].blank?
+- unless content.blank?
+  = content
+  %p.clear &nbsp;
