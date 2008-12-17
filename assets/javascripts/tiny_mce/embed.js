@@ -23,7 +23,7 @@ function writeShockWave(p) {
 function writeQuickTime(p) {
 	writeEmbed(
 		'02BF25D5-8C17-4B23-BC80-D3488ABDDC6B',
-		'http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0',
+		'http://www.apple.com/qtactivex/qtplugin.cab',
 		'video/quicktime',
 		p
 	);
