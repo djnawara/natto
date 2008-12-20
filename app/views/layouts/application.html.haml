@@ -4,7 +4,7 @@
 %html
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
-    = stylesheet_link_tag 'application', 'administration', :plugin => 'natto'
+    = stylesheet_link_tag 'base', 'administration', :plugin => 'natto'
     /[if lte IE 7]
       = stylesheet_link_tag "ie"
     - if !@page.nil?
@@ -19,7 +19,7 @@
       });
     = yield :head
   %body
-    #page
+    #canvas
       #header
         %ul#user_bar= render :partial => 'users/user_bar'
         %h1#site_title= link_to(Natto.site_title, root_path)
