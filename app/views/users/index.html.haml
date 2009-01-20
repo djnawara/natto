@@ -7,13 +7,7 @@
     %th State
     %th &nbsp;
   - @objects.each do |user|
-    - case user.current_state
-    - when :active
-      - css_class = 'active'
-    - when :deleted
-      - css_class = 'deleted'
-    - when :suspended
-      - css_class = 'suspended'
+    - css_class = user.current_state.to_s
     %tr{:class => cycle('even ', 'odd ') + css_class}
       %td= link_to_user(user, {:content_method => 'name'})
       %td=h user.login
