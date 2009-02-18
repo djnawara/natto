@@ -1,3 +1,4 @@
+require 'rexml/parsers/pullparser'
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def tango(basename, title = '', size = 1)
@@ -218,7 +219,7 @@ module ApplicationHelper
     words[0..(word_count - 1)].join(' ') + (words.length > word_count ? end_string : '')
   end
 
-  def truncate_html(input, len = 30, extension = "&hellip;")
+  def truncate_html(input, max_word_count = 50, extension = "&hellip;")
     def attrs_to_s(attrs)
       return '' if attrs.empty?
       attrs.to_a.map { |attr| %{#{attr[0]}="#{attr[1]}"} }.join(' ')
@@ -226,9 +227,9 @@ module ApplicationHelper
     
     p = REXML::Parsers::PullParser.new(input)
     tags = []
-    new_len = len
+    word_count = 0
     results = ''
-    while p.has_next? && new_len > 0
+    while p.has_next? && word_count < max_word_count
       p_e = p.pull
       case p_e.event_type
       when :start_element
@@ -237,8 +238,10 @@ module ApplicationHelper
       when :end_element
         results << "</#{tags.pop}>"
       when :text
-        results << p_e[0].first(new_len)
-        new_len -= p_e[0].length
+        logger.debug("P_E: #{p_e[0]}")
+        results << p_e[0]
+        word_count += p_e[0].split.size
+        results << extension if word_count > max_word_count
       else
         results << "<!-- #{p_e.inspect} -->"
       end
@@ -246,6 +249,6 @@ module ApplicationHelper
     tags.reverse.each do |tag|
       results << "</#{tag}>"
     end
-    results.to_s + (input.length > len ? extension : '')
+    results.to_s
   end
 end
