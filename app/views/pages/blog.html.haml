@@ -13,7 +13,7 @@
             = format_date(publish.performed_at, :long)
         %h2= post.title
         .post_description= post.description unless post.description.blank?
-        .post_content= truncate_words(post.content)
+        .post_content= truncate_html(post.content)
         .post_more= link_to("Read more", post)
         %p= render :partial => "posts/share"
         .post_comments
