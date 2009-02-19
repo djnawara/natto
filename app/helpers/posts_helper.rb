@@ -1,6 +1,6 @@
 module PostsHelper
   def get_recent_posts(parent, oldest_post = 6.months.ago, state = :published)
-    return parent.posts.find_in_state(:all, state, :conditions => ["published_at > :oldest_post", {:oldest_post => oldest_post.to_s(:db)}], :order => 'published_at DESC')
+    return Post.paginate(:page => params[:page], :conditions => ["published_at > :oldest_post AND page_id = :page_id AND state = :state", {:oldest_post => oldest_post.to_s(:db), :page_id => parent.id, :state => state.to_s}], :order => 'published_at DESC', :per_page => 5)
   end
   
   def get_posts_hash(object, oldest_post = 6.months.ago, state = :published)
