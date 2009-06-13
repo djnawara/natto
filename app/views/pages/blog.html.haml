@@ -18,17 +18,18 @@
         .post_more= link_to("Read more", post)
         %p= render :partial => "posts/share"
         .post_comments
-          - if post.comments.size == 0
-            %p
-              = link_to(posts_icon, post)
-              = link_to("Be the first to make a comment", post)
-          - else
-            %p
-              = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)
-              = link_to("View and post comments (#{post.comments.size})", post)
-            %p
-              = link_to(image_tag("link.png", :plugin => 'natto'), post_path(post))
-              = link_to("Permalink", post_path(post))
+          /
+            - if post.comments.size == 0
+              %p
+                = link_to(posts_icon, post)
+                = link_to("Be the first to make a comment", post)
+            - else
+              %p
+                = link_to(posts_icon("View and post comments (#{post.comments.size})"), post)
+                = link_to("View and post comments (#{post.comments.size})", post)
+          %p
+            = link_to(image_tag("link.png", :plugin => 'natto'), post_path(post))
+            = link_to("Permalink", post_path(post))
           - if logged_in? && current_user.is_administrator?
             %p.post_controls
               = link_to(monitor_icon('Statistics'), instance_logs_path('post', post))

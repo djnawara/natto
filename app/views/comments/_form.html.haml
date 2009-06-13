@@ -1,14 +1,15 @@
-- comment = @object if comment.nil?
-#comments_form
-  %h2 Leave a comment
-  - form_for(comment) do |f|
-    = f.error_messages
-    = f.hidden_field :post_id
-    %div
-      = f.label :name, "Your name", {:class => 'required'}
-      = f.text_field :name
-    %div
-      = f.label :content, "Your comment", {:class => 'required'}
-      = f.text_area :content
-    %div
-      = f.submit("Post comment")
+/
+  - comment = @object if comment.nil?
+  #comments_form
+    %h2 Leave a comment
+    - form_for(comment) do |f|
+      = f.error_messages
+      = f.hidden_field :post_id
+      %div
+        = f.label :name, "Your name", {:class => 'required'}
+        = f.text_field :name
+      %div
+        = f.label :content, "Your comment", {:class => 'required'}
+        = f.text_area :content
+      %div
+        = f.submit("Post comment")
